@@ -33,10 +33,10 @@ public class CatequistaModelo {
 	@Column(length = 100, nullable = false)
 	private String cat_direccion;
 
-	@Column(nullable = false)
+	@Column(name = "cat_fechanacimiento", nullable = false)
 	private LocalDate cat_fechaNacimiento;
 
-	@Column(nullable = false)
+	@Column(name = "cat_fecharegistro", nullable = false)
 	private LocalDate cat_fechaRegistro;
 
 	@Column(nullable = false)

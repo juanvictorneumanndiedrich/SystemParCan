@@ -37,10 +37,10 @@ public class CatequizandoModelo {
 	@Column(length = 100, nullable = false)
 	private String catz_direccion;
 
-	@Column(nullable = false)
+	@Column(name = "catz_fechanacimiento", nullable = false)
 	private LocalDate catz_fechaNacimiento;
 
-	@Column(nullable = false)
+	@Column(name = "catz_fecharegistro", nullable = false)
 	private LocalDate catz_fechaRegistro;
 
 	@Column(nullable = false)

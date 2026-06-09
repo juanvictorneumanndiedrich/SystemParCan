@@ -23,7 +23,7 @@ public class ClaseModelo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer clase_id;
 
-	@Column(nullable = false)
+	@Column(name = "clase_fechaclase", nullable = false)
 	private LocalDate clase_fechaClase;
 
 	@Column(nullable = false, length = 100)
@@ -31,7 +31,7 @@ public class ClaseModelo {
 
 	// ======================== MUCHOS A UNO ==================================
 	@ManyToOne
-	@JoinColumn(name = "grup_id")
+	@JoinColumn(name = "grupo_id")
 	private GrupoCatequesisModelo grupoCatequesis;
 
 	// ======================= UNO A MUCHOS ===================================

@@ -17,6 +17,14 @@
 		<property name="format_sql">true</property>
 
 		<property name="connection.pool_size">5</property>
+		
+		<mapping  class="modelo.AsistenciaModelo"/>
+		<mapping  class="modelo.CatequistaModelo"/>
+		<mapping  class="modelo.CatequizandoModelo"/>
+		<mapping  class="modelo.ClaseModelo"/>
+		<mapping  class="modelo.EtapaModelo"/>
+		<mapping  class="modelo.GrupoCatequesisModelo"/>
+		<mapping  class="modelo.InscripcionModelo"/>
 
 
 	</session-factory>

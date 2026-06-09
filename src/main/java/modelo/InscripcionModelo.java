@@ -33,7 +33,7 @@ public class InscripcionModelo {
 	private CatequizandoModelo catequizando;
 
 	@ManyToOne
-	@JoinColumn(name = "grup_id")
+	@JoinColumn(name = "grupo_id")
 	private GrupoCatequesisModelo grupoCatequesis;
 
 	// ======================= UNO A MUCHOS ===================================

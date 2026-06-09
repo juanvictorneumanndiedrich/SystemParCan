@@ -31,8 +31,11 @@ public class PantallaPrincipalVista extends JFrame {
 	 * Create the frame.
 	 */
 	public PantallaPrincipalVista() {
+		setExtendedState(MAXIMIZED_BOTH);
+		setLocationRelativeTo(this);
+		setTitle("SystemParCan");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 1080, 720);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
