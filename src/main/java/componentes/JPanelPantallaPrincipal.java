@@ -6,7 +6,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-public class JPanelPersonalizado extends JPanel {
+public class JPanelPantallaPrincipal extends JPanel {
 
 	/**
 	 * 
@@ -14,12 +14,12 @@ public class JPanelPersonalizado extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	private Image image;
-
-	public JPanelPersonalizado(String imagen) {
+	
+	public JPanelPantallaPrincipal() {
 		try {
-			this.image = new ImageIcon(getClass().getResource("/imagenes/"+imagen)).getImage();
+			this.image = new ImageIcon(getClass().getResource("/imagenes/fondo.jpg")).getImage();
 		} catch (Exception e) {
-			System.err.println("No se pudo encontrar la imagen /imagenes/"+imagen);
+			System.err.println("No se econtro la immagen /imagenes/fondo.jpg");
 		}
 	}
 	
