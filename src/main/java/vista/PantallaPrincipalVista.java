@@ -13,11 +13,25 @@ import java.awt.Font;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import componentes.JMenuItemPersonalizado;
 
 public class PantallaPrincipalVista extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanelPantallaPrincipal contentPane;
+	private JMenuItemPersonalizado mntmprsnlzdCatequizando;
+	private JMenuItemPersonalizado mntmprsnlzdCatequista;
+	private JMenuItemPersonalizado mntmprsnlzdClase;
+	private JMenuItemPersonalizado mntmprsnlzdEtapa;
+	private JMenuItemPersonalizado mntmprsnlzdGrupocatequesis;
+	private JMenuItemPersonalizado mntmprsnlzdCatequizando_1;
+	private JMenuItemPersonalizado mntmprsnlzdCatequistas;
+	private JMenuItemPersonalizado mntmprsnlzdGrupocatequesis_1;
+	private JMenuItemPersonalizado mntmprsnlzdCatequizando_2;
+	private JMenuItemPersonalizado mntmprsnlzdCatequista_1;
+	private JMenuItemPersonalizado mntmprsnlzdAsistencia;
+	private JMenuItemPersonalizado mntmprsnlzdInscripcion;
+	private JMenuItemPersonalizado mntmprsnlzdTransferencia;
 
 	/**
 	 * Launch the application.
@@ -51,56 +65,66 @@ public class PantallaPrincipalVista extends JFrame {
 		JMenu mnNewMenu = new JMenu("Registros");
 		menuBar.add(mnNewMenu);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("catequizando");
-		mnNewMenu.add(mntmNewMenuItem);
+		mntmprsnlzdCatequizando = new JMenuItemPersonalizado();
+		mntmprsnlzdCatequizando.setText("catequizando");
+		mnNewMenu.add(mntmprsnlzdCatequizando);
 		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("catequista");
-		mnNewMenu.add(mntmNewMenuItem_1);
+		mntmprsnlzdCatequista = new JMenuItemPersonalizado();
+		mntmprsnlzdCatequista.setText("catequista");
+		mnNewMenu.add(mntmprsnlzdCatequista);
 		
-		JMenuItem mntmNewMenuItem_2 = new JMenuItem("clases");
-		mnNewMenu.add(mntmNewMenuItem_2);
+		mntmprsnlzdClase = new JMenuItemPersonalizado();
+		mntmprsnlzdClase.setText("clase");
+		mnNewMenu.add(mntmprsnlzdClase);
 		
-		JMenuItem mntmNewMenuItem_3 = new JMenuItem("etapa");
-		mnNewMenu.add(mntmNewMenuItem_3);
+		mntmprsnlzdEtapa = new JMenuItemPersonalizado();
+		mntmprsnlzdEtapa.setText("etapa");
+		mnNewMenu.add(mntmprsnlzdEtapa);
 		
-		JMenuItem mntmNewMenuItem_4 = new JMenuItem("grupocatequesis");
-		mnNewMenu.add(mntmNewMenuItem_4);
+		mntmprsnlzdGrupocatequesis = new JMenuItemPersonalizado();
+		mntmprsnlzdGrupocatequesis.setText("grupo_catequesis");
+		mnNewMenu.add(mntmprsnlzdGrupocatequesis);
 		
 		JMenu mnInformes = new JMenu("Listados");
 		menuBar.add(mnInformes);
 		
-		JMenuItem mntmNewMenuItem_6 = new JMenuItem("catequizando");
-		mnInformes.add(mntmNewMenuItem_6);
+		mntmprsnlzdCatequizando_1 = new JMenuItemPersonalizado();
+		mntmprsnlzdCatequizando_1.setText("catequizando");
+		mnInformes.add(mntmprsnlzdCatequizando_1);
 		
-		JMenuItem mntmNewMenuItem_1_2 = new JMenuItem("catequista");
-		mnInformes.add(mntmNewMenuItem_1_2);
+		mntmprsnlzdCatequistas = new JMenuItemPersonalizado();
+		mntmprsnlzdCatequistas.setText("catequista");
+		mnInformes.add(mntmprsnlzdCatequistas);
 		
-		JMenuItem mntmNewMenuItem_2_1 = new JMenuItem("clases");
-		mnInformes.add(mntmNewMenuItem_2_1);
-		
-		JMenuItem mntmNewMenuItem_4_2 = new JMenuItem("grupocatequesis");
-		mnInformes.add(mntmNewMenuItem_4_2);
+		mntmprsnlzdGrupocatequesis_1 = new JMenuItemPersonalizado();
+		mntmprsnlzdGrupocatequesis_1.setText("grupo_catequesis");
+		mnInformes.add(mntmprsnlzdGrupocatequesis_1);
 		
 		JMenu mnInformes_1 = new JMenu("Informes");
 		menuBar.add(mnInformes_1);
 		
-		JMenuItem mntmNewMenuItem_5 = new JMenuItem("catequizando");
-		mnInformes_1.add(mntmNewMenuItem_5);
+		mntmprsnlzdCatequizando_2 = new JMenuItemPersonalizado();
+		mntmprsnlzdCatequizando_2.setText("catequizando");
+		mnInformes_1.add(mntmprsnlzdCatequizando_2);
 		
-		JMenuItem mntmNewMenuItem_1_1 = new JMenuItem("catequista");
-		mnInformes_1.add(mntmNewMenuItem_1_1);
+		mntmprsnlzdCatequista_1 = new JMenuItemPersonalizado();
+		mntmprsnlzdCatequista_1.setText("catequista");
+		mnInformes_1.add(mntmprsnlzdCatequista_1);
 		
-		JMenuItem mntmNewMenuItem_4_1 = new JMenuItem("grupo_catequesis");
-		mnInformes_1.add(mntmNewMenuItem_4_1);
+		mntmprsnlzdAsistencia = new JMenuItemPersonalizado();
+		mntmprsnlzdAsistencia.setText("asistencia");
+		mnInformes_1.add(mntmprsnlzdAsistencia);
 		
 		JMenu mnUtilidades = new JMenu("Utilidades");
 		menuBar.add(mnUtilidades);
 		
-		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Inscripcion");
-		mnUtilidades.add(mntmNewMenuItem_7);
+		mntmprsnlzdInscripcion = new JMenuItemPersonalizado();
+		mntmprsnlzdInscripcion.setText("inscripcion");
+		mnUtilidades.add(mntmprsnlzdInscripcion);
 		
-		JMenuItem mntmTransferencia = new JMenuItem("transferencia");
-		mnUtilidades.add(mntmTransferencia);
+		mntmprsnlzdTransferencia = new JMenuItemPersonalizado();
+		mntmprsnlzdTransferencia.setText("transferencia");
+		mnUtilidades.add(mntmprsnlzdTransferencia);
 		contentPane = new JPanelPantallaPrincipal();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -149,4 +173,66 @@ public class PantallaPrincipalVista extends JFrame {
 		contentPane.add(btncsdrctGrupocatequesis);
 
 	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public JPanelPantallaPrincipal getContentPane() {
+		return contentPane;
+	}
+
+	public JMenuItemPersonalizado getMntmprsnlzdCatequizando() {
+		return mntmprsnlzdCatequizando;
+	}
+
+	public JMenuItemPersonalizado getMntmprsnlzdCatequista() {
+		return mntmprsnlzdCatequista;
+	}
+
+	public JMenuItemPersonalizado getMntmprsnlzdClase() {
+		return mntmprsnlzdClase;
+	}
+
+	public JMenuItemPersonalizado getMntmprsnlzdEtapa() {
+		return mntmprsnlzdEtapa;
+	}
+
+	public JMenuItemPersonalizado getMntmprsnlzdGrupocatequesis() {
+		return mntmprsnlzdGrupocatequesis;
+	}
+
+	public JMenuItemPersonalizado getMntmprsnlzdCatequizando_1() {
+		return mntmprsnlzdCatequizando_1;
+	}
+
+	public JMenuItemPersonalizado getMntmprsnlzdCatequistas() {
+		return mntmprsnlzdCatequistas;
+	}
+
+	public JMenuItemPersonalizado getMntmprsnlzdGrupocatequesis_1() {
+		return mntmprsnlzdGrupocatequesis_1;
+	}
+
+	public JMenuItemPersonalizado getMntmprsnlzdCatequizando_2() {
+		return mntmprsnlzdCatequizando_2;
+	}
+
+	public JMenuItemPersonalizado getMntmprsnlzdCatequista_1() {
+		return mntmprsnlzdCatequista_1;
+	}
+
+	public JMenuItemPersonalizado getMntmprsnlzdAsistencia() {
+		return mntmprsnlzdAsistencia;
+	}
+
+	public JMenuItemPersonalizado getMntmprsnlzdInscripcion() {
+		return mntmprsnlzdInscripcion;
+	}
+
+	public JMenuItemPersonalizado getMntmprsnlzdTransferencia() {
+		return mntmprsnlzdTransferencia;
+	}
+	
+	
 }
