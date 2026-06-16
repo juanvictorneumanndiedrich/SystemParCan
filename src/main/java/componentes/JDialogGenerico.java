@@ -162,7 +162,9 @@ public class JDialogGenerico extends JDialog implements ActionListener {
 		return tfBuscador;
 	}
 
-	public InterfaceABM getInterfaceABM() {
+	public InterfaceABM setInterfaceABM() {
 		return interfaceABM;
 	}
+
+	
 }
