@@ -88,43 +88,11 @@ public class JDialogGenerico extends JDialog implements ActionListener {
 		tfBuscador.setBounds(618, 66, 438, 24);
 		getContentPane().add(tfBuscador);
 
-		setAcciones();
 		
+		setAcciones();
 	}
 	
-	private void setAcciones() {
-		btnNuevo.addActionListener(this);
-		btnEditar.addActionListener(this);
-		btnGuardar.addActionListener(this);
-		btnEliminar.addActionListener(this);
-		btnCancelar.addActionListener(this);
-		tfBuscador.setActionCommand("Buscar");
-		tfBuscador.addActionListener(this);
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		switch (e.getActionCommand()) {
-		case "Nuevo":
-			interfaceABM.nuevo();
-			break;
-		case "Editar":
-			interfaceABM.editar();
-			break;
-		case "Guardar":
-			interfaceABM.guardar();
-			break;
-		case "Eliminar":
-			interfaceABM.eliminar();
-			break;
-		case "Cancelar":
-			interfaceABM.cancelar();
-			break;
-		case "Buscar":
-			interfaceABM.buscar();
-			break;
-		}
-	}
+	
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -166,5 +134,38 @@ public class JDialogGenerico extends JDialog implements ActionListener {
 		return interfaceABM;
 	}
 
+	private void setAcciones() {
+		btnNuevo.addActionListener(this);
+		btnEditar.addActionListener(this);
+		btnGuardar.addActionListener(this);
+		btnEliminar.addActionListener(this);
+		btnCancelar.addActionListener(this);
+		tfBuscador.setActionCommand("Buscar");
+		tfBuscador.addActionListener(this);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		switch (e.getActionCommand()) {
+		case "Nuevo":
+			interfaceABM.nuevo();
+			break;
+		case "Editar":
+			interfaceABM.editar();
+			break;
+		case "Guardar":
+			interfaceABM.guardar();
+			break;
+		case "Eliminar":
+			interfaceABM.eliminar();
+			break;
+		case "Cancelar":
+			interfaceABM.cancelar();
+			break;
+		case "Buscar":
+			interfaceABM.buscar();
+			break;
+		}
+	}
 	
 }

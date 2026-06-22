@@ -14,27 +14,41 @@ public class ModeloTablaCatequizando  extends AbstractTableModel{
 	 */
 	private static final long serialVersionUID = 1L;
 	private String[] columnas = {"ID","Nombres", "Apellidos", "Documento", "Estado"};
-	private List<CatequizandoModelo> lista = new ArrayList<CatequizandoModelo>();
+	private List<CatequizandoModelo> catequizando = new ArrayList<CatequizandoModelo>();
 	
 	public void setLista(List<CatequizandoModelo> lista) {
-		
+		catequizando = lista;
+		fireTableDataChanged();
 	}
 
 	@Override
 	public int getRowCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return catequizando.size();
 	}
 
 	@Override
 	public int getColumnCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return columnas.length;
+	}
+	
+	@Override
+	public String getColumnName(int column) {
+		
+		return columnas[column];
 	}
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
+		
+		switch (columnIndex) {
+		case 0: return catequizando.get(rowIndex).getCatz_id();
+		case 1: return catequizando.get(rowIndex).getCatz_nombre();
+		case 2: return catequizando.get(rowIndex).getCatz_apellido();
+		case 3: return catequizando.get(rowIndex).getCatz_documento();
+		case 4: return catequizando.get(rowIndex).getCatz_estado();
+		
+		}
+		
 		return null;
 	}
 

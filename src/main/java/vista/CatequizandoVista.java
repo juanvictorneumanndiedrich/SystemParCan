@@ -3,10 +3,13 @@ package vista;
 import java.awt.EventQueue;
 
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 
 import componentes.JDialogGenerico;
 import componentes.JLabelGenerico;
 import componentes.JtextFieldGenerico;
+import controlador.CatequizandoController;
+
 import javax.swing.JCheckBox;
 
 public class CatequizandoVista extends JDialogGenerico {
@@ -18,9 +21,10 @@ public class CatequizandoVista extends JDialogGenerico {
 	private JtextFieldGenerico tfTelefono;
 	private JtextFieldGenerico tfCorreo;
 	private JtextFieldGenerico tfDireccion;
-	private JtextFieldGenerico tfFecha_nac;
+	private JFormattedTextField tfFecha_nac;
 	private JCheckBox jcbEstado;
-	private JtextFieldGenerico tfFecha_reg;
+	private JFormattedTextField tfFecha_reg;
+
 
 	/**
 	 * Launch the application.
@@ -30,6 +34,7 @@ public class CatequizandoVista extends JDialogGenerico {
 			public void run() {
 				try {
 					CatequizandoVista dialog = new CatequizandoVista();
+					dialog.setUpControlador();
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setVisible(true);
 				} catch (Exception e) {
@@ -39,6 +44,13 @@ public class CatequizandoVista extends JDialogGenerico {
 		});
 	}
 
+	
+	private void setUpControlador() {
+		new CatequizandoController(this);
+		
+
+	}
+	
 	/**
 	 * Create the dialog.
 	 */
@@ -110,11 +122,11 @@ public class CatequizandoVista extends JDialogGenerico {
 		tfDireccion.setBounds(117, 328, 332, 24);
 		getPanelFormulario().add(tfDireccion);
 		
-		tfFecha_nac = new JtextFieldGenerico();
+		tfFecha_nac = new JFormattedTextField();
 		tfFecha_nac.setBounds(194, 389, 132, 24);
 		getPanelFormulario().add(tfFecha_nac);
 		
-		tfFecha_reg = new JtextFieldGenerico();
+		tfFecha_reg = new JFormattedTextField();
 		tfFecha_reg.setBounds(173, 503, 139, 24);
 		getPanelFormulario().add(tfFecha_reg);
 		
@@ -127,6 +139,56 @@ public class CatequizandoVista extends JDialogGenerico {
 		jcbEstado.setBounds(102, 448, 62, 20);
 		getPanelFormulario().add(jcbEstado);
 
+	}
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+
+	public JtextFieldGenerico getTfNombre() {
+		return tfNombre;
+	}
+
+
+	public JtextFieldGenerico getTfApellido() {
+		return tfApellido;
+	}
+
+
+	public JtextFieldGenerico getTfDocumento() {
+		return tfDocumento;
+	}
+
+
+	public JtextFieldGenerico getTfTelefono() {
+		return tfTelefono;
+	}
+
+
+	public JtextFieldGenerico getTfCorreo() {
+		return tfCorreo;
+	}
+
+
+	public JtextFieldGenerico getTfDireccion() {
+		return tfDireccion;
+	}
+
+
+	public JFormattedTextField getTfFecha_nac() {
+		return tfFecha_nac;
+	}
+
+
+	public JCheckBox getJcbEstado() {
+		return jcbEstado;
+	}
+
+
+	public JFormattedTextField getTfFecha_reg() {
+		return tfFecha_nac;
 	}
 	
 	
