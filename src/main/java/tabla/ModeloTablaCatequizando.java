@@ -45,7 +45,7 @@ public class ModeloTablaCatequizando  extends AbstractTableModel{
 		case 1: return catequizando.get(rowIndex).getCatz_nombre();
 		case 2: return catequizando.get(rowIndex).getCatz_apellido();
 		case 3: return catequizando.get(rowIndex).getCatz_documento();
-		case 4: return catequizando.get(rowIndex).getCatz_estado();
+		case 4: return catequizando.get(rowIndex).isCatz_estado();
 		
 		}
 		

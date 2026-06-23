@@ -65,7 +65,7 @@ public class InscripcionModelo {
 		this.inscrip_fecha = inscrip_fecha;
 	}
 
-	public Boolean getInscrip_estado() {
+	public Boolean isInscrip_estado() {
 		return inscrip_estado;
 	}
 

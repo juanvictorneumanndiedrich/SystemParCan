@@ -119,7 +119,7 @@ public class CatequistaModelo {
 		this.cat_fechaRegistro = cat_fechaRegistro;
 	}
 
-	public Boolean getCat_estado() {
+	public Boolean isCat_estado() {
 		return cat_estado;
 	}
 

@@ -40,7 +40,7 @@ public class EtapaModelo {
 		this.etap_descripcion = etap_descripcion;
 	}
 
-	public Boolean getEtap_estado() {
+	public Boolean isEtap_estado() {
 		return etap_estado;
 	}
 

@@ -128,7 +128,7 @@ public class CatequizandoModelo {
 		this.catz_fechaRegistro = catz_fechaRegistro;
 	}
 
-	public Boolean getCatz_estado() {
+	public Boolean isCatz_estado() {
 		return catz_estado;
 	}
 

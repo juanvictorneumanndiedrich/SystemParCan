@@ -94,6 +94,7 @@ public class CatequizandoController implements InterfaceABM {
 		this.vista.getTfCorreo().setEnabled(true);
 		this.vista.getTfDireccion().setEnabled(true);
 		this.vista.getTfTelefono().setEnabled(true);
+		this.vista.getJcbEstado().setEnabled(true);
 		
 		//Carga el campo fecha y crea el cliente
 		catequizando = new CatequizandoModelo();
@@ -112,6 +113,7 @@ public class CatequizandoController implements InterfaceABM {
 		this.vista.getTfApellido().setText(catequizando.getCatz_apellido());
 		this.vista.getTfDocumento().setText(catequizando.getCatz_documento());
 		this.vista.getTfTelefono().setText(catequizando.getCatz_telefono());
+		this.vista.getTfCorreo().setText(catequizando.getCatz_correo());
 		this.vista.getTfFecha_nac().setText(FechaUtil.fechaAString(catequizando.getCatz_fechaNacimiento()));
 		this.vista.getTfDireccion().setText(catequizando.getCatz_direccion());
 	
@@ -132,8 +134,10 @@ public class CatequizandoController implements InterfaceABM {
 		catequizando.setCatz_nombre(this.vista.getTfNombre().getText());
 		catequizando.setCatz_apellido(this.vista.getTfApellido().getText());
 		catequizando.setCatz_documento(this.vista.getTfDocumento().getText());
+		catequizando.setCatz_correo(this.vista.getTfCorreo().getText());
 		catequizando.setCatz_telefono(this.vista.getTfTelefono().getText());
 		catequizando.setCatz_direccion(this.vista.getTfDireccion().getText());
+		catequizando.setCatz_estado(this.vista.getJcbEstado().isSelected());
 		
 		try {
 			dao.guardar(catequizando);

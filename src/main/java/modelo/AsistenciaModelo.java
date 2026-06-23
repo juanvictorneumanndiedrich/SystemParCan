@@ -49,7 +49,7 @@ public class AsistenciaModelo {
 		this.asist_id = asist_id;
 	}
 
-	public Boolean getEstado() {
+	public Boolean isEstado() {
 		return estado;
 	}
 

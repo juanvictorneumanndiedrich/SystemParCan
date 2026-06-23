@@ -22,7 +22,7 @@ public class CatequizandoVista extends JDialogGenerico {
 	private JtextFieldGenerico tfCorreo;
 	private JtextFieldGenerico tfDireccion;
 	private JFormattedTextField tfFecha_nac;
-	private JCheckBox jcbEstado;
+	private JCheckBox chbEstado;
 	private JFormattedTextField tfFecha_reg;
 
 
@@ -123,11 +123,11 @@ public class CatequizandoVista extends JDialogGenerico {
 		getPanelFormulario().add(tfDireccion);
 		
 		tfFecha_nac = new JFormattedTextField();
-		tfFecha_nac.setBounds(194, 389, 132, 24);
+		tfFecha_nac.setBounds(173, 505, 132, 24);
 		getPanelFormulario().add(tfFecha_nac);
 		
 		tfFecha_reg = new JFormattedTextField();
-		tfFecha_reg.setBounds(173, 503, 139, 24);
+		tfFecha_reg.setBounds(194, 391, 139, 24);
 		getPanelFormulario().add(tfFecha_reg);
 		
 		JLabelGenerico lblgnrcEstado = new JLabelGenerico((String) null);
@@ -135,9 +135,9 @@ public class CatequizandoVista extends JDialogGenerico {
 		lblgnrcEstado.setBounds(45, 443, 51, 28);
 		getPanelFormulario().add(lblgnrcEstado);
 		
-		jcbEstado = new JCheckBox("Activo");
-		jcbEstado.setBounds(102, 448, 62, 20);
-		getPanelFormulario().add(jcbEstado);
+		chbEstado = new JCheckBox("Activo");
+		chbEstado.setBounds(102, 448, 62, 20);
+		getPanelFormulario().add(chbEstado);
 
 	}
 
@@ -183,7 +183,7 @@ public class CatequizandoVista extends JDialogGenerico {
 
 
 	public JCheckBox getJcbEstado() {
-		return jcbEstado;
+		return chbEstado;
 	}
 
 
