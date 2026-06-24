@@ -9,6 +9,7 @@ import componentes.JDialogGenerico;
 import componentes.JLabelGenerico;
 import componentes.JtextFieldGenerico;
 import controlador.CatequizandoController;
+import utilidades.FechaUtil;
 
 import javax.swing.JCheckBox;
 
@@ -21,8 +22,8 @@ public class CatequizandoVista extends JDialogGenerico {
 	private JtextFieldGenerico tfTelefono;
 	private JtextFieldGenerico tfCorreo;
 	private JtextFieldGenerico tfDireccion;
-	private JFormattedTextField tfFecha_nac;
 	private JCheckBox chbEstado;
+	private JFormattedTextField tfFecha_nac;
 	private JFormattedTextField tfFecha_reg;
 
 
@@ -122,14 +123,6 @@ public class CatequizandoVista extends JDialogGenerico {
 		tfDireccion.setBounds(117, 328, 332, 24);
 		getPanelFormulario().add(tfDireccion);
 		
-		tfFecha_nac = new JFormattedTextField();
-		tfFecha_nac.setBounds(173, 505, 132, 24);
-		getPanelFormulario().add(tfFecha_nac);
-		
-		tfFecha_reg = new JFormattedTextField();
-		tfFecha_reg.setBounds(194, 391, 139, 24);
-		getPanelFormulario().add(tfFecha_reg);
-		
 		JLabelGenerico lblgnrcEstado = new JLabelGenerico((String) null);
 		lblgnrcEstado.setText("Estado:");
 		lblgnrcEstado.setBounds(45, 443, 51, 28);
@@ -138,6 +131,14 @@ public class CatequizandoVista extends JDialogGenerico {
 		chbEstado = new JCheckBox("Activo");
 		chbEstado.setBounds(102, 448, 62, 20);
 		getPanelFormulario().add(chbEstado);
+		
+		tfFecha_nac = new JFormattedTextField(FechaUtil.getFormatoFecha());
+		tfFecha_nac.setBounds(194, 389, 167, 24);
+		getPanelFormulario().add(tfFecha_nac);
+		
+		tfFecha_reg = new JFormattedTextField(FechaUtil.getFormatoFecha());
+		tfFecha_reg.setBounds(173, 503, 167, 24);
+		getPanelFormulario().add(tfFecha_reg);
 
 	}
 
@@ -188,9 +189,6 @@ public class CatequizandoVista extends JDialogGenerico {
 
 
 	public JFormattedTextField getTfFecha_reg() {
-		return tfFecha_nac;
+		return tfFecha_reg;
 	}
-	
-	
-	
 }
