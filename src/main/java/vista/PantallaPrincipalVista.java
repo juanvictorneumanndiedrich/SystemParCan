@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import componentes.JPanelPantallaPrincipal;
+import controlador.PantallaPrincipalController;
+
 import javax.swing.JButton;
 import componentes.JButtonAccesoDirecto;
 import java.awt.Font;
@@ -41,6 +43,7 @@ public class PantallaPrincipalVista extends JFrame {
 			public void run() {
 				try {
 					PantallaPrincipalVista frame = new PantallaPrincipalVista();
+					new PantallaPrincipalController(frame);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

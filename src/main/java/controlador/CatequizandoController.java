@@ -8,6 +8,7 @@ import java.util.List;
 import dao.CatequizandoDAO;
 import interfaces.InterfaceABM;
 import modelo.CatequizandoModelo;
+import tabla.EstadoCellRenderer;
 import tabla.ModeloTablaCatequizando;
 import vista.CatequizandoVista;
 import utilidades.FechaUtil;
@@ -27,6 +28,8 @@ public class CatequizandoController implements InterfaceABM {
 		dao = new CatequizandoDAO();
 		tabla = new ModeloTablaCatequizando();
 		this.vista.getTabla().setModel(tabla);
+		this.vista.getTabla().getColumnModel().getColumn(4)
+        .setCellRenderer(new EstadoCellRenderer()); 
 		estadoInicial();
 		cargarTabla("");
 		setAcciones();
