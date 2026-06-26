@@ -1,8 +1,10 @@
 package controlador;
 
+import vista.CatequistaVista;
 import vista.CatequizandoVista;
 import vista.PantallaPrincipalVista;
 import controlador.CatequizandoController;
+import controlador.CatequistaController;
 
 public class PantallaPrincipalController {
 
@@ -15,6 +17,7 @@ public class PantallaPrincipalController {
 
     private void setAcciones() {
         this.vista.getMntmprsnlzdCatequizando().addActionListener(e -> abrirCatequizando());
+        this.vista.getMntmprsnlzdCatequista().addActionListener(e -> abrirCatequista());
     }
 
     private void abrirCatequizando() {
@@ -23,4 +26,13 @@ public class PantallaPrincipalController {
         catequizandoVista.setLocationRelativeTo(this.vista); // centra respecto a la pantalla principal
         catequizandoVista.setVisible(true);
     }
+    
+    private void abrirCatequista() {
+        CatequistaVista catequistaVista = new CatequistaVista();
+        new CatequistaController(catequistaVista);
+        catequistaVista.setLocationRelativeTo(this.vista);
+        catequistaVista.setVisible(true);
+    }
+    
+    
 }
