@@ -25,6 +25,8 @@ public class CatequizandoVista extends JDialogGenerico {
 	private JCheckBox chbEstado;
 	private JFormattedTextField tfFecha_nac;
 	private JFormattedTextField tfFecha_reg;
+	private JtextFieldGenerico tfNombreResponsable;
+	private JtextFieldGenerico tfContactoResponsable;
 
 
 	/**
@@ -61,37 +63,37 @@ public class CatequizandoVista extends JDialogGenerico {
 		
 		JLabelGenerico lblgnrcNombre = new JLabelGenerico((String) null);
 		lblgnrcNombre.setText("Nombre:");
-		lblgnrcNombre.setBounds(45, 35, 62, 28);
+		lblgnrcNombre.setBounds(34, 10, 62, 28);
 		getPanelFormulario().add(lblgnrcNombre);
 		
 		JLabelGenerico lblgnrcApellido = new JLabelGenerico((String) null);
 		lblgnrcApellido.setText("Apellido:");
-		lblgnrcApellido.setBounds(45, 85, 62, 28);
+		lblgnrcApellido.setBounds(34, 48, 62, 28);
 		getPanelFormulario().add(lblgnrcApellido);
 		
 		JLabelGenerico lblgnrcDocumento = new JLabelGenerico((String) null);
 		lblgnrcDocumento.setText("Documento:");
-		lblgnrcDocumento.setBounds(45, 140, 84, 28);
+		lblgnrcDocumento.setBounds(34, 97, 84, 28);
 		getPanelFormulario().add(lblgnrcDocumento);
 		
 		JLabelGenerico lblgnrcTelefono = new JLabelGenerico((String) null);
 		lblgnrcTelefono.setText("Telefono:");
-		lblgnrcTelefono.setBounds(45, 195, 62, 28);
+		lblgnrcTelefono.setBounds(34, 156, 62, 28);
 		getPanelFormulario().add(lblgnrcTelefono);
 		
 		JLabelGenerico lblgnrcCorreo = new JLabelGenerico((String) null);
 		lblgnrcCorreo.setText("Correo:");
-		lblgnrcCorreo.setBounds(45, 264, 62, 28);
+		lblgnrcCorreo.setBounds(34, 219, 62, 28);
 		getPanelFormulario().add(lblgnrcCorreo);
 		
 		JLabelGenerico lblgnrcDireccin = new JLabelGenerico((String) null);
-		lblgnrcDireccin.setText("Dirección ");
-		lblgnrcDireccin.setBounds(45, 326, 62, 28);
+		lblgnrcDireccin.setText("Dirección:");
+		lblgnrcDireccin.setBounds(34, 273, 62, 28);
 		getPanelFormulario().add(lblgnrcDireccin);
 		
 		JLabelGenerico lblgnrcFechaDeNacimiento = new JLabelGenerico((String) null);
 		lblgnrcFechaDeNacimiento.setText("Fecha de Nacimiento:");
-		lblgnrcFechaDeNacimiento.setBounds(45, 387, 139, 28);
+		lblgnrcFechaDeNacimiento.setBounds(34, 322, 139, 28);
 		getPanelFormulario().add(lblgnrcFechaDeNacimiento);
 		
 		JLabelGenerico lblgnrcFechaDeRegistro = new JLabelGenerico((String) null);
@@ -100,27 +102,27 @@ public class CatequizandoVista extends JDialogGenerico {
 		getPanelFormulario().add(lblgnrcFechaDeRegistro);
 		
 		tfNombre = new JtextFieldGenerico();
-		tfNombre.setBounds(117, 37, 229, 24);
+		tfNombre.setBounds(106, 12, 229, 24);
 		getPanelFormulario().add(tfNombre);
 		
 		tfApellido = new JtextFieldGenerico();
-		tfApellido.setBounds(117, 87, 229, 24);
+		tfApellido.setBounds(106, 50, 229, 24);
 		getPanelFormulario().add(tfApellido);
 		
 		tfDocumento = new JtextFieldGenerico();
-		tfDocumento.setBounds(139, 142, 130, 24);
+		tfDocumento.setBounds(128, 99, 130, 24);
 		getPanelFormulario().add(tfDocumento);
 		
 		tfTelefono = new JtextFieldGenerico();
-		tfTelefono.setBounds(117, 197, 152, 24);
+		tfTelefono.setBounds(106, 158, 152, 24);
 		getPanelFormulario().add(tfTelefono);
 		
 		tfCorreo = new JtextFieldGenerico();
-		tfCorreo.setBounds(117, 266, 229, 24);
+		tfCorreo.setBounds(106, 221, 229, 24);
 		getPanelFormulario().add(tfCorreo);
 		
 		tfDireccion = new JtextFieldGenerico();
-		tfDireccion.setBounds(117, 328, 332, 24);
+		tfDireccion.setBounds(106, 275, 332, 24);
 		getPanelFormulario().add(tfDireccion);
 		
 		JLabelGenerico lblgnrcEstado = new JLabelGenerico((String) null);
@@ -133,12 +135,30 @@ public class CatequizandoVista extends JDialogGenerico {
 		getPanelFormulario().add(chbEstado);
 		
 		tfFecha_nac = new JFormattedTextField(FechaUtil.getFormatoFecha());
-		tfFecha_nac.setBounds(194, 389, 167, 24);
+		tfFecha_nac.setBounds(183, 326, 167, 24);
 		getPanelFormulario().add(tfFecha_nac);
 		
 		tfFecha_reg = new JFormattedTextField(FechaUtil.getFormatoFecha());
 		tfFecha_reg.setBounds(173, 503, 167, 24);
 		getPanelFormulario().add(tfFecha_reg);
+		
+		JLabelGenerico lblgnrcNombreResponsable = new JLabelGenerico((String) null);
+		lblgnrcNombreResponsable.setText("Nombre Responsable:");
+		lblgnrcNombreResponsable.setBounds(34, 367, 139, 28);
+		getPanelFormulario().add(lblgnrcNombreResponsable);
+		
+		JLabelGenerico lblgnrcContactoResponsable = new JLabelGenerico((String) null);
+		lblgnrcContactoResponsable.setText("Contacto del Responsable:");
+		lblgnrcContactoResponsable.setBounds(39, 405, 167, 28);
+		getPanelFormulario().add(lblgnrcContactoResponsable);
+		
+		tfNombreResponsable = new JtextFieldGenerico();
+		tfNombreResponsable.setBounds(173, 369, 290, 24);
+		getPanelFormulario().add(tfNombreResponsable);
+		
+		tfContactoResponsable = new JtextFieldGenerico();
+		tfContactoResponsable.setBounds(216, 407, 290, 24);
+		getPanelFormulario().add(tfContactoResponsable);
 
 	}
 
@@ -190,5 +210,15 @@ public class CatequizandoVista extends JDialogGenerico {
 
 	public JFormattedTextField getTfFecha_reg() {
 		return tfFecha_reg;
+	}
+	
+	public JtextFieldGenerico getTfNombreResponsable() {
+		return tfNombreResponsable;
+		
+	}
+	
+	public JtextFieldGenerico getTfContactoResponsable() {
+		return tfContactoResponsable;
+		
 	}
 }

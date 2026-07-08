@@ -13,8 +13,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 
 @Entity(name = "tb_inscripcion")
+// Regla: un catequizando solamente puede pertenecer a un Grupo de Catequesis
+// (catz_id no se puede repetir en la tabla de inscripciones)
+@Table(name = "tb_inscripcion", uniqueConstraints = @UniqueConstraint(columnNames = "catz_id"))
 public class InscripcionModelo {
 
 	@Id
@@ -28,11 +33,11 @@ public class InscripcionModelo {
 	private Boolean inscrip_estado;
 
 	// ======================== MUCHOS A UNO ==================================
-	@ManyToOne
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "catz_id")
 	private CatequizandoModelo catequizando;
 
-	@ManyToOne
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "grupo_id")
 	private GrupoCatequesisModelo grupoCatequesis;
 

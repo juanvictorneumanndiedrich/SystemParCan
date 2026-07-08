@@ -25,6 +25,8 @@
 		<mapping  class="modelo.EtapaModelo"/>
 		<mapping  class="modelo.GrupoCatequesisModelo"/>
 		<mapping  class="modelo.InscripcionModelo"/>
+		<mapping  class="modelo.SacramentoModelo"/>
+		<mapping  class="modelo.TransferenciaModelo"/>
 
 
 	</session-factory>

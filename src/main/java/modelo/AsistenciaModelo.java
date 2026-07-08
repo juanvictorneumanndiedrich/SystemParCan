@@ -1,39 +1,42 @@
 package modelo;
 
-import java.util.List;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 
 @Entity(name = "tb_asistencia")
+@Table(name = "tb_asistencia", uniqueConstraints = @UniqueConstraint(columnNames = { "inscrip_id", "clase_id" }))
 public class AsistenciaModelo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer asist_id;
 
-	@Column
-	private Boolean estado;
+	// Estado de la asistencia: PRESENTE, AUSENTE o JUSTIFICADO
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, length = 20)
+	private EstadoAsistencia estado;
 
+	// Motivo de la ausencia; se completa cuando el estado es JUSTIFICADO
 	@Lob
 	@Column(columnDefinition = "TEXT")
 	private String observaciones;
 
 	// ==================== MUCHOS A UNO ===========================
-	@ManyToOne
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "inscrip_id")
 	private InscripcionModelo inscripcion;
 
-	@ManyToOne
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "clase_id")
 	private ClaseModelo clase;
 
@@ -49,11 +52,11 @@ public class AsistenciaModelo {
 		this.asist_id = asist_id;
 	}
 
-	public Boolean isEstado() {
+	public EstadoAsistencia getEstado() {
 		return estado;
 	}
 
-	public void setEstado(Boolean estado) {
+	public void setEstado(EstadoAsistencia estado) {
 		this.estado = estado;
 	}
 

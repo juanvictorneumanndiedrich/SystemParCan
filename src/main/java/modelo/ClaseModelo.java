@@ -26,11 +26,13 @@ public class ClaseModelo {
 	@Column(name = "clase_fechaclase", nullable = false)
 	private LocalDate clase_fechaClase;
 
-	@Column(nullable = false, length = 100)
+	// Observacion de la clase: es opcional segun el requisito
+	@Column(nullable = true, length = 255)
 	private String clase_descripcion;
 
 	// ======================== MUCHOS A UNO ==================================
-	@ManyToOne
+	// Cada clase pertenece a un unico Grupo de Catequesis
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "grupo_id")
 	private GrupoCatequesisModelo grupoCatequesis;
 

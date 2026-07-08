@@ -34,6 +34,7 @@ public class PantallaPrincipalVista extends JFrame {
 	private JMenuItemPersonalizado mntmprsnlzdAsistencia;
 	private JMenuItemPersonalizado mntmprsnlzdInscripcion;
 	private JMenuItemPersonalizado mntmprsnlzdTransferencia;
+	private JMenuItemPersonalizado mntmprsnlzdSacramentos;
 
 	/**
 	 * Launch the application.
@@ -87,6 +88,10 @@ public class PantallaPrincipalVista extends JFrame {
 		mntmprsnlzdGrupocatequesis = new JMenuItemPersonalizado();
 		mntmprsnlzdGrupocatequesis.setText("grupo_catequesis");
 		mnNewMenu.add(mntmprsnlzdGrupocatequesis);
+		
+		mntmprsnlzdSacramentos = new JMenuItemPersonalizado();
+		mntmprsnlzdSacramentos.setText("sacramentos");
+		mnNewMenu.add(mntmprsnlzdSacramentos);
 		
 		JMenu mnInformes = new JMenu("Listados");
 		menuBar.add(mnInformes);
@@ -176,6 +181,8 @@ public class PantallaPrincipalVista extends JFrame {
 		contentPane.add(btncsdrctGrupocatequesis);
 
 	}
+	
+	
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -237,5 +244,9 @@ public class PantallaPrincipalVista extends JFrame {
 		return mntmprsnlzdTransferencia;
 	}
 	
+	public JMenuItemPersonalizado getMntmprsnlzdSacramentos() {
+		return mntmprsnlzdSacramentos;
+		
+	}
 	
 }

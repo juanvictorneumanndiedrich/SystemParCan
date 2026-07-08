@@ -1,12 +1,18 @@
 package modelo;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.UniqueConstraint;
 
 @Entity(name = "tb_catequista")
 public class CatequistaModelo {
@@ -41,6 +47,18 @@ public class CatequistaModelo {
 
 	@Column(nullable = false)
 	private Boolean cat_estado;
+
+	//========================= MUCHOS A MUCHOS ==================================
+	// LISTA: sacramentos que posee el catequista (regla: no puede repetir el mismo sacramento,
+	// garantizado por la restriccion unica cat_id + sacr_id en la tabla intermedia)
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "tb_catequista_sacramento",
+			joinColumns = @JoinColumn(name = "cat_id"),
+			inverseJoinColumns = @JoinColumn(name = "sacr_id"),
+			uniqueConstraints = @UniqueConstraint(columnNames = { "cat_id", "sacr_id" })
+	)
+	private List<SacramentoModelo> sacramentos;
 
 	public CatequistaModelo() {
 		super();
@@ -125,6 +143,14 @@ public class CatequistaModelo {
 
 	public void setCat_estado(Boolean cat_estado) {
 		this.cat_estado = cat_estado;
+	}
+
+	public List<SacramentoModelo> getSacramentos() {
+		return sacramentos;
+	}
+
+	public void setSacramentos(List<SacramentoModelo> sacramentos) {
+		this.sacramentos = sacramentos;
 	}
 
 }

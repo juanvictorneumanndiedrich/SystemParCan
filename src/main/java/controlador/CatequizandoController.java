@@ -79,6 +79,8 @@ public class CatequizandoController implements InterfaceABM {
 		this.vista.getTfCorreo().setEnabled(false);
 		this.vista.getTfDireccion().setEnabled(false);
 		this.vista.getTfTelefono().setEnabled(false);
+		this.vista.getTfNombreResponsable().setEnabled(false);
+		this.vista.getTfContactoResponsable().setEnabled(false);
 
 		// Limpiar los campos
 		this.vista.getTfFecha_reg().setValue(null);
@@ -89,6 +91,8 @@ public class CatequizandoController implements InterfaceABM {
 		this.vista.getTfCorreo().setText("");
 		this.vista.getTfDireccion().setText("");
 		this.vista.getTfTelefono().setText("");
+		this.vista.getTfNombreResponsable().setText("");
+		this.vista.getTfContactoResponsable().setText("");
 		catequizando = null;
 
 	}
@@ -111,6 +115,8 @@ public class CatequizandoController implements InterfaceABM {
 		this.vista.getTfCorreo().setEnabled(true);
 		this.vista.getTfDireccion().setEnabled(true);
 		this.vista.getTfTelefono().setEnabled(true);
+		this.vista.getTfNombreResponsable().setEnabled(true);
+		this.vista.getTfContactoResponsable().setEnabled(true);
 		this.vista.getJcbEstado().setEnabled(true);
 		
 		//Carga el campo fecha y crea el cliente
@@ -143,6 +149,8 @@ public class CatequizandoController implements InterfaceABM {
 	    this.vista.getTfCorreo().setText(catequizando.getCatz_correo());
 	    this.vista.getTfFecha_nac().setText(FechaUtil.fechaAString(catequizando.getCatz_fechaNacimiento()));
 	    this.vista.getTfDireccion().setText(catequizando.getCatz_direccion());
+	    this.vista.getTfNombreResponsable().setText(catequizando.getCatz_nombreResponsable());
+	    this.vista.getTfContactoResponsable().setText(catequizando.getCatz_contactoResponsable());
 	    this.vista.getJcbEstado().setSelected(catequizando.isCatz_estado());
 
 	    // Habilitar campos para edición
@@ -153,6 +161,8 @@ public class CatequizandoController implements InterfaceABM {
 	    this.vista.getTfCorreo().setEnabled(true);
 	    this.vista.getTfDireccion().setEnabled(true);
 	    this.vista.getTfTelefono().setEnabled(true);
+	    this.vista.getTfNombreResponsable().setEnabled(true);
+		this.vista.getTfContactoResponsable().setEnabled(true);
 	    this.vista.getJcbEstado().setEnabled(true);
 
 	    // Ajustar botones
@@ -174,6 +184,8 @@ public class CatequizandoController implements InterfaceABM {
 		catequizando.setCatz_correo(this.vista.getTfCorreo().getText());
 		catequizando.setCatz_telefono(this.vista.getTfTelefono().getText());
 		catequizando.setCatz_direccion(this.vista.getTfDireccion().getText());
+		catequizando.setCatz_nombreResponsable(this.vista.getTfNombreResponsable().getText());
+		catequizando.setCatz_contactoResponsable(this.vista.getTfContactoResponsable().getText());
 		catequizando.setCatz_estado(this.vista.getJcbEstado().isSelected());
 		
 		try {

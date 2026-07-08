@@ -10,7 +10,11 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.UniqueConstraint;
 
 @Entity(name = "tb_catequizando")
 public class CatequizandoModelo {
@@ -37,6 +41,12 @@ public class CatequizandoModelo {
 	@Column(length = 100, nullable = false)
 	private String catz_direccion;
 
+	@Column(name = "catz_nombreresponsable", length = 100, nullable = false)
+	private String catz_nombreResponsable;
+
+	@Column(name = "catz_contactoresponsable", length = 45, nullable = false)
+	private String catz_contactoResponsable;
+
 	@Column(name = "catz_fechanacimiento", nullable = false)
 	private LocalDate catz_fechaNacimiento;
 
@@ -50,6 +60,22 @@ public class CatequizandoModelo {
 	// LISTA: Un alumno puede tener varias inscripciones
 	@OneToMany(mappedBy = "catequizando", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<InscripcionModelo> inscripciones;
+
+	// LISTA: historial de transferencias de grupo de este catequizando
+	@OneToMany(mappedBy = "catequizando", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<TransferenciaModelo> transferencias;
+
+	//========================= MUCHOS A MUCHOS ==================================
+	// LISTA: sacramentos que posee el catequizando (regla: no puede repetir el mismo sacramento,
+	// garantizado por la restriccion unica catz_id + sacr_id en la tabla intermedia)
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "tb_catequizando_sacramento",
+			joinColumns = @JoinColumn(name = "catz_id"),
+			inverseJoinColumns = @JoinColumn(name = "sacr_id"),
+			uniqueConstraints = @UniqueConstraint(columnNames = { "catz_id", "sacr_id" })
+	)
+	private List<SacramentoModelo> sacramentos;
 
 	public CatequizandoModelo() {
 		super();
@@ -112,6 +138,22 @@ public class CatequizandoModelo {
 		this.catz_direccion = catz_direccion;
 	}
 
+	public String getCatz_nombreResponsable() {
+		return catz_nombreResponsable;
+	}
+
+	public void setCatz_nombreResponsable(String catz_nombreResponsable) {
+		this.catz_nombreResponsable = catz_nombreResponsable;
+	}
+
+	public String getCatz_contactoResponsable() {
+		return catz_contactoResponsable;
+	}
+
+	public void setCatz_contactoResponsable(String catz_contactoResponsable) {
+		this.catz_contactoResponsable = catz_contactoResponsable;
+	}
+
 	public LocalDate getCatz_fechaNacimiento() {
 		return catz_fechaNacimiento;
 	}
@@ -142,6 +184,22 @@ public class CatequizandoModelo {
 
 	public void setInscripciones(List<InscripcionModelo> inscripciones) {
 		this.inscripciones = inscripciones;
+	}
+
+	public List<TransferenciaModelo> getTransferencias() {
+		return transferencias;
+	}
+
+	public void setTransferencias(List<TransferenciaModelo> transferencias) {
+		this.transferencias = transferencias;
+	}
+
+	public List<SacramentoModelo> getSacramentos() {
+		return sacramentos;
+	}
+
+	public void setSacramentos(List<SacramentoModelo> sacramentos) {
+		this.sacramentos = sacramentos;
 	}
 
 }
