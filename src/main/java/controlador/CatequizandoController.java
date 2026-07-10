@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import dao.CatequizandoDAO;
+import dao.SacramentoDAO;
 import interfaces.InterfaceABM;
 import modelo.CatequizandoModelo;
 import tabla.EstadoCellRenderer;
@@ -18,6 +19,7 @@ public class CatequizandoController implements InterfaceABM {
 	private CatequizandoVista vista;
 	private CatequizandoModelo catequizando;
 	private CatequizandoDAO dao;
+	private SacramentoDAO sacramentoDao;
 	private List<CatequizandoModelo> catequizandos;
 	private ModeloTablaCatequizando tabla;
 
@@ -26,13 +28,21 @@ public class CatequizandoController implements InterfaceABM {
 		this.vista = catequizandoVista;
 		this.vista.setInterfaceABM(this);
 		dao = new CatequizandoDAO();
+		sacramentoDao = new SacramentoDAO();
 		tabla = new ModeloTablaCatequizando();
 		this.vista.getTabla().setModel(tabla);
 		this.vista.getTabla().getColumnModel().getColumn(4)
         .setCellRenderer(new EstadoCellRenderer()); 
+		cargarCombos();
 		estadoInicial();
 		cargarTabla("");
 		setAcciones();
+	}
+	
+	private void cargarCombos() {
+		this.vista.getComboSacramentos().setProveedorTexto(s -> s.getSacr_nombre());
+		this.vista.getComboSacramentos().setExtractorClave(s -> s.getSacr_id());
+		this.vista.getComboSacramentos().setItems(sacramentoDao.recuperarTodo());
 	}
 	
 	private void cargarTabla(String filtro) {
@@ -81,6 +91,7 @@ public class CatequizandoController implements InterfaceABM {
 		this.vista.getTfTelefono().setEnabled(false);
 		this.vista.getTfNombreResponsable().setEnabled(false);
 		this.vista.getTfContactoResponsable().setEnabled(false);
+		this.vista.getComboSacramentos().setEnabled(false);
 
 		// Limpiar los campos
 		this.vista.getTfFecha_reg().setValue(null);
@@ -93,6 +104,7 @@ public class CatequizandoController implements InterfaceABM {
 		this.vista.getTfTelefono().setText("");
 		this.vista.getTfNombreResponsable().setText("");
 		this.vista.getTfContactoResponsable().setText("");
+		this.vista.getComboSacramentos().limpiarSeleccion();
 		catequizando = null;
 
 	}
@@ -118,6 +130,8 @@ public class CatequizandoController implements InterfaceABM {
 		this.vista.getTfNombreResponsable().setEnabled(true);
 		this.vista.getTfContactoResponsable().setEnabled(true);
 		this.vista.getJcbEstado().setEnabled(true);
+		this.vista.getComboSacramentos().setEnabled(true);
+		this.vista.getComboSacramentos().limpiarSeleccion();
 		
 		//Carga el campo fecha y crea el cliente
 		catequizando = new CatequizandoModelo();
@@ -152,6 +166,7 @@ public class CatequizandoController implements InterfaceABM {
 	    this.vista.getTfNombreResponsable().setText(catequizando.getCatz_nombreResponsable());
 	    this.vista.getTfContactoResponsable().setText(catequizando.getCatz_contactoResponsable());
 	    this.vista.getJcbEstado().setSelected(catequizando.isCatz_estado());
+	    this.vista.getComboSacramentos().setSeleccionados(catequizando.getSacramentos());
 
 	    // Habilitar campos para edición
 	    this.vista.getTfNombre().setEnabled(true);
@@ -164,6 +179,7 @@ public class CatequizandoController implements InterfaceABM {
 	    this.vista.getTfNombreResponsable().setEnabled(true);
 		this.vista.getTfContactoResponsable().setEnabled(true);
 	    this.vista.getJcbEstado().setEnabled(true);
+	    this.vista.getComboSacramentos().setEnabled(true);
 
 	    // Ajustar botones
 	    this.vista.getBtnNuevo().setEnabled(false);
@@ -187,6 +203,7 @@ public class CatequizandoController implements InterfaceABM {
 		catequizando.setCatz_nombreResponsable(this.vista.getTfNombreResponsable().getText());
 		catequizando.setCatz_contactoResponsable(this.vista.getTfContactoResponsable().getText());
 		catequizando.setCatz_estado(this.vista.getJcbEstado().isSelected());
+		catequizando.setSacramentos(this.vista.getComboSacramentos().getSeleccionados());
 		
 		try {
 			dao.guardar(catequizando);

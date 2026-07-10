@@ -6,6 +6,8 @@ import vista.EtapaVista;
 import vista.GrupoCatequesisVista;
 import vista.SacramentoVista;
 import vista.PantallaPrincipalVista;
+import controlador.CatequizandoController;
+import controlador.CatequistaController;
 
 public class PantallaPrincipalController {
 

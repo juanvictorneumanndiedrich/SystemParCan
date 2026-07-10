@@ -9,12 +9,14 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import componentes.JComboCheckList;
 import componentes.JDialogGenerico;
 import componentes.JLabelGenerico;
 import javax.swing.JCheckBox;
 import componentes.JtextFieldGenerico;
 import controlador.CatequistaController;
 import controlador.CatequizandoController;
+import modelo.SacramentoModelo;
 import utilidades.FechaUtil;
 
 public class CatequistaVista extends JDialogGenerico {
@@ -29,6 +31,7 @@ public class CatequistaVista extends JDialogGenerico {
 	private JCheckBox cbEstado;
 	private JFormattedTextField tfFecha_nac;
 	private JFormattedTextField tfFecha_reg;
+	private JComboCheckList<SacramentoModelo> comboSacramentos;
 
 	/**
 	 * Launch the application.
@@ -134,6 +137,15 @@ public class CatequistaVista extends JDialogGenerico {
 		tfFecha_reg.setBounds(158, 490, 117, 24);
 		getPanelFormulario().add(tfFecha_reg);
 		
+		JLabelGenerico lblgnrcSacramentos = new JLabelGenerico((String) null);
+		lblgnrcSacramentos.setText("Sacramentos:");
+		lblgnrcSacramentos.setBounds(31, 522, 90, 28);
+		getPanelFormulario().add(lblgnrcSacramentos);
+		
+		comboSacramentos = new JComboCheckList<SacramentoModelo>();
+		comboSacramentos.setBounds(124, 524, 300, 24);
+		getPanelFormulario().add(comboSacramentos);
+		
 	}
 
 	public static long getSerialversionuid() {
@@ -174,6 +186,10 @@ public class CatequistaVista extends JDialogGenerico {
 
 	public JFormattedTextField getTfFecha_reg() {
 		return tfFecha_reg;
+	}
+	
+	public JComboCheckList<SacramentoModelo> getComboSacramentos() {
+		return comboSacramentos;
 	}
 	
 	

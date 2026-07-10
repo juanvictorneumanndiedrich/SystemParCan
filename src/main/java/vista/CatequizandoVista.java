@@ -5,10 +5,12 @@ import java.awt.EventQueue;
 import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 
+import componentes.JComboCheckList;
 import componentes.JDialogGenerico;
 import componentes.JLabelGenerico;
 import componentes.JtextFieldGenerico;
 import controlador.CatequizandoController;
+import modelo.SacramentoModelo;
 import utilidades.FechaUtil;
 
 import javax.swing.JCheckBox;
@@ -27,6 +29,7 @@ public class CatequizandoVista extends JDialogGenerico {
 	private JFormattedTextField tfFecha_reg;
 	private JtextFieldGenerico tfNombreResponsable;
 	private JtextFieldGenerico tfContactoResponsable;
+	private JComboCheckList<SacramentoModelo> comboSacramentos;
 
 
 	/**
@@ -160,6 +163,15 @@ public class CatequizandoVista extends JDialogGenerico {
 		tfContactoResponsable.setBounds(216, 407, 290, 24);
 		getPanelFormulario().add(tfContactoResponsable);
 
+		JLabelGenerico lblgnrcSacramentos = new JLabelGenerico((String) null);
+		lblgnrcSacramentos.setText("Sacramentos:");
+		lblgnrcSacramentos.setBounds(34, 538, 90, 28);
+		getPanelFormulario().add(lblgnrcSacramentos);
+
+		comboSacramentos = new JComboCheckList<SacramentoModelo>();
+		comboSacramentos.setBounds(128, 540, 300, 24);
+		getPanelFormulario().add(comboSacramentos);
+
 	}
 
 
@@ -220,5 +232,9 @@ public class CatequizandoVista extends JDialogGenerico {
 	public JtextFieldGenerico getTfContactoResponsable() {
 		return tfContactoResponsable;
 		
+	}
+
+	public JComboCheckList<SacramentoModelo> getComboSacramentos() {
+		return comboSacramentos;
 	}
 }
