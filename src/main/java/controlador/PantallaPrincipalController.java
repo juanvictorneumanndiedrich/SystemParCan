@@ -4,9 +4,8 @@ import vista.CatequistaVista;
 import vista.CatequizandoVista;
 import vista.EtapaVista;
 import vista.GrupoCatequesisVista;
+import vista.SacramentoVista;
 import vista.PantallaPrincipalVista;
-import controlador.CatequizandoController;
-import controlador.CatequistaController;
 
 public class PantallaPrincipalController {
 
@@ -22,6 +21,7 @@ public class PantallaPrincipalController {
         this.vista.getMntmprsnlzdCatequista().addActionListener(e -> abrirCatequista());
         this.vista.getMntmprsnlzdEtapa().addActionListener(e -> abrirEtapa());
         this.vista.getMntmprsnlzdGrupocatequesis().addActionListener(e -> abrirGrupoCatequesis());
+        this.vista.getMntmprsnlzdSacramentos().addActionListener(e -> abrirSacramentos());
     }
 
     private void abrirCatequizando() {
@@ -30,14 +30,14 @@ public class PantallaPrincipalController {
         catequizandoVista.setLocationRelativeTo(this.vista); // centra respecto a la pantalla principal
         catequizandoVista.setVisible(true);
     }
-    
+
     private void abrirCatequista() {
         CatequistaVista catequistaVista = new CatequistaVista();
         new CatequistaController(catequistaVista);
         catequistaVista.setLocationRelativeTo(this.vista);
         catequistaVista.setVisible(true);
     }
-    
+
     private void abrirEtapa() {
     	EtapaVista etapaVista = new EtapaVista();
     	new EtapaController(etapaVista);
@@ -51,6 +51,12 @@ public class PantallaPrincipalController {
     	grupoCatequesisVista.setLocationRelativeTo(this.vista);
     	grupoCatequesisVista.setVisible(true);
     }
-    
-    
+
+    private void abrirSacramentos() {
+    	SacramentoVista sacramentoVista = new SacramentoVista();
+    	new SacramentoController(sacramentoVista);
+    	sacramentoVista.setLocationRelativeTo(this.vista);
+    	sacramentoVista.setVisible(true);
+    }
+
 }
