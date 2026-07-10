@@ -3,6 +3,7 @@ package controlador;
 import vista.CatequistaVista;
 import vista.CatequizandoVista;
 import vista.EtapaVista;
+import vista.GrupoCatequesisVista;
 import vista.PantallaPrincipalVista;
 import controlador.CatequizandoController;
 import controlador.CatequistaController;
@@ -20,6 +21,7 @@ public class PantallaPrincipalController {
         this.vista.getMntmprsnlzdCatequizando().addActionListener(e -> abrirCatequizando());
         this.vista.getMntmprsnlzdCatequista().addActionListener(e -> abrirCatequista());
         this.vista.getMntmprsnlzdEtapa().addActionListener(e -> abrirEtapa());
+        this.vista.getMntmprsnlzdGrupocatequesis().addActionListener(e -> abrirGrupoCatequesis());
     }
 
     private void abrirCatequizando() {
@@ -42,5 +44,13 @@ public class PantallaPrincipalController {
     	etapaVista.setLocationRelativeTo(this.vista);
     	etapaVista.setVisible(true);
     }
+
+    private void abrirGrupoCatequesis() {
+    	GrupoCatequesisVista grupoCatequesisVista = new GrupoCatequesisVista();
+    	new GrupoCatequesisController(grupoCatequesisVista);
+    	grupoCatequesisVista.setLocationRelativeTo(this.vista);
+    	grupoCatequesisVista.setVisible(true);
+    }
+    
     
 }
