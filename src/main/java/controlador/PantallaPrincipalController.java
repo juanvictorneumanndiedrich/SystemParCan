@@ -4,6 +4,7 @@ import vista.CatequistaVista;
 import vista.CatequizandoVista;
 import vista.EtapaVista;
 import vista.GrupoCatequesisVista;
+import vista.InscripcionVista;
 import vista.SacramentoVista;
 import vista.PantallaPrincipalVista;
 import controlador.CatequizandoController;
@@ -24,6 +25,7 @@ public class PantallaPrincipalController {
         this.vista.getMntmprsnlzdEtapa().addActionListener(e -> abrirEtapa());
         this.vista.getMntmprsnlzdGrupocatequesis().addActionListener(e -> abrirGrupoCatequesis());
         this.vista.getMntmprsnlzdSacramentos().addActionListener(e -> abrirSacramentos());
+        this.vista.getMntmprsnlzdInscripcion().addActionListener(e -> abrirInscripcion());
     }
 
     private void abrirCatequizando() {
@@ -59,6 +61,13 @@ public class PantallaPrincipalController {
     	new SacramentoController(sacramentoVista);
     	sacramentoVista.setLocationRelativeTo(this.vista);
     	sacramentoVista.setVisible(true);
+    }
+
+    private void abrirInscripcion() {
+    	InscripcionVista inscripcionVista = new InscripcionVista();
+    	new InscripcionController(inscripcionVista);
+    	inscripcionVista.setLocationRelativeTo(this.vista);
+    	inscripcionVista.setVisible(true);
     }
 
 }

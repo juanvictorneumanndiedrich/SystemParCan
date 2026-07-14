@@ -23,7 +23,6 @@ public class PantallaPrincipalVista extends JFrame {
 	private JPanelPantallaPrincipal contentPane;
 	private JMenuItemPersonalizado mntmprsnlzdCatequizando;
 	private JMenuItemPersonalizado mntmprsnlzdCatequista;
-	private JMenuItemPersonalizado mntmprsnlzdClase;
 	private JMenuItemPersonalizado mntmprsnlzdEtapa;
 	private JMenuItemPersonalizado mntmprsnlzdGrupocatequesis;
 	private JMenuItemPersonalizado mntmprsnlzdCatequizando_1;
@@ -35,6 +34,7 @@ public class PantallaPrincipalVista extends JFrame {
 	private JMenuItemPersonalizado mntmprsnlzdInscripcion;
 	private JMenuItemPersonalizado mntmprsnlzdTransferencia;
 	private JMenuItemPersonalizado mntmprsnlzdSacramentos;
+	private JMenuItemPersonalizado mntmprsnlzdClase;
 
 	/**
 	 * Launch the application.
@@ -76,10 +76,6 @@ public class PantallaPrincipalVista extends JFrame {
 		mntmprsnlzdCatequista = new JMenuItemPersonalizado();
 		mntmprsnlzdCatequista.setText("catequista");
 		mnNewMenu.add(mntmprsnlzdCatequista);
-		
-		mntmprsnlzdClase = new JMenuItemPersonalizado();
-		mntmprsnlzdClase.setText("clase");
-		mnNewMenu.add(mntmprsnlzdClase);
 		
 		mntmprsnlzdEtapa = new JMenuItemPersonalizado();
 		mntmprsnlzdEtapa.setText("etapa");
@@ -133,6 +129,10 @@ public class PantallaPrincipalVista extends JFrame {
 		mntmprsnlzdTransferencia = new JMenuItemPersonalizado();
 		mntmprsnlzdTransferencia.setText("transferencia");
 		mnUtilidades.add(mntmprsnlzdTransferencia);
+		
+		mntmprsnlzdClase = new JMenuItemPersonalizado();
+		mntmprsnlzdClase.setText("clase");
+		mnUtilidades.add(mntmprsnlzdClase);
 		contentPane = new JPanelPantallaPrincipal();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -248,5 +248,4 @@ public class PantallaPrincipalVista extends JFrame {
 		return mntmprsnlzdSacramentos;
 		
 	}
-	
 }
