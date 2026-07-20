@@ -8,6 +8,7 @@ import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JList;
 
+import componentes.JButtonABM;
 import componentes.JComboCheckList;
 import componentes.JDialogGenerico;
 import componentes.JLabelGenerico;
@@ -24,6 +25,7 @@ public class GrupoCatequesisVista extends JDialogGenerico {
 	private JFormattedTextField tfAnho;
 	private JComboBox<EtapaModelo> cbEtapa;
 	private JComboCheckList<CatequistaModelo> comboCatequistas;
+	private JButtonABM btnVerClases;
 
 	/**
 	 * Launch the application.
@@ -100,6 +102,13 @@ public class GrupoCatequesisVista extends JDialogGenerico {
 		comboCatequistas = new JComboCheckList<CatequistaModelo>();
 		comboCatequistas.setBounds(103, 198, 373, 24);
 		getPanelFormulario().add(comboCatequistas);
+
+		// Acceso a la pantalla de Clases del grupo seleccionado en la tabla.
+		// Se ubica en el espacio libre arriba del buscador (que empieza en y=65).
+		btnVerClases = new JButtonABM();
+		btnVerClases.setText("Ver Clases");
+		btnVerClases.setBounds(535, 10, 150, 50);
+		getContentPane().add(btnVerClases);
 	}
 
 	public static long getSerialversionuid() {
@@ -120,6 +129,10 @@ public class GrupoCatequesisVista extends JDialogGenerico {
 
 	public JComboCheckList<CatequistaModelo> getComboCatequistas() {
 		return comboCatequistas;
+	}
+
+	public JButtonABM getBtnVerClases() {
+		return btnVerClases;
 	}
 
 }

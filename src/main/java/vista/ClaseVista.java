@@ -5,23 +5,29 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import componentes.JButtonABM;
 import componentes.JDialogGenericMini;
 import componentes.JLabelGenerico;
 import componentes.JtextFieldGenerico;
-import javax.swing.JCheckBox;
+import utilidades.FechaUtil;
 
 public class ClaseVista extends JDialogGenericMini {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
+	private JFormattedTextField tfFecha;
 	private JtextFieldGenerico tfDescripcion;
-	private JCheckBox cbEstado;
+	private JButtonABM btnTomarAsistencia;
 
 	/**
 	 * Launch the application.
+	 * Nota: este main() solo sirve para previsualizar el layout en WindowBuilder.
+	 * La pantalla real se abre desde GrupoCatequesisController.verClases(),
+	 * que instancia ClaseController(vista, grupo) con el grupo ya seleccionado.
 	 */
 	public static void main(String[] args) {
 		try {
@@ -37,6 +43,7 @@ public class ClaseVista extends JDialogGenericMini {
 	 * Create the dialog.
 	 */
 	public ClaseVista() {
+		setTitle("Clases");
 		setBounds(100, 100, 720, 720);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
@@ -58,24 +65,36 @@ public class ClaseVista extends JDialogGenericMini {
 				buttonPane.add(cancelButton);
 			}
 		}
-		
+
+		JLabelGenerico lblgnrcFecha = new JLabelGenerico((String) null);
+		lblgnrcFecha.setText("Fecha:");
+		lblgnrcFecha.setBounds(33, 67, 81, 28);
+		getPanelFormulario().add(lblgnrcFecha);
+
+		tfFecha = new JFormattedTextField(FechaUtil.getFormatoFecha());
+		tfFecha.setBounds(124, 69, 117, 24);
+		getPanelFormulario().add(tfFecha);
+
 		JLabelGenerico lblgnrcDescripcion = new JLabelGenerico((String) null);
 		lblgnrcDescripcion.setText("Descripcion:");
-		lblgnrcDescripcion.setBounds(33, 67, 81, 28);
+		lblgnrcDescripcion.setBounds(33, 122, 81, 28);
 		getPanelFormulario().add(lblgnrcDescripcion);
-		
-		JLabelGenerico lblgnrcEstado = new JLabelGenerico((String) null);
-		lblgnrcEstado.setText("Estado:");
-		lblgnrcEstado.setBounds(63, 122, 51, 28);
-		getPanelFormulario().add(lblgnrcEstado);
-		
+
 		tfDescripcion = new JtextFieldGenerico();
-		tfDescripcion.setBounds(124, 69, 532, 24);
+		tfDescripcion.setBounds(124, 124, 532, 24);
 		getPanelFormulario().add(tfDescripcion);
-		
-		cbEstado = new JCheckBox("Activo");
-		cbEstado.setBounds(123, 127, 92, 20);
-		getPanelFormulario().add(cbEstado);
+
+		// Acceso a la pantalla de Asistencia de la clase seleccionada en la tabla.
+		// Va dentro de panelFormulario (que usa layout null propio) y no
+		// directamente en getContentPane(): este ultimo cambia a BorderLayout
+		// mas arriba en este mismo constructor, y agregar ahi un componente sin
+		// una constraint explicita lo manda a CENTER, pisando a contentPanel y
+		// quedando mal posicionado/tapado. Dentro de panelFormulario no hay ese
+		// problema.
+		btnTomarAsistencia = new JButtonABM();
+		btnTomarAsistencia.setText("Tomar Asistencia");
+		btnTomarAsistencia.setBounds(33, 165, 220, 35);
+		getPanelFormulario().add(btnTomarAsistencia);
 	}
 
 	public static long getSerialversionuid() {
@@ -86,12 +105,16 @@ public class ClaseVista extends JDialogGenericMini {
 		return contentPanel;
 	}
 
+	public JFormattedTextField getTfFecha() {
+		return tfFecha;
+	}
+
 	public JtextFieldGenerico getTfDescripcion() {
 		return tfDescripcion;
 	}
 
-	public JCheckBox getCbEstado() {
-		return cbEstado;
+	public JButtonABM getBtnTomarAsistencia() {
+		return btnTomarAsistencia;
 	}
-	
+
 }

@@ -13,6 +13,7 @@ import modelo.EtapaModelo;
 import modelo.GrupoCatequesisModelo;
 import tabla.ModeloTablaGrupoCatequesis;
 import utilidades.FechaUtil;
+import vista.ClaseVista;
 import vista.GrupoCatequesisVista;
 
 public class GrupoCatequesisController implements InterfaceABM {
@@ -101,6 +102,8 @@ public class GrupoCatequesisController implements InterfaceABM {
 			public void removeUpdate(javax.swing.event.DocumentEvent e) { buscar(); }
 			public void changedUpdate(javax.swing.event.DocumentEvent e) { buscar(); }
 		});
+
+		this.vista.getBtnVerClases().addActionListener(e -> verClases());
 	}
 
 	private void estadoInicial() {
@@ -110,6 +113,7 @@ public class GrupoCatequesisController implements InterfaceABM {
 		this.vista.getBtnEliminar().setEnabled(false);
 		this.vista.getBtnCancelar().setEnabled(true);
 		this.vista.getBtnGuardar().setEnabled(false);
+		this.vista.getBtnVerClases().setEnabled(false);
 
 		// desactiva los campos
 		this.vista.getTfNombre().setEnabled(false);
@@ -133,6 +137,23 @@ public class GrupoCatequesisController implements InterfaceABM {
 
 		this.vista.getBtnEditar().setEnabled(true);
 		this.vista.getBtnEliminar().setEnabled(true);
+		this.vista.getBtnVerClases().setEnabled(true);
+	}
+
+	// Abre la pantalla de Clases para el grupo seleccionado en la tabla.
+	// El grupo viaja fijo al ClaseController: esa pantalla no tiene combo
+	// de grupo, toda clase que se cree ahi queda asociada a este grupo.
+	private void verClases() {
+		if (grupo == null) {
+			javax.swing.JOptionPane.showMessageDialog(this.vista,
+					"Seleccione un grupo en la tabla para ver sus clases.");
+			return;
+		}
+
+		ClaseVista claseVista = new ClaseVista();
+		new ClaseController(claseVista, grupo);
+		claseVista.setLocationRelativeTo(this.vista);
+		claseVista.setVisible(true);
 	}
 
 	@Override
@@ -142,6 +163,7 @@ public class GrupoCatequesisController implements InterfaceABM {
 		this.vista.getBtnEliminar().setEnabled(false);
 		this.vista.getBtnCancelar().setEnabled(true);
 		this.vista.getBtnGuardar().setEnabled(true);
+		this.vista.getBtnVerClases().setEnabled(false);
 
 		this.vista.getTfNombre().setEnabled(true);
 		this.vista.getTfAnho().setEnabled(true);
@@ -177,6 +199,7 @@ public class GrupoCatequesisController implements InterfaceABM {
 		this.vista.getBtnEliminar().setEnabled(false);
 		this.vista.getBtnGuardar().setEnabled(true);
 		this.vista.getBtnCancelar().setEnabled(true);
+		this.vista.getBtnVerClases().setEnabled(false);
 	}
 
 	@Override
