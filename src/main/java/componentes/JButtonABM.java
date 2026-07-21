@@ -34,7 +34,7 @@ public class JButtonABM extends JButton {
 
 	private void cargarIcono(String icono) {
 		try {
-			URL url = JMenuIntemPersonalizado.class.getResource("/iconos/"+icono.toLowerCase().replace(" ", "_")+"32.png");
+			URL url = JMenuItemPersonalizado.class.getResource("/iconos/"+icono.toLowerCase().replace(" ", "_")+"32.png");
 			this.setIcon(new ImageIcon(url));
 		} catch (Exception e) {
 			System.err.println("No se encontro el icono /iconos/"+icono.toLowerCase().replace(" ", "_")+"32.png");

@@ -1,21 +1,17 @@
 package vista;
 
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.border.EmptyBorder;
 
+import componentes.JButtonAccesoDirecto;
+import componentes.JMenuItemPersonalizado;
 import componentes.JPanelPantallaPrincipal;
 import controlador.PantallaPrincipalController;
-
-import javax.swing.JButton;
-import componentes.JButtonAccesoDirecto;
-import java.awt.Font;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import componentes.JMenuItemPersonalizado;
 
 public class PantallaPrincipalVista extends JFrame {
 

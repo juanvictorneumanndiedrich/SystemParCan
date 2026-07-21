@@ -45,11 +45,7 @@
 		</dependency>
 
 
-		<dependency>
-			<groupId>Facitec</groupId>
-			<artifactId>Facitec</artifactId>
-			<version>1.0</version>
-		</dependency>
+		
 	</dependencies>
   
   
