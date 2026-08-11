@@ -31,6 +31,12 @@ public class PantallaPrincipalVista extends JFrame {
 	private JMenuItemPersonalizado mntmprsnlzdTransferencia;
 	private JMenuItemPersonalizado mntmprsnlzdSacramentos;
 	private JMenuItemPersonalizado mntmprsnlzdClase;
+	private JButtonAccesoDirecto btncsdrctClases;
+	private JButtonAccesoDirecto btncsdrctCatequista;
+	private JButtonAccesoDirecto btncsdrctCatequizando;
+	private JButtonAccesoDirecto btncsdrctInscripcion;
+	private JButtonAccesoDirecto btncsdrctAsistencia;
+	private JButtonAccesoDirecto btncsdrctGrupocatequesis;
 
 	/**
 	 * Launch the application.
@@ -143,25 +149,25 @@ public class PantallaPrincipalVista extends JFrame {
 		final int ANCHO_BOTON = 120;
 		final int ALTO_BOTON = 135;
 
-		JButtonAccesoDirecto btncsdrctClases = new JButtonAccesoDirecto();
+		btncsdrctClases = new JButtonAccesoDirecto();
 		btncsdrctClases.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		btncsdrctClases.setText("clases");
 		btncsdrctClases.setBounds(85, 52, ANCHO_BOTON, ALTO_BOTON);
 		contentPane.add(btncsdrctClases);
 
-		JButtonAccesoDirecto btncsdrctCatequista = new JButtonAccesoDirecto();
+		btncsdrctCatequista = new JButtonAccesoDirecto();
 		btncsdrctCatequista.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		btncsdrctCatequista.setText("catequista");
 		btncsdrctCatequista.setBounds(287, 52, ANCHO_BOTON, ALTO_BOTON);
 		contentPane.add(btncsdrctCatequista);
 
-		JButtonAccesoDirecto btncsdrctCatequizando = new JButtonAccesoDirecto();
+		btncsdrctCatequizando = new JButtonAccesoDirecto();
 		btncsdrctCatequizando.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		btncsdrctCatequizando.setText("catequizando");
 		btncsdrctCatequizando.setBounds(500, 52, ANCHO_BOTON, ALTO_BOTON);
 		contentPane.add(btncsdrctCatequizando);
 
-		JButtonAccesoDirecto btncsdrctInscripcion = new JButtonAccesoDirecto();
+		btncsdrctInscripcion = new JButtonAccesoDirecto();
 		btncsdrctInscripcion.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		btncsdrctInscripcion.setText("inscripcion");
 		btncsdrctInscripcion.setBounds(914, 52, ANCHO_BOTON, ALTO_BOTON);
@@ -169,13 +175,13 @@ public class PantallaPrincipalVista extends JFrame {
 
 		// El boton de Etapas se saco del acceso rapido; Asistencia paso a
 		// ocupar ese mismo lugar.
-		JButtonAccesoDirecto btncsdrctAsistencia = new JButtonAccesoDirecto();
+		btncsdrctAsistencia = new JButtonAccesoDirecto();
 		btncsdrctAsistencia.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		btncsdrctAsistencia.setText("asistencia");
 		btncsdrctAsistencia.setBounds(1117, 52, ANCHO_BOTON, ALTO_BOTON);
 		contentPane.add(btncsdrctAsistencia);
 
-		JButtonAccesoDirecto btncsdrctGrupocatequesis = new JButtonAccesoDirecto();
+		btncsdrctGrupocatequesis = new JButtonAccesoDirecto();
 		btncsdrctGrupocatequesis.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		btncsdrctGrupocatequesis.setText("grupo_catequesis");
 		btncsdrctGrupocatequesis.setBounds(1323, 52, ANCHO_BOTON, ALTO_BOTON);
@@ -248,5 +254,29 @@ public class PantallaPrincipalVista extends JFrame {
 	public JMenuItemPersonalizado getMntmprsnlzdSacramentos() {
 		return mntmprsnlzdSacramentos;
 
+	}
+
+	public JButtonAccesoDirecto getBtncsdrctClases() {
+		return btncsdrctClases;
+	}
+
+	public JButtonAccesoDirecto getBtncsdrctCatequista() {
+		return btncsdrctCatequista;
+	}
+
+	public JButtonAccesoDirecto getBtncsdrctCatequizando() {
+		return btncsdrctCatequizando;
+	}
+
+	public JButtonAccesoDirecto getBtncsdrctInscripcion() {
+		return btncsdrctInscripcion;
+	}
+
+	public JButtonAccesoDirecto getBtncsdrctAsistencia() {
+		return btncsdrctAsistencia;
+	}
+
+	public JButtonAccesoDirecto getBtncsdrctGrupocatequesis() {
+		return btncsdrctGrupocatequesis;
 	}
 }

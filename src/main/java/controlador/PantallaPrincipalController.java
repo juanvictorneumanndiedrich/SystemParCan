@@ -7,6 +7,8 @@ import vista.GrupoCatequesisVista;
 import vista.InscripcionVista;
 import vista.SacramentoVista;
 import vista.PantallaPrincipalVista;
+import vista.ClasesVista;
+import vista.AsistenciasVista;
 import controlador.CatequizandoController;
 import controlador.CatequistaController;
 
@@ -26,6 +28,18 @@ public class PantallaPrincipalController {
         this.vista.getMntmprsnlzdGrupocatequesis().addActionListener(e -> abrirGrupoCatequesis());
         this.vista.getMntmprsnlzdSacramentos().addActionListener(e -> abrirSacramentos());
         this.vista.getMntmprsnlzdInscripcion().addActionListener(e -> abrirInscripcion());
+
+        // Botones de acceso rapido de la pantalla principal. Reusan los
+        // mismos metodos de apertura que los items del menu, salvo Clases y
+        // Asistencia, que ahora abren sus propias pantallas de acceso
+        // directo (ClasesVista / AsistenciasVista), pensadas para no
+        // depender de un Grupo/Clase ya elegido de antemano.
+        this.vista.getBtncsdrctClases().addActionListener(e -> abrirClases());
+        this.vista.getBtncsdrctCatequista().addActionListener(e -> abrirCatequista());
+        this.vista.getBtncsdrctCatequizando().addActionListener(e -> abrirCatequizando());
+        this.vista.getBtncsdrctInscripcion().addActionListener(e -> abrirInscripcion());
+        this.vista.getBtncsdrctAsistencia().addActionListener(e -> abrirAsistencias());
+        this.vista.getBtncsdrctGrupocatequesis().addActionListener(e -> abrirGrupoCatequesis());
     }
 
     private void abrirCatequizando() {
@@ -68,6 +82,27 @@ public class PantallaPrincipalController {
     	new InscripcionController(inscripcionVista);
     	inscripcionVista.setLocationRelativeTo(this.vista);
     	inscripcionVista.setVisible(true);
+    }
+
+    // Pantalla de Clases de acceso directo: a diferencia de la que se abre
+    // desde adentro de Grupo de Catequesis, aca el grupo de cada clase se
+    // elige con un combo en el propio formulario (ver ClasesController).
+    private void abrirClases() {
+    	ClasesVista clasesVista = new ClasesVista();
+    	new ClasesController(clasesVista);
+    	clasesVista.setLocationRelativeTo(this.vista);
+    	clasesVista.setVisible(true);
+    }
+
+    // Pantalla de Asistencia de acceso directo: a diferencia de la que se
+    // abre desde adentro de Clases, aca la clase se elige con dos combos en
+    // cascada (Grupo -> Clase) dentro de la propia pantalla (ver
+    // AsistenciasController).
+    private void abrirAsistencias() {
+    	AsistenciasVista asistenciasVista = new AsistenciasVista();
+    	new AsistenciasController(asistenciasVista);
+    	asistenciasVista.setLocationRelativeTo(this.vista);
+    	asistenciasVista.setVisible(true);
     }
 
 }
