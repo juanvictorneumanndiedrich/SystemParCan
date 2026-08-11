@@ -47,105 +47,106 @@ public class CatequistaVista extends JDialogGenerico {
 		}
 	}
 
-	
+
 	private void setUpControlador() {
 		new CatequistaController(this);
-		
+
 
 	}
-	
+
 	/**
 	 * Create the dialog.
 	 */
 	public CatequistaVista() {
+		setTitle("Catequistas");
 		setBounds(100, 100, 1080, 720);
 		getPanelFormulario().setLayout(null);
-		
+
 		JLabelGenerico lblgnrcNombre = new JLabelGenerico((String) null);
 		lblgnrcNombre.setText("Nombre:");
 		lblgnrcNombre.setBounds(31, 40, 62, 28);
 		getPanelFormulario().add(lblgnrcNombre);
-		
+
 		JLabelGenerico lblgnrcApellido = new JLabelGenerico((String) null);
 		lblgnrcApellido.setText("Apellido:");
 		lblgnrcApellido.setBounds(31, 91, 62, 28);
 		getPanelFormulario().add(lblgnrcApellido);
-		
+
 		JLabelGenerico lblgnrcDocumento = new JLabelGenerico((String) null);
 		lblgnrcDocumento.setText("Documento:");
 		lblgnrcDocumento.setBounds(31, 142, 80, 28);
 		getPanelFormulario().add(lblgnrcDocumento);
-		
+
 		JLabelGenerico lblgnrcTelefono = new JLabelGenerico((String) null);
 		lblgnrcTelefono.setText("Telefono:");
 		lblgnrcTelefono.setBounds(31, 196, 62, 28);
 		getPanelFormulario().add(lblgnrcTelefono);
-		
+
 		JLabelGenerico lblgnrcCorreo = new JLabelGenerico((String) null);
 		lblgnrcCorreo.setText("Correo:");
 		lblgnrcCorreo.setBounds(31, 248, 49, 28);
 		getPanelFormulario().add(lblgnrcCorreo);
-		
+
 		JLabelGenerico lblgnrcDireccion = new JLabelGenerico((String) null);
 		lblgnrcDireccion.setText("Direccion:");
 		lblgnrcDireccion.setBounds(31, 303, 62, 28);
 		getPanelFormulario().add(lblgnrcDireccion);
-		
+
 		JLabelGenerico lblgnrcE = new JLabelGenerico((String) null);
 		lblgnrcE.setText("Fecha de Nacimiento:");
 		lblgnrcE.setBounds(31, 358, 139, 28);
 		getPanelFormulario().add(lblgnrcE);
-		
+
 		JLabelGenerico lblgnrcFechaDeRegistro = new JLabelGenerico((String) null);
 		lblgnrcFechaDeRegistro.setText("Fecha de Registro:");
 		lblgnrcFechaDeRegistro.setBounds(31, 488, 117, 28);
 		getPanelFormulario().add(lblgnrcFechaDeRegistro);
-		
+
 		cbEstado = new JCheckBox("Activo");
 		cbEstado.setBounds(78, 418, 92, 20);
 		getPanelFormulario().add(cbEstado);
-		
+
 		tfNombre = new JtextFieldGenerico();
 		tfNombre.setBounds(103, 42, 223, 24);
 		getPanelFormulario().add(tfNombre);
-		
+
 		tfApellido = new JtextFieldGenerico();
 		tfApellido.setBounds(103, 93, 223, 24);
 		getPanelFormulario().add(tfApellido);
-		
+
 		tfDocumento = new JtextFieldGenerico();
 		tfDocumento.setBounds(121, 144, 223, 24);
 		getPanelFormulario().add(tfDocumento);
-		
+
 		tfTelefono = new JtextFieldGenerico();
 		tfTelefono.setBounds(103, 198, 223, 24);
 		getPanelFormulario().add(tfTelefono);
-		
+
 		tfCorreo = new JtextFieldGenerico();
 		tfCorreo.setBounds(103, 250, 223, 24);
 		getPanelFormulario().add(tfCorreo);
-		
+
 		tfDireccion = new JtextFieldGenerico();
 		tfDireccion.setBounds(103, 305, 373, 24);
 		getPanelFormulario().add(tfDireccion);
-		
+
 		tfFecha_nac = new JFormattedTextField(FechaUtil.getFormatoFecha());
 		tfFecha_nac.setBounds(180, 360, 117, 24);
 		getPanelFormulario().add(tfFecha_nac);
-		
+
 		tfFecha_reg = new JFormattedTextField(FechaUtil.getFormatoFecha());
 		tfFecha_reg.setBounds(158, 490, 117, 24);
 		getPanelFormulario().add(tfFecha_reg);
-		
+
 		JLabelGenerico lblgnrcSacramentos = new JLabelGenerico((String) null);
 		lblgnrcSacramentos.setText("Sacramentos:");
 		lblgnrcSacramentos.setBounds(31, 522, 90, 28);
 		getPanelFormulario().add(lblgnrcSacramentos);
-		
+
 		comboSacramentos = new JComboCheckList<SacramentoModelo>();
 		comboSacramentos.setBounds(124, 524, 300, 24);
 		getPanelFormulario().add(comboSacramentos);
-		
+
 	}
 
 	public static long getSerialversionuid() {
@@ -187,12 +188,12 @@ public class CatequistaVista extends JDialogGenerico {
 	public JFormattedTextField getTfFecha_reg() {
 		return tfFecha_reg;
 	}
-	
+
 	public JComboCheckList<SacramentoModelo> getComboSacramentos() {
 		return comboSacramentos;
 	}
-	
-	
-	
-	
+
+
+
+
 }

@@ -35,10 +35,10 @@ public class EtapaVista extends JDialogGenericMini {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void setUpControlador() {
 		new EtapaController(this);
-		
+
 
 	}
 
@@ -46,6 +46,7 @@ public class EtapaVista extends JDialogGenericMini {
 	 * Create the dialog.
 	 */
 	public EtapaVista() {
+		setTitle("Etapas");
 		setBounds(100, 100, 720, 720);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
@@ -55,27 +56,27 @@ public class EtapaVista extends JDialogGenericMini {
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			
+
 			JLabelGenerico lblgnrcDescripcion = new JLabelGenerico((String) null);
 			lblgnrcDescripcion.setText("Descripcion:");
 			lblgnrcDescripcion.setBounds(25, 59, 81, 28);
 			getPanelFormulario().add(lblgnrcDescripcion);
-			
+
 			cbEstado = new JCheckBox("Activo");
 			cbEstado.setBounds(116, 121, 92, 20);
 			getPanelFormulario().add(cbEstado);
-			
+
 			tfDescripcion = new JtextFieldGenerico();
 			tfDescripcion.setBounds(116, 61, 532, 24);
 			getPanelFormulario().add(tfDescripcion);
-			
+
 			JLabelGenerico lblgnrcEstado = new JLabelGenerico((String) null);
 			lblgnrcEstado.setText("Estado:");
 			lblgnrcEstado.setBounds(55, 116, 51, 28);
 			getPanelFormulario().add(lblgnrcEstado);
-			
-				
-			
+
+
+
 		}
 	}
 

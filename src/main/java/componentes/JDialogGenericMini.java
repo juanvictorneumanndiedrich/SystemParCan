@@ -7,7 +7,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
+import java.awt.GradientPaint;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +15,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -32,14 +31,16 @@ import interfaces.InterfaceABM;
  * JDialogGenerico, 720x720, usada por SacramentoVista y EtapaVista),
  * con el mismo tratamiento visual que JDialogGenerico:
  *
- * - Mismo fondo: la imagen /imagenes/fondo.jpg (la misma que
- * JPanelPantallaPrincipal) estirada a todo el tamaño del dialogo.
+ * - Fondo propio: a proposito NO usa la misma foto (/imagenes/fondo.jpg) que
+ * JPanelPantallaPrincipal, para que un ABM se distinga a simple vista de la
+ * pantalla principal. En su lugar usa un degrade solido en la misma
+ * paleta "Flat UI Colors" del resto de la app.
  * - Misma paleta "Flat UI Colors" (Midnight Blue / Wet Asphalt / Peter
- * River / Emerald / Alizarin / Concrete) que ya usa JButtonAccesoDirecto.
+ * River / Emerald / Alizarin / Naranja) que ya usa JButtonAccesoDirecto.
  * - El formulario y la tabla quedan como tarjetas blancas redondeadas
- * flotando sobre la foto.
+ * flotando sobre el fondo.
  * - "Buscador:" lleva la misma chapita translucida que JDialogGenerico,
- * para leerse bien sin importar la zona de la foto sobre la que caiga.
+ * para leerse bien sin importar la zona del degrade sobre la que caiga.
  *
  * OJO: a proposito, mantiene exactamente el mismo contrato publico que la
  * version anterior (mismos metodos get*, misma firma de constructor, mismas
@@ -68,6 +69,14 @@ public class JDialogGenericMini extends JDialog implements ActionListener {
 	private static final Color POMEGRANATE = new Color(192, 57, 43);
 	private static final Color CONCRETE = new Color(149, 165, 166);
 	private static final Color ASBESTOS = new Color(127, 140, 141);
+	private static final Color ORANGE = new Color(243, 156, 18);
+	private static final Color PUMPKIN = new Color(211, 84, 0);
+
+	// Fondo propio del ABM: degrade "Wet Asphalt" -> "Midnight Blue", bien
+	// distinto de la foto que usa la pantalla principal, para que a simple
+	// vista se note que se esta en una pantalla de ABM.
+	private static final Color COLOR_DEGRADE_INICIO = new Color(84, 110, 138);
+	private static final Color COLOR_DEGRADE_FIN = MIDNIGHT_BLUE;
 
 	private static final Color COLOR_NUEVO = EMERALD;
 	private static final Color COLOR_NUEVO_HOVER = NEPHRITIS;
@@ -77,8 +86,11 @@ public class JDialogGenericMini extends JDialog implements ActionListener {
 	private static final Color COLOR_GUARDAR_HOVER = MIDNIGHT_BLUE;
 	private static final Color COLOR_ELIMINAR = ALIZARIN;
 	private static final Color COLOR_ELIMINAR_HOVER = POMEGRANATE;
-	private static final Color COLOR_CANCELAR = CONCRETE;
-	private static final Color COLOR_CANCELAR_HOVER = ASBESTOS;
+	// El Cancelar usaba un gris (Concrete) muy parecido al gris de boton
+	// deshabilitado, por lo que parecia inactivo. Ahora usa un color propio
+	// y bien saturado (naranja) para que se note que es un boton activo.
+	private static final Color COLOR_CANCELAR = ORANGE;
+	private static final Color COLOR_CANCELAR_HOVER = PUMPKIN;
 	private static final Color COLOR_BOTON_DESHABILITADO = new Color(210, 215, 216);
 	private static final Color COLOR_TEXTO_DESHABILITADO = ASBESTOS;
 
@@ -146,7 +158,7 @@ public class JDialogGenericMini extends JDialog implements ActionListener {
 		panelFormulario.setLayout(null);
 
 		// La tabla tambien queda en una tarjeta redondeada, para que combine
-		// visualmente con el formulario ahora que ambas flotan sobre la foto.
+		// visualmente con el formulario ahora que ambas flotan sobre el fondo.
 		JPanel tarjetaTabla = new TarjetaPanel();
 		tarjetaTabla.setBounds(10, 355, 686, 318);
 		tarjetaTabla.setLayout(null);
@@ -276,22 +288,16 @@ public class JDialogGenericMini extends JDialog implements ActionListener {
 	// =================================================================
 
 	/**
-	 * Fondo del dialogo: la misma imagen que usa PantallaPrincipalVista
-	 * (/imagenes/fondo.jpg), estirada a todo el tamaño del dialogo con la
-	 * misma logica que JPanelPantallaPrincipal, para que el estilo sea
-	 * identico al de la pantalla principal.
+	 * Fondo del dialogo: degrade solido propio (Wet Asphalt -> Midnight
+	 * Blue), a proposito distinto de la foto (/imagenes/fondo.jpg) que usa
+	 * JPanelPantallaPrincipal en la pantalla principal, para que un ABM se
+	 * distinga claramente de la pantalla principal.
 	 */
 	private static class PanelFondoDialogo extends JPanel {
 
 		private static final long serialVersionUID = 1L;
-		private Image imagenFondo;
 
 		public PanelFondoDialogo() {
-			try {
-				imagenFondo = new ImageIcon(getClass().getResource("/imagenes/fondo.jpg")).getImage();
-			} catch (Exception e) {
-				System.err.println("No se encontro la imagen /imagenes/fondo.jpg");
-			}
 			setOpaque(true);
 			setBackground(COLOR_FONDO);
 		}
@@ -299,9 +305,11 @@ public class JDialogGenericMini extends JDialog implements ActionListener {
 		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
-			if (imagenFondo != null) {
-				g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
-			}
+			Graphics2D g2 = (Graphics2D) g.create();
+			GradientPaint degrade = new GradientPaint(0, 0, COLOR_DEGRADE_INICIO, 0, getHeight(), COLOR_DEGRADE_FIN);
+			g2.setPaint(degrade);
+			g2.fillRect(0, 0, getWidth(), getHeight());
+			g2.dispose();
 		}
 	}
 
@@ -382,7 +390,7 @@ public class JDialogGenericMini extends JDialog implements ActionListener {
 	/**
 	 * Panel "tarjeta": fondo blanco con esquinas redondeadas, borde suave y
 	 * una leve sombra. Se usa tanto para panelFormulario como para envolver
-	 * la tabla, asi ambas mitades flotan igual sobre la foto de fondo. Los
+	 * la tabla, asi ambas mitades flotan igual sobre el fondo. Los
 	 * hijos se siguen posicionando con coordenadas relativas a (0,0) del
 	 * panel, igual que antes.
 	 */
@@ -419,7 +427,7 @@ public class JDialogGenericMini extends JDialog implements ActionListener {
 	/**
 	 * Etiqueta "flotante": el mismo JLabelGenerico de siempre, pero con una
 	 * chapita blanca translucida detras del texto, para que se lea bien
-	 * sobre cualquier zona de la foto de fondo, clara u oscura.
+	 * sobre cualquier zona del fondo, clara u oscura.
 	 */
 	private static class EtiquetaFlotante extends JLabelGenerico {
 
