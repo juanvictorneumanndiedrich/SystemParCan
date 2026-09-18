@@ -6,6 +6,7 @@ import java.util.List;
 
 import dao.SacramentoDAO;
 import interfaces.InterfaceABM;
+import validaciones.ValidadorCampos;
 import modelo.SacramentoModelo;
 import tabla.ModeloTablaSacramento;
 import vista.SacramentoVista;
@@ -116,7 +117,16 @@ public class SacramentoController implements InterfaceABM {
 
 	@Override
 	public void guardar() {
-		sacramento.setSacr_nombre(this.vista.getTfNombre().getText().trim());
+		String nombre = this.vista.getTfNombre().getText();
+
+		if (!ValidadorCampos.esObligatorio(nombre) || !ValidadorCampos.esSoloTexto(nombre)) {
+			javax.swing.JOptionPane.showMessageDialog(this.vista,
+					"El nombre del sacramento es obligatorio y solo puede contener letras.",
+					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+
+		sacramento.setSacr_nombre(nombre.trim());
 
 		try {
 			dao.guardar(sacramento);

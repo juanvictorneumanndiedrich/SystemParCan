@@ -6,6 +6,7 @@ import java.util.List;
 
 import dao.EtapaDAO;
 import interfaces.InterfaceABM;
+import validaciones.ValidadorCampos;
 import modelo.EtapaModelo;
 import tabla.EstadoCellRenderer;
 import tabla.ModeloTablaEtapa;
@@ -119,7 +120,16 @@ public class EtapaController implements InterfaceABM {
 
     @Override
     public void guardar() {
-        etapa.setEtap_descripcion(this.vista.getTfDescripcion().getText());
+        String descripcion = this.vista.getTfDescripcion().getText();
+
+        if (!ValidadorCampos.esObligatorio(descripcion)) {
+            javax.swing.JOptionPane.showMessageDialog(this.vista,
+                    "La descripcion de la etapa es obligatoria.",
+                    "Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        etapa.setEtap_descripcion(descripcion);
         etapa.setEtap_estado(this.vista.getCbEstado().isSelected());
 
         try {

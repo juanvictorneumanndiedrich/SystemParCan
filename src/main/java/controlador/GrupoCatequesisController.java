@@ -9,6 +9,7 @@ import dao.CatequistaDAO;
 import dao.EtapaDAO;
 import dao.GrupoCatequesisDAO;
 import interfaces.InterfaceABM;
+import validaciones.ValidadorCampos;
 import modelo.EtapaModelo;
 import modelo.GrupoCatequesisModelo;
 import tabla.ModeloTablaGrupoCatequesis;
@@ -204,7 +205,16 @@ public class GrupoCatequesisController implements InterfaceABM {
 
 	@Override
 	public void guardar() {
-		grupo.setGrup_nombre(this.vista.getTfNombre().getText());
+		String nombre = this.vista.getTfNombre().getText();
+
+		if (!ValidadorCampos.esObligatorio(nombre)) {
+			javax.swing.JOptionPane.showMessageDialog(this.vista,
+					"El nombre del grupo es obligatorio.",
+					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+
+		grupo.setGrup_nombre(nombre);
 		grupo.setGrup_anho(FechaUtil.stringAFecha(this.vista.getTfAnho().getText()));
 		grupo.setEtapa((EtapaModelo) this.vista.getCbEtapa().getSelectedItem());
 		grupo.setCatequistas(this.vista.getComboCatequistas().getSeleccionados());

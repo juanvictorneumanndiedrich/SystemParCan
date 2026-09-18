@@ -9,6 +9,7 @@ import dao.CatequistaDAO;
 import dao.CatequizandoDAO;
 import dao.SacramentoDAO;
 import interfaces.InterfaceABM;
+import validaciones.ValidadorCampos;
 import modelo.CatequistaModelo;
 import modelo.CatequizandoModelo;
 import tabla.EstadoCellRenderer;
@@ -222,14 +223,58 @@ public class CatequistaController  implements InterfaceABM{
 	}
 	@Override
 	public void guardar() {
+		String nombre = this.vista.getTfNombre().getText();
+		String apellido = this.vista.getTfApellido().getText();
+		String documento = this.vista.getTfDocumento().getText();
+		String telefono = this.vista.getTfTelefono().getText();
+		String correo = this.vista.getTfCorreo().getText();
+		String direccion = this.vista.getTfDireccion().getText();
+
+		if (!ValidadorCampos.esObligatorio(nombre) || !ValidadorCampos.esSoloTexto(nombre)) {
+			javax.swing.JOptionPane.showMessageDialog(this.vista,
+					"El nombre es obligatorio y solo puede contener letras.",
+					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		if (!ValidadorCampos.esObligatorio(apellido) || !ValidadorCampos.esSoloTexto(apellido)) {
+			javax.swing.JOptionPane.showMessageDialog(this.vista,
+					"El apellido es obligatorio y solo puede contener letras.",
+					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		if (!ValidadorCampos.esObligatorio(documento) || !ValidadorCampos.esSoloNumeros(documento)) {
+			javax.swing.JOptionPane.showMessageDialog(this.vista,
+					"El documento es obligatorio y solo puede contener numeros.",
+					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		if (!ValidadorCampos.esObligatorio(telefono) || !ValidadorCampos.esSoloNumeros(telefono)) {
+			javax.swing.JOptionPane.showMessageDialog(this.vista,
+					"El telefono es obligatorio y solo puede contener numeros.",
+					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		if (!ValidadorCampos.esObligatorio(correo)) {
+			javax.swing.JOptionPane.showMessageDialog(this.vista,
+					"El correo es obligatorio.",
+					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		if (!ValidadorCampos.esObligatorio(direccion)) {
+			javax.swing.JOptionPane.showMessageDialog(this.vista,
+					"La direccion es obligatoria.",
+					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+
 		catequista.setCat_fechaRegistro(FechaUtil.stringAFecha(this.vista.getTfFecha_reg().getText()));
 		catequista.setCat_fechaNacimiento(FechaUtil.stringAFecha(this.vista.getTfFecha_nac().getText()));
-		catequista.setCat_nombre(this.vista.getTfNombre().getText());
-		catequista.setCat_apellido(this.vista.getTfApellido().getText());
-		catequista.setCat_documento(this.vista.getTfDocumento().getText());
-		catequista.setCat_correo(this.vista.getTfCorreo().getText());
-		catequista.setCat_telefono(this.vista.getTfTelefono().getText());
-		catequista.setCat_direccion(this.vista.getTfDireccion().getText());
+		catequista.setCat_nombre(nombre);
+		catequista.setCat_apellido(apellido);
+		catequista.setCat_documento(documento);
+		catequista.setCat_correo(correo);
+		catequista.setCat_telefono(telefono);
+		catequista.setCat_direccion(direccion);
 		catequista.setCat_estado(this.vista.getCbEstado().isSelected());
 		catequista.setSacramentos(this.vista.getComboSacramentos().getSeleccionados());
 		

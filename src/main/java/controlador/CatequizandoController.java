@@ -8,6 +8,7 @@ import java.util.List;
 import dao.CatequizandoDAO;
 import dao.SacramentoDAO;
 import interfaces.InterfaceABM;
+import validaciones.ValidadorCampos;
 import modelo.CatequizandoModelo;
 import tabla.EstadoCellRenderer;
 import tabla.ModeloTablaCatequizando;
@@ -192,16 +193,74 @@ public class CatequizandoController implements InterfaceABM {
 	@Override
 	public void guardar() {
 		
+		String nombre = this.vista.getTfNombre().getText();
+		String apellido = this.vista.getTfApellido().getText();
+		String documento = this.vista.getTfDocumento().getText();
+		String telefono = this.vista.getTfTelefono().getText();
+		String correo = this.vista.getTfCorreo().getText();
+		String direccion = this.vista.getTfDireccion().getText();
+		String nombreResponsable = this.vista.getTfNombreResponsable().getText();
+		String contactoResponsable = this.vista.getTfContactoResponsable().getText();
+
+		if (!ValidadorCampos.esObligatorio(nombre) || !ValidadorCampos.esSoloTexto(nombre)) {
+			javax.swing.JOptionPane.showMessageDialog(this.vista,
+					"El nombre es obligatorio y solo puede contener letras.",
+					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		if (!ValidadorCampos.esObligatorio(apellido) || !ValidadorCampos.esSoloTexto(apellido)) {
+			javax.swing.JOptionPane.showMessageDialog(this.vista,
+					"El apellido es obligatorio y solo puede contener letras.",
+					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		if (!ValidadorCampos.esObligatorio(documento) || !ValidadorCampos.esSoloNumeros(documento)) {
+			javax.swing.JOptionPane.showMessageDialog(this.vista,
+					"El documento es obligatorio y solo puede contener numeros.",
+					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		if (!ValidadorCampos.esObligatorio(telefono) || !ValidadorCampos.esSoloNumeros(telefono)) {
+			javax.swing.JOptionPane.showMessageDialog(this.vista,
+					"El telefono es obligatorio y solo puede contener numeros.",
+					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		if (!ValidadorCampos.esObligatorio(correo)) {
+			javax.swing.JOptionPane.showMessageDialog(this.vista,
+					"El correo es obligatorio.",
+					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		if (!ValidadorCampos.esObligatorio(direccion)) {
+			javax.swing.JOptionPane.showMessageDialog(this.vista,
+					"La direccion es obligatoria.",
+					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		if (!ValidadorCampos.esObligatorio(nombreResponsable) || !ValidadorCampos.esSoloTexto(nombreResponsable)) {
+			javax.swing.JOptionPane.showMessageDialog(this.vista,
+					"El nombre del responsable es obligatorio y solo puede contener letras.",
+					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		if (!ValidadorCampos.esObligatorio(contactoResponsable) || !ValidadorCampos.esSoloNumeros(contactoResponsable)) {
+			javax.swing.JOptionPane.showMessageDialog(this.vista,
+					"El contacto del responsable es obligatorio y solo puede contener numeros.",
+					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+
 		catequizando.setCatz_fechaRegistro(FechaUtil.stringAFecha(this.vista.getTfFecha_reg().getText()));
 		catequizando.setCatz_fechaNacimiento(FechaUtil.stringAFecha(this.vista.getTfFecha_nac().getText()));
-		catequizando.setCatz_nombre(this.vista.getTfNombre().getText());
-		catequizando.setCatz_apellido(this.vista.getTfApellido().getText());
-		catequizando.setCatz_documento(this.vista.getTfDocumento().getText());
-		catequizando.setCatz_correo(this.vista.getTfCorreo().getText());
-		catequizando.setCatz_telefono(this.vista.getTfTelefono().getText());
-		catequizando.setCatz_direccion(this.vista.getTfDireccion().getText());
-		catequizando.setCatz_nombreResponsable(this.vista.getTfNombreResponsable().getText());
-		catequizando.setCatz_contactoResponsable(this.vista.getTfContactoResponsable().getText());
+		catequizando.setCatz_nombre(nombre);
+		catequizando.setCatz_apellido(apellido);
+		catequizando.setCatz_documento(documento);
+		catequizando.setCatz_correo(correo);
+		catequizando.setCatz_telefono(telefono);
+		catequizando.setCatz_direccion(direccion);
+		catequizando.setCatz_nombreResponsable(nombreResponsable);
+		catequizando.setCatz_contactoResponsable(contactoResponsable);
 		catequizando.setCatz_estado(this.vista.getJcbEstado().isSelected());
 		catequizando.setSacramentos(this.vista.getComboSacramentos().getSeleccionados());
 		
