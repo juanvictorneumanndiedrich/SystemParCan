@@ -24,6 +24,8 @@ public class PantallaPrincipalVista extends JFrame {
 	private JMenuItemPersonalizado mntmprsnlzdCatequizando_1;
 	private JMenuItemPersonalizado mntmprsnlzdCatequistas;
 	private JMenuItemPersonalizado mntmprsnlzdGrupocatequesis_1;
+	private JMenuItemPersonalizado mntmprsnlzdEtapa_1;
+	private JMenuItemPersonalizado mntmprsnlzdSacramentos_1;
 	private JMenuItemPersonalizado mntmprsnlzdCatequizando_2;
 	private JMenuItemPersonalizado mntmprsnlzdCatequista_1;
 	private JMenuItemPersonalizado mntmprsnlzdAsistencia;
@@ -105,6 +107,14 @@ public class PantallaPrincipalVista extends JFrame {
 		mntmprsnlzdGrupocatequesis_1 = new JMenuItemPersonalizado();
 		mntmprsnlzdGrupocatequesis_1.setText("grupo_catequesis");
 		mnInformes.add(mntmprsnlzdGrupocatequesis_1);
+
+		mntmprsnlzdEtapa_1 = new JMenuItemPersonalizado();
+		mntmprsnlzdEtapa_1.setText("etapa");
+		mnInformes.add(mntmprsnlzdEtapa_1);
+
+		mntmprsnlzdSacramentos_1 = new JMenuItemPersonalizado();
+		mntmprsnlzdSacramentos_1.setText("sacramentos");
+		mnInformes.add(mntmprsnlzdSacramentos_1);
 
 		JMenu mnInformes_1 = new JMenu("Informes");
 		menuBar.add(mnInformes_1);
@@ -229,6 +239,14 @@ public class PantallaPrincipalVista extends JFrame {
 
 	public JMenuItemPersonalizado getMntmprsnlzdGrupocatequesis_1() {
 		return mntmprsnlzdGrupocatequesis_1;
+	}
+
+	public JMenuItemPersonalizado getMntmprsnlzdEtapa_1() {
+		return mntmprsnlzdEtapa_1;
+	}
+
+	public JMenuItemPersonalizado getMntmprsnlzdSacramentos_1() {
+		return mntmprsnlzdSacramentos_1;
 	}
 
 	public JMenuItemPersonalizado getMntmprsnlzdCatequizando_2() {

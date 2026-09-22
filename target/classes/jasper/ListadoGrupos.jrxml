@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.5.final using JasperReports Library version 6.21.5-74d586df47b25dbd05bd0957999819196e59934a  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListadoGrupos" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7c324eb1-2be0-4dac-8d91-18f33eda070e">
+	<style name="Base" fontName="SansSerif" fontSize="9" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+	<style name="Titulo" style="Base" forecolor="#2C3E50" fontSize="18" isBold="true"/>
+	<style name="Subtitulo" style="Base" forecolor="#7F8C8D" fontSize="10"/>
+	<style name="Encabezado" style="Base" mode="Opaque" forecolor="#FFFFFF" backcolor="#2C3E50" fontSize="9" isBold="true"/>
+	<style name="Celda" style="Base" forecolor="#34495E" fontSize="9">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT} % 2 == 1]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F5F7F8"/>
+		</conditionalStyle>
+	</style>
+	<style name="Pie" style="Base" forecolor="#7F8C8D" fontSize="8"/>
+	<parameter name="P_TITULO" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["Listado de Grupos de Catequesis"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_SUBTITULO" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_INSTITUCION" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["SystemParCan"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_LOGO" class="java.io.InputStream" isForPrompting="false"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="anho" class="java.lang.String"/>
+	<field name="etapa" class="java.lang.String"/>
+	<field name="catequistas" class="java.lang.String"/>
+	<field name="catequizandosInscritos" class="java.lang.Integer"/>
+	<field name="clasesDictadas" class="java.lang.Integer"/>
+	<title>
+		<band height="70" splitType="Stretch">
+			<image scaleImage="RetainShape" hAlign="Left" vAlign="Middle" onErrorType="Blank">
+				<reportElement x="0" y="0" width="60" height="50" uuid="0a13d3ee-a1c5-4b80-814a-139f89c87f54">
+					<printWhenExpression><![CDATA[$P{P_LOGO} != null]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[$P{P_LOGO}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement style="Titulo" x="70" y="0" width="540" height="26" uuid="4a0a7ddc-2ae1-44ac-852b-0ba9b8b5bb8f"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{P_TITULO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Subtitulo" x="70" y="26" width="540" height="14" uuid="9585c683-aa6a-4620-a4d8-d7fff6908b8c"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{P_INSTITUCION}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Subtitulo" x="70" y="40" width="540" height="14" uuid="ecdfdd97-5b6d-434b-86cd-d7c603b97901"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{P_SUBTITULO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH:mm">
+				<reportElement style="Subtitulo" x="622" y="0" width="180" height="14" uuid="02aa6c74-3d69-4d76-8f6c-798998f6e798"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="62" width="802" height="1" forecolor="#2C3E50" uuid="e1de3044-dc77-4937-aad6-bf83df0a1e06"/>
+				<graphicElement>
+					<pen lineWidth="1.5"/>
+				</graphicElement>
+			</line>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="22">
+			<staticText>
+				<reportElement style="Encabezado" x="0" y="0" width="25" height="22" uuid="0bf57ffb-ea89-43c8-ae34-94e1437f3f7f"/>
+				<box padding="2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[#]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Encabezado" x="25" y="0" width="140" height="22" uuid="4a82ed03-e77d-4726-9876-e403ebc62f28"/>
+				<box padding="2"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Encabezado" x="165" y="0" width="50" height="22" uuid="35804e31-156b-4e89-b933-2bbf02e26f58"/>
+				<box padding="2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Año]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Encabezado" x="215" y="0" width="120" height="22" uuid="fe60d804-e847-4d48-892d-4b31c85bf4f3"/>
+				<box padding="2"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Etapa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Encabezado" x="335" y="0" width="250" height="22" uuid="97346b24-7ea9-4175-8217-dc9b628defc7"/>
+				<box padding="2"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Catequistas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Encabezado" x="585" y="0" width="110" height="22" uuid="f53c7234-1997-454b-b51f-ac0ed689f07f"/>
+				<box padding="2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Catequizandos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Encabezado" x="695" y="0" width="107" height="22" uuid="0e440c79-5bdc-4372-868d-f77d4de9aee3"/>
+				<box padding="2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Clases]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Prevent">
+			<textField>
+				<reportElement style="Celda" stretchType="RelativeToBandHeight" x="0" y="0" width="25" height="18" uuid="4a84818d-3fb8-4f13-a726-e4d841cd1ee0"/>
+				<box padding="2">
+					<bottomPen lineWidth="0.5" lineColor="#DFE4E5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement style="Celda" stretchType="RelativeToBandHeight" x="25" y="0" width="140" height="18" uuid="14281e52-ef33-4459-9d44-14978a21528e"/>
+				<box padding="2">
+					<bottomPen lineWidth="0.5" lineColor="#DFE4E5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Celda" stretchType="RelativeToBandHeight" x="165" y="0" width="50" height="18" uuid="e2afd1cd-5b2e-4f33-98a4-f76dca8db7b3"/>
+				<box padding="2">
+					<bottomPen lineWidth="0.5" lineColor="#DFE4E5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{anho}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement style="Celda" stretchType="RelativeToBandHeight" x="215" y="0" width="120" height="18" uuid="eaae0c24-4b76-4e28-b15c-2a23af2db589"/>
+				<box padding="2">
+					<bottomPen lineWidth="0.5" lineColor="#DFE4E5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{etapa}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement style="Celda" stretchType="RelativeToBandHeight" x="335" y="0" width="250" height="18" uuid="c95c4bd5-d34d-447b-a269-909860763bd7"/>
+				<box padding="2">
+					<bottomPen lineWidth="0.5" lineColor="#DFE4E5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{catequistas}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Celda" stretchType="RelativeToBandHeight" x="585" y="0" width="110" height="18" uuid="bb7f844d-160e-425e-8096-ced0d2c20e97"/>
+				<box padding="2">
+					<bottomPen lineWidth="0.5" lineColor="#DFE4E5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{catequizandosInscritos}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Celda" stretchType="RelativeToBandHeight" x="695" y="0" width="107" height="18" uuid="a1a76774-6231-4356-b202-8f2132564394"/>
+				<box padding="2">
+					<bottomPen lineWidth="0.5" lineColor="#DFE4E5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{clasesDictadas}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20">
+			<line>
+				<reportElement x="0" y="2" width="802" height="1" forecolor="#BDC3C7" uuid="b8b3c7e3-16a3-40a7-a91b-1bbba1907b8e"/>
+			</line>
+			<textField>
+				<reportElement style="Pie" x="0" y="5" width="400" height="14" uuid="50c457f1-e0ba-472b-b4ca-b7edad0c8c9e"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{P_INSTITUCION} + " - " + $P{P_TITULO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Pie" x="602" y="5" width="160" height="14" uuid="76131197-9f33-4334-a0bc-2c19fe7890f4"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER} + " de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Pie" x="762" y="5" width="40" height="14" uuid="56e13dc8-325a-43d5-9339-daf885f2f2c9"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="40">
+			<staticText>
+				<reportElement style="Base" x="0" y="8" width="802" height="14" uuid="bf08ce08-c757-4712-ba48-f36d75fb60f6"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Resumen]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Base" x="0" y="22" width="802" height="14" uuid="e50edecb-12f6-47ac-90ea-46012424b361"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Total de grupos: " + $V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,5 +1,22 @@
 package controlador;
 
+import java.util.HashMap;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+
+import dao.CatequistaDAO;
+import dao.CatequizandoDAO;
+import dao.EtapaDAO;
+import dao.GrupoCatequesisDAO;
+import dao.SacramentoDAO;
+import net.sf.jasperreports.engine.JRException;
+import reportes.GeneradorReportes;
+import reportes.ReporteEtapaDTO;
+import reportes.ReporteGrupoDTO;
+import reportes.ReportePersonaDTO;
+import reportes.ReporteSacramentoDTO;
+import utilidades.ConexionJasper;
 import vista.CatequistaVista;
 import vista.CatequizandoVista;
 import vista.EtapaVista;
@@ -28,6 +45,16 @@ public class PantallaPrincipalController {
         this.vista.getMntmprsnlzdGrupocatequesis().addActionListener(e -> abrirGrupoCatequesis());
         this.vista.getMntmprsnlzdSacramentos().addActionListener(e -> abrirSacramentos());
         this.vista.getMntmprsnlzdInscripcion().addActionListener(e -> abrirInscripcion());
+
+        // Menu "Listados": un listado (reporte Jasper) por cada ABM de
+        // registro (Catequista, Catequizando, Etapa, Grupo de Catequesis,
+        // Sacramento). Quedan afuera las ABMs que son mas evento/transaccion
+        // (Clase, Inscripcion, Transferencia, Asistencia).
+        this.vista.getMntmprsnlzdCatequizando_1().addActionListener(e -> abrirListadoCatequizandos());
+        this.vista.getMntmprsnlzdCatequistas().addActionListener(e -> abrirListadoCatequistas());
+        this.vista.getMntmprsnlzdGrupocatequesis_1().addActionListener(e -> abrirListadoGrupos());
+        this.vista.getMntmprsnlzdEtapa_1().addActionListener(e -> abrirListadoEtapas());
+        this.vista.getMntmprsnlzdSacramentos_1().addActionListener(e -> abrirListadoSacramentos());
 
         // Botones de acceso rapido de la pantalla principal. Reusan los
         // mismos metodos de apertura que los items del menu, salvo Clases y
@@ -103,6 +130,76 @@ public class PantallaPrincipalController {
     	new AsistenciasController(asistenciasVista);
     	asistenciasVista.setLocationRelativeTo(this.vista);
     	asistenciasVista.setVisible(true);
+    }
+
+    // ===================== Listados (menu "Listados") =====================
+    // Cada metodo arma su lista de datos via GeneradorReportes y se la pasa
+    // a ConexionJasper, que compila el .jrxml del mismo nombre (ultimo
+    // parametro de generarReporte) y lo muestra en una ventana modal.
+
+    private void abrirListadoCatequistas() {
+        try {
+            List<ReportePersonaDTO> lista = GeneradorReportes.listarCatequistas(new CatequistaDAO(), new GrupoCatequesisDAO());
+            ConexionJasper<ReportePersonaDTO> conexion = new ConexionJasper<>();
+            conexion.generarReporte(lista, new HashMap<>(), "ListadoCatequistas");
+            conexion.ventanaReporte.setLocationRelativeTo(this.vista);
+            conexion.ventanaReporte.setVisible(true);
+        } catch (JRException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this.vista, "No se pudo generar el listado de catequistas.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void abrirListadoCatequizandos() {
+        try {
+            List<ReportePersonaDTO> lista = GeneradorReportes.listarCatequizandos(new CatequizandoDAO());
+            ConexionJasper<ReportePersonaDTO> conexion = new ConexionJasper<>();
+            conexion.generarReporte(lista, new HashMap<>(), "ListadoCatequizandos");
+            conexion.ventanaReporte.setLocationRelativeTo(this.vista);
+            conexion.ventanaReporte.setVisible(true);
+        } catch (JRException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this.vista, "No se pudo generar el listado de catequizandos.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void abrirListadoGrupos() {
+        try {
+            List<ReporteGrupoDTO> lista = GeneradorReportes.listarGrupos(new GrupoCatequesisDAO());
+            ConexionJasper<ReporteGrupoDTO> conexion = new ConexionJasper<>();
+            conexion.generarReporte(lista, new HashMap<>(), "ListadoGrupos");
+            conexion.ventanaReporte.setLocationRelativeTo(this.vista);
+            conexion.ventanaReporte.setVisible(true);
+        } catch (JRException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this.vista, "No se pudo generar el listado de grupos.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void abrirListadoEtapas() {
+        try {
+            List<ReporteEtapaDTO> lista = GeneradorReportes.listarEtapas(new EtapaDAO());
+            ConexionJasper<ReporteEtapaDTO> conexion = new ConexionJasper<>();
+            conexion.generarReporte(lista, new HashMap<>(), "ListadoEtapas");
+            conexion.ventanaReporte.setLocationRelativeTo(this.vista);
+            conexion.ventanaReporte.setVisible(true);
+        } catch (JRException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this.vista, "No se pudo generar el listado de etapas.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void abrirListadoSacramentos() {
+        try {
+            List<ReporteSacramentoDTO> lista = GeneradorReportes.listarSacramentos(new SacramentoDAO());
+            ConexionJasper<ReporteSacramentoDTO> conexion = new ConexionJasper<>();
+            conexion.generarReporte(lista, new HashMap<>(), "ListadoSacramentos");
+            conexion.ventanaReporte.setLocationRelativeTo(this.vista);
+            conexion.ventanaReporte.setVisible(true);
+        } catch (JRException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this.vista, "No se pudo generar el listado de sacramentos.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
 }
