@@ -26,9 +26,10 @@ public class PantallaPrincipalVista extends JFrame {
 	private JMenuItemPersonalizado mntmprsnlzdGrupocatequesis_1;
 	private JMenuItemPersonalizado mntmprsnlzdEtapa_1;
 	private JMenuItemPersonalizado mntmprsnlzdSacramentos_1;
-	private JMenuItemPersonalizado mntmprsnlzdCatequizando_2;
-	private JMenuItemPersonalizado mntmprsnlzdCatequista_1;
 	private JMenuItemPersonalizado mntmprsnlzdAsistencia;
+	private JMenuItemPersonalizado mntmprsnlzdInscripcion_1;
+	private JMenuItemPersonalizado mntmprsnlzdTransferencia_1;
+	private JMenuItemPersonalizado mntmprsnlzdClase_1;
 	private JMenuItemPersonalizado mntmprsnlzdInscripcion;
 	private JMenuItemPersonalizado mntmprsnlzdTransferencia;
 	private JMenuItemPersonalizado mntmprsnlzdSacramentos;
@@ -116,20 +117,27 @@ public class PantallaPrincipalVista extends JFrame {
 		mntmprsnlzdSacramentos_1.setText("sacramentos");
 		mnInformes.add(mntmprsnlzdSacramentos_1);
 
+		// Menu "Informes": un informe por cada ABM que es evento/transaccion
+		// (Asistencia, Inscripcion, Transferencia, Clase). Cada uno abre su
+		// propia pantalla de filtro + grilla (ver InformeXController).
 		JMenu mnInformes_1 = new JMenu("Informes");
 		menuBar.add(mnInformes_1);
-
-		mntmprsnlzdCatequizando_2 = new JMenuItemPersonalizado();
-		mntmprsnlzdCatequizando_2.setText("catequizando");
-		mnInformes_1.add(mntmprsnlzdCatequizando_2);
-
-		mntmprsnlzdCatequista_1 = new JMenuItemPersonalizado();
-		mntmprsnlzdCatequista_1.setText("catequista");
-		mnInformes_1.add(mntmprsnlzdCatequista_1);
 
 		mntmprsnlzdAsistencia = new JMenuItemPersonalizado();
 		mntmprsnlzdAsistencia.setText("asistencia");
 		mnInformes_1.add(mntmprsnlzdAsistencia);
+
+		mntmprsnlzdInscripcion_1 = new JMenuItemPersonalizado();
+		mntmprsnlzdInscripcion_1.setText("inscripcion");
+		mnInformes_1.add(mntmprsnlzdInscripcion_1);
+
+		mntmprsnlzdTransferencia_1 = new JMenuItemPersonalizado();
+		mntmprsnlzdTransferencia_1.setText("transferencia");
+		mnInformes_1.add(mntmprsnlzdTransferencia_1);
+
+		mntmprsnlzdClase_1 = new JMenuItemPersonalizado();
+		mntmprsnlzdClase_1.setText("clase");
+		mnInformes_1.add(mntmprsnlzdClase_1);
 
 		JMenu mnUtilidades = new JMenu("Utilidades");
 		menuBar.add(mnUtilidades);
@@ -249,16 +257,20 @@ public class PantallaPrincipalVista extends JFrame {
 		return mntmprsnlzdSacramentos_1;
 	}
 
-	public JMenuItemPersonalizado getMntmprsnlzdCatequizando_2() {
-		return mntmprsnlzdCatequizando_2;
-	}
-
-	public JMenuItemPersonalizado getMntmprsnlzdCatequista_1() {
-		return mntmprsnlzdCatequista_1;
-	}
-
 	public JMenuItemPersonalizado getMntmprsnlzdAsistencia() {
 		return mntmprsnlzdAsistencia;
+	}
+
+	public JMenuItemPersonalizado getMntmprsnlzdInscripcion_1() {
+		return mntmprsnlzdInscripcion_1;
+	}
+
+	public JMenuItemPersonalizado getMntmprsnlzdTransferencia_1() {
+		return mntmprsnlzdTransferencia_1;
+	}
+
+	public JMenuItemPersonalizado getMntmprsnlzdClase_1() {
+		return mntmprsnlzdClase_1;
 	}
 
 	public JMenuItemPersonalizado getMntmprsnlzdInscripcion() {

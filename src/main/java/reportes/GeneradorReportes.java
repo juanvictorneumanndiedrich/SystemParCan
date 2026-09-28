@@ -9,17 +9,25 @@ import dao.CatequizandoDAO;
 import dao.EtapaDAO;
 import dao.GrupoCatequesisDAO;
 import dao.SacramentoDAO;
+import modelo.AsistenciaModelo;
 import modelo.CatequistaModelo;
 import modelo.CatequizandoModelo;
+import modelo.ClaseModelo;
 import modelo.EtapaModelo;
 import modelo.GrupoCatequesisModelo;
+import modelo.InscripcionModelo;
 import modelo.SacramentoModelo;
+import modelo.TransferenciaModelo;
 
 /**
- * Arma las listas de DTOs que van a los listados Jasper del menu
- * "Listados" de la pantalla principal. Cada metodo estatico corresponde
- * a un listado: busca los datos con el/los DAO recibido(s), ordena y
- * mapea al bean plano correspondiente (ver paquete reportes).
+ * Arma las listas de DTOs que van a los reportes Jasper de la pantalla
+ * principal (menus "Listados" e "Informes"). Cada metodo estatico
+ * corresponde a un reporte: para los "Listados" busca los datos con el/los
+ * DAO recibido(s); para los "Informes" (Asistencia, Inscripcion,
+ * Transferencia, Clase) recibe la lista ya filtrada por la pantalla
+ * correspondiente (el filtro por grupo/catequizando/estado/rango de fecha
+ * vive en cada Controller de informe, no aca), y solo ordena y mapea al
+ * bean plano.
  */
 public class GeneradorReportes {
 
@@ -89,6 +97,61 @@ public class GeneradorReportes {
 
 		return sacramentos.stream()
 				.map(ReporteSacramentoDTO::desde)
+				.collect(Collectors.toList());
+	}
+
+	// ===================== Informes (menu "Informes") =====================
+	// A diferencia de los Listados de arriba, aca la lista ya llega
+	// filtrada (grupo/catequizando/estado/rango de fecha, segun el
+	// informe) desde el Controller de la pantalla; este metodo solo
+	// ordena por fecha y mapea al DTO.
+
+	/** Informe de Asistencia: un registro por catequizando/clase, ya filtrado. */
+	public static List<ReporteAsistenciaDTO> listarInformeAsistencia(List<AsistenciaModelo> asistencias) {
+		List<AsistenciaModelo> ordenadas = asistencias.stream()
+				.sorted(Comparator.comparing(
+						a -> a.getClase() != null ? a.getClase().getClase_fechaClase() : null,
+						Comparator.nullsLast(Comparator.naturalOrder())))
+				.collect(Collectors.toList());
+
+		return ordenadas.stream()
+				.map(ReporteAsistenciaDTO::desde)
+				.collect(Collectors.toList());
+	}
+
+	/** Informe de Inscripcion, ya filtrado. */
+	public static List<ReporteInscripcionDTO> listarInformeInscripcion(List<InscripcionModelo> inscripciones) {
+		List<InscripcionModelo> ordenadas = inscripciones.stream()
+				.sorted(Comparator.comparing(InscripcionModelo::getInscrip_fecha,
+						Comparator.nullsLast(Comparator.naturalOrder())))
+				.collect(Collectors.toList());
+
+		return ordenadas.stream()
+				.map(ReporteInscripcionDTO::desde)
+				.collect(Collectors.toList());
+	}
+
+	/** Informe de Transferencia, ya filtrado. */
+	public static List<ReporteTransferenciaDTO> listarInformeTransferencia(List<TransferenciaModelo> transferencias) {
+		List<TransferenciaModelo> ordenadas = transferencias.stream()
+				.sorted(Comparator.comparing(TransferenciaModelo::getTransf_fecha,
+						Comparator.nullsLast(Comparator.naturalOrder())))
+				.collect(Collectors.toList());
+
+		return ordenadas.stream()
+				.map(ReporteTransferenciaDTO::desde)
+				.collect(Collectors.toList());
+	}
+
+	/** Informe de Clase, ya filtrado. */
+	public static List<ReporteClaseDTO> listarInformeClase(List<ClaseModelo> clases) {
+		List<ClaseModelo> ordenadas = clases.stream()
+				.sorted(Comparator.comparing(ClaseModelo::getClase_fechaClase,
+						Comparator.nullsLast(Comparator.naturalOrder())))
+				.collect(Collectors.toList());
+
+		return ordenadas.stream()
+				.map(ReporteClaseDTO::desde)
 				.collect(Collectors.toList());
 	}
 

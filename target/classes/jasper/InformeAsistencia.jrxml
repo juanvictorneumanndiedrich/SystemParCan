@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InformeAsistencia" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7b1c2d3e-4f5a-4b6c-8d7e-1f2a3b4c5d01">
+	<style name="Base" fontName="SansSerif" fontSize="9" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+	<style name="Titulo" style="Base" forecolor="#2C3E50" fontSize="18" isBold="true"/>
+	<style name="Subtitulo" style="Base" forecolor="#7F8C8D" fontSize="10"/>
+	<style name="Encabezado" style="Base" mode="Opaque" forecolor="#FFFFFF" backcolor="#2C3E50" fontSize="9" isBold="true"/>
+	<style name="Celda" style="Base" forecolor="#34495E" fontSize="9">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT} % 2 == 1]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F5F7F8"/>
+		</conditionalStyle>
+	</style>
+	<style name="Pie" style="Base" forecolor="#7F8C8D" fontSize="8"/>
+	<style name="CeldaEstado" style="Base" forecolor="#C0392B" fontSize="9" isBold="true">
+		<conditionalStyle>
+			<conditionExpression><![CDATA["Presente".equals($F{estado})]]></conditionExpression>
+			<style forecolor="#27AE60"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA["Justificado".equals($F{estado})]]></conditionExpression>
+			<style forecolor="#E67E22"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT} % 2 == 1]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F5F7F8"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="P_TITULO" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["Informe de Asistencia"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_SUBTITULO" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_INSTITUCION" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["SystemParCan"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_LOGO" class="java.io.InputStream" isForPrompting="false"/>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="catequizando" class="java.lang.String"/>
+	<field name="grupo" class="java.lang.String"/>
+	<field name="estado" class="java.lang.String"/>
+	<field name="observaciones" class="java.lang.String"/>
+	<variable name="TOTAL_PRESENTES" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA["Presente".equals($F{estado}) ? 1 : 0]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="TOTAL_AUSENTES" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA["Ausente".equals($F{estado}) ? 1 : 0]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="TOTAL_JUSTIFICADOS" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA["Justificado".equals($F{estado}) ? 1 : 0]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<title>
+		<band height="70" splitType="Stretch">
+			<image scaleImage="RetainShape" hAlign="Left" vAlign="Middle" onErrorType="Blank">
+				<reportElement x="0" y="0" width="60" height="50" uuid="7b1c2d3e-4f5a-4b6c-8d7e-1f2a3b4c5d02">
+					<printWhenExpression><![CDATA[$P{P_LOGO} != null]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[$P{P_LOGO}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement style="Titulo" x="70" y="0" width="540" height="26" uuid="7b1c2d3e-4f5a-4b6c-8d7e-1f2a3b4c5d03"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{P_TITULO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Subtitulo" x="70" y="26" width="540" height="14" uuid="7b1c2d3e-4f5a-4b6c-8d7e-1f2a3b4c5d04"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{P_INSTITUCION}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Subtitulo" x="70" y="40" width="540" height="14" uuid="7b1c2d3e-4f5a-4b6c-8d7e-1f2a3b4c5d05"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{P_SUBTITULO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH:mm">
+				<reportElement style="Subtitulo" x="622" y="0" width="180" height="14" uuid="7b1c2d3e-4f5a-4b6c-8d7e-1f2a3b4c5d06"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="62" width="802" height="1" forecolor="#2C3E50" uuid="7b1c2d3e-4f5a-4b6c-8d7e-1f2a3b4c5d07"/>
+				<graphicElement>
+					<pen lineWidth="1.5"/>
+				</graphicElement>
+			</line>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="22">
+			<staticText>
+				<reportElement style="Encabezado" x="0" y="0" width="25" height="22" uuid="7b1c2d3e-4f5a-4b6c-8d7e-1f2a3b4c5d10"/>
+				<box padding="2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[#]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Encabezado" x="25" y="0" width="70" height="22" uuid="7b1c2d3e-4f5a-4b6c-8d7e-1f2a3b4c5d11"/>
+				<box padding="2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Encabezado" x="95" y="0" width="220" height="22" uuid="7b1c2d3e-4f5a-4b6c-8d7e-1f2a3b4c5d12"/>
+				<box padding="2"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Catequizando]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Encabezado" x="315" y="0" width="180" height="22" uuid="7b1c2d3e-4f5a-4b6c-8d7e-1f2a3b4c5d13"/>
+				<box padding="2"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Grupo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Encabezado" x="495" y="0" width="100" height="22" uuid="7b1c2d3e-4f5a-4b6c-8d7e-1f2a3b4c5d14"/>
+				<box padding="2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Encabezado" x="595" y="0" width="207" height="22" uuid="7b1c2d3e-4f5a-4b6c-8d7e-1f2a3b4c5d15"/>
+				<box padding="2"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Observaciones]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Prevent">
+			<textField>
+				<reportElement style="Celda" stretchType="RelativeToBandHeight" x="0" y="0" width="25" height="18" uuid="7b1c2d3e-4f5a-4b6c-8d7e-1f2a3b4c5d20"/>
+				<box padding="2">
+					<bottomPen lineWidth="0.5" lineColor="#DFE4E5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Celda" stretchType="RelativeToBandHeight" x="25" y="0" width="70" height="18" uuid="7b1c2d3e-4f5a-4b6c-8d7e-1f2a3b4c5d21"/>
+				<box padding="2">
+					<bottomPen lineWidth="0.5" lineColor="#DFE4E5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement style="Celda" stretchType="RelativeToBandHeight" x="95" y="0" width="220" height="18" uuid="7b1c2d3e-4f5a-4b6c-8d7e-1f2a3b4c5d22"/>
+				<box padding="2">
+					<bottomPen lineWidth="0.5" lineColor="#DFE4E5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{catequizando}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement style="Celda" stretchType="RelativeToBandHeight" x="315" y="0" width="180" height="18" uuid="7b1c2d3e-4f5a-4b6c-8d7e-1f2a3b4c5d23"/>
+				<box padding="2">
+					<bottomPen lineWidth="0.5" lineColor="#DFE4E5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{grupo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="CeldaEstado" stretchType="RelativeToBandHeight" x="495" y="0" width="100" height="18" uuid="7b1c2d3e-4f5a-4b6c-8d7e-1f2a3b4c5d24"/>
+				<box padding="2">
+					<bottomPen lineWidth="0.5" lineColor="#DFE4E5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement style="Celda" stretchType="RelativeToBandHeight" x="595" y="0" width="207" height="18" uuid="7b1c2d3e-4f5a-4b6c-8d7e-1f2a3b4c5d25"/>
+				<box padding="2">
+					<bottomPen lineWidth="0.5" lineColor="#DFE4E5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{observaciones}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20">
+			<line>
+				<reportElement x="0" y="2" width="802" height="1" forecolor="#BDC3C7" uuid="7b1c2d3e-4f5a-4b6c-8d7e-1f2a3b4c5d30"/>
+			</line>
+			<textField>
+				<reportElement style="Pie" x="0" y="5" width="400" height="14" uuid="7b1c2d3e-4f5a-4b6c-8d7e-1f2a3b4c5d31"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{P_INSTITUCION} + " - " + $P{P_TITULO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Pie" x="602" y="5" width="160" height="14" uuid="7b1c2d3e-4f5a-4b6c-8d7e-1f2a3b4c5d32"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER} + " de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Pie" x="762" y="5" width="40" height="14" uuid="7b1c2d3e-4f5a-4b6c-8d7e-1f2a3b4c5d33"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="40">
+			<staticText>
+				<reportElement style="Base" x="0" y="8" width="802" height="14" uuid="7b1c2d3e-4f5a-4b6c-8d7e-1f2a3b4c5d40"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Resumen]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Base" x="0" y="22" width="802" height="14" uuid="7b1c2d3e-4f5a-4b6c-8d7e-1f2a3b4c5d41"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Total de registros: " + $V{REPORT_COUNT} + "     Presentes: " + $V{TOTAL_PRESENTES} + "     Ausentes: " + $V{TOTAL_AUSENTES} + "     Justificados: " + $V{TOTAL_JUSTIFICADOS}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

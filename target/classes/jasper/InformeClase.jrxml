@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InformeClase" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ae4f5a6b-7c8d-4e9f-ba0b-4c5d6e7f8a01">
+	<style name="Base" fontName="SansSerif" fontSize="9" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+	<style name="Titulo" style="Base" forecolor="#2C3E50" fontSize="18" isBold="true"/>
+	<style name="Subtitulo" style="Base" forecolor="#7F8C8D" fontSize="10"/>
+	<style name="Encabezado" style="Base" mode="Opaque" forecolor="#FFFFFF" backcolor="#2C3E50" fontSize="9" isBold="true"/>
+	<style name="Celda" style="Base" forecolor="#34495E" fontSize="9">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT} % 2 == 1]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F5F7F8"/>
+		</conditionalStyle>
+	</style>
+	<style name="Pie" style="Base" forecolor="#7F8C8D" fontSize="8"/>
+	<parameter name="P_TITULO" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["Informe de Clase"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_SUBTITULO" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_INSTITUCION" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["SystemParCan"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_LOGO" class="java.io.InputStream" isForPrompting="false"/>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="grupo" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="asistenciasRegistradas" class="java.lang.Integer"/>
+	<field name="presentes" class="java.lang.Integer"/>
+	<variable name="TOTAL_ASISTENCIAS" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{asistenciasRegistradas}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="TOTAL_PRESENTES" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{presentes}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<title>
+		<band height="70" splitType="Stretch">
+			<image scaleImage="RetainShape" hAlign="Left" vAlign="Middle" onErrorType="Blank">
+				<reportElement x="0" y="0" width="60" height="50" uuid="ae4f5a6b-7c8d-4e9f-ba0b-4c5d6e7f8a02">
+					<printWhenExpression><![CDATA[$P{P_LOGO} != null]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[$P{P_LOGO}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement style="Titulo" x="70" y="0" width="540" height="26" uuid="ae4f5a6b-7c8d-4e9f-ba0b-4c5d6e7f8a03"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{P_TITULO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Subtitulo" x="70" y="26" width="540" height="14" uuid="ae4f5a6b-7c8d-4e9f-ba0b-4c5d6e7f8a04"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{P_INSTITUCION}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Subtitulo" x="70" y="40" width="540" height="14" uuid="ae4f5a6b-7c8d-4e9f-ba0b-4c5d6e7f8a05"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{P_SUBTITULO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH:mm">
+				<reportElement style="Subtitulo" x="622" y="0" width="180" height="14" uuid="ae4f5a6b-7c8d-4e9f-ba0b-4c5d6e7f8a06"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="62" width="802" height="1" forecolor="#2C3E50" uuid="ae4f5a6b-7c8d-4e9f-ba0b-4c5d6e7f8a07"/>
+				<graphicElement>
+					<pen lineWidth="1.5"/>
+				</graphicElement>
+			</line>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="22">
+			<staticText>
+				<reportElement style="Encabezado" x="0" y="0" width="25" height="22" uuid="ae4f5a6b-7c8d-4e9f-ba0b-4c5d6e7f8a10"/>
+				<box padding="2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[#]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Encabezado" x="25" y="0" width="90" height="22" uuid="ae4f5a6b-7c8d-4e9f-ba0b-4c5d6e7f8a11"/>
+				<box padding="2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Encabezado" x="115" y="0" width="220" height="22" uuid="ae4f5a6b-7c8d-4e9f-ba0b-4c5d6e7f8a12"/>
+				<box padding="2"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Grupo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Encabezado" x="335" y="0" width="300" height="22" uuid="ae4f5a6b-7c8d-4e9f-ba0b-4c5d6e7f8a13"/>
+				<box padding="2"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Descripcion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Encabezado" x="635" y="0" width="90" height="22" uuid="ae4f5a6b-7c8d-4e9f-ba0b-4c5d6e7f8a14"/>
+				<box padding="2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Asist. Registradas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Encabezado" x="725" y="0" width="77" height="22" uuid="ae4f5a6b-7c8d-4e9f-ba0b-4c5d6e7f8a15"/>
+				<box padding="2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Presentes]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Prevent">
+			<textField>
+				<reportElement style="Celda" stretchType="RelativeToBandHeight" x="0" y="0" width="25" height="18" uuid="ae4f5a6b-7c8d-4e9f-ba0b-4c5d6e7f8a20"/>
+				<box padding="2">
+					<bottomPen lineWidth="0.5" lineColor="#DFE4E5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Celda" stretchType="RelativeToBandHeight" x="25" y="0" width="90" height="18" uuid="ae4f5a6b-7c8d-4e9f-ba0b-4c5d6e7f8a21"/>
+				<box padding="2">
+					<bottomPen lineWidth="0.5" lineColor="#DFE4E5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement style="Celda" stretchType="RelativeToBandHeight" x="115" y="0" width="220" height="18" uuid="ae4f5a6b-7c8d-4e9f-ba0b-4c5d6e7f8a22"/>
+				<box padding="2">
+					<bottomPen lineWidth="0.5" lineColor="#DFE4E5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{grupo}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement style="Celda" stretchType="RelativeToBandHeight" x="335" y="0" width="300" height="18" uuid="ae4f5a6b-7c8d-4e9f-ba0b-4c5d6e7f8a23"/>
+				<box padding="2">
+					<bottomPen lineWidth="0.5" lineColor="#DFE4E5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Celda" stretchType="RelativeToBandHeight" x="635" y="0" width="90" height="18" uuid="ae4f5a6b-7c8d-4e9f-ba0b-4c5d6e7f8a24"/>
+				<box padding="2">
+					<bottomPen lineWidth="0.5" lineColor="#DFE4E5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{asistenciasRegistradas}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="Celda" stretchType="RelativeToBandHeight" x="725" y="0" width="77" height="18" uuid="ae4f5a6b-7c8d-4e9f-ba0b-4c5d6e7f8a25"/>
+				<box padding="2">
+					<bottomPen lineWidth="0.5" lineColor="#DFE4E5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{presentes}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20">
+			<line>
+				<reportElement x="0" y="2" width="802" height="1" forecolor="#BDC3C7" uuid="ae4f5a6b-7c8d-4e9f-ba0b-4c5d6e7f8a30"/>
+			</line>
+			<textField>
+				<reportElement style="Pie" x="0" y="5" width="400" height="14" uuid="ae4f5a6b-7c8d-4e9f-ba0b-4c5d6e7f8a31"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{P_INSTITUCION} + " - " + $P{P_TITULO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Pie" x="602" y="5" width="160" height="14" uuid="ae4f5a6b-7c8d-4e9f-ba0b-4c5d6e7f8a32"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER} + " de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Pie" x="762" y="5" width="40" height="14" uuid="ae4f5a6b-7c8d-4e9f-ba0b-4c5d6e7f8a33"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="40">
+			<staticText>
+				<reportElement style="Base" x="0" y="8" width="802" height="14" uuid="ae4f5a6b-7c8d-4e9f-ba0b-4c5d6e7f8a40"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Resumen]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Base" x="0" y="22" width="802" height="14" uuid="ae4f5a6b-7c8d-4e9f-ba0b-4c5d6e7f8a41"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Total de clases: " + $V{REPORT_COUNT} + "     Asistencias registradas: " + $V{TOTAL_ASISTENCIAS} + "     Presentes: " + $V{TOTAL_PRESENTES}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

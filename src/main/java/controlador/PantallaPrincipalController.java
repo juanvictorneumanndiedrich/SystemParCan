@@ -26,6 +26,10 @@ import vista.SacramentoVista;
 import vista.PantallaPrincipalVista;
 import vista.ClasesVista;
 import vista.AsistenciasVista;
+import vista.InformeAsistenciaVista;
+import vista.InformeInscripcionVista;
+import vista.InformeTransferenciaVista;
+import vista.InformeClaseVista;
 import controlador.CatequizandoController;
 import controlador.CatequistaController;
 
@@ -55,6 +59,14 @@ public class PantallaPrincipalController {
         this.vista.getMntmprsnlzdGrupocatequesis_1().addActionListener(e -> abrirListadoGrupos());
         this.vista.getMntmprsnlzdEtapa_1().addActionListener(e -> abrirListadoEtapas());
         this.vista.getMntmprsnlzdSacramentos_1().addActionListener(e -> abrirListadoSacramentos());
+
+        // Menu "Informes": un informe (filtro + grilla + Jasper) por cada
+        // ABM que es evento/transaccion (Asistencia, Inscripcion,
+        // Transferencia, Clase).
+        this.vista.getMntmprsnlzdAsistencia().addActionListener(e -> abrirInformeAsistencia());
+        this.vista.getMntmprsnlzdInscripcion_1().addActionListener(e -> abrirInformeInscripcion());
+        this.vista.getMntmprsnlzdTransferencia_1().addActionListener(e -> abrirInformeTransferencia());
+        this.vista.getMntmprsnlzdClase_1().addActionListener(e -> abrirInformeClase());
 
         // Botones de acceso rapido de la pantalla principal. Reusan los
         // mismos metodos de apertura que los items del menu, salvo Clases y
@@ -200,6 +212,39 @@ public class PantallaPrincipalController {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this.vista, "No se pudo generar el listado de sacramentos.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    // ===================== Informes (menu "Informes") =====================
+    // Cada uno abre su propia pantalla de filtro + grilla; el filtrado y la
+    // generacion del Jasper viven en el Controller de cada informe (ver
+    // controlador.InformeXController), no aca.
+
+    private void abrirInformeAsistencia() {
+        InformeAsistenciaVista informeVista = new InformeAsistenciaVista();
+        new InformeAsistenciaController(informeVista);
+        informeVista.setLocationRelativeTo(this.vista);
+        informeVista.setVisible(true);
+    }
+
+    private void abrirInformeInscripcion() {
+        InformeInscripcionVista informeVista = new InformeInscripcionVista();
+        new InformeInscripcionController(informeVista);
+        informeVista.setLocationRelativeTo(this.vista);
+        informeVista.setVisible(true);
+    }
+
+    private void abrirInformeTransferencia() {
+        InformeTransferenciaVista informeVista = new InformeTransferenciaVista();
+        new InformeTransferenciaController(informeVista);
+        informeVista.setLocationRelativeTo(this.vista);
+        informeVista.setVisible(true);
+    }
+
+    private void abrirInformeClase() {
+        InformeClaseVista informeVista = new InformeClaseVista();
+        new InformeClaseController(informeVista);
+        informeVista.setLocationRelativeTo(this.vista);
+        informeVista.setVisible(true);
     }
 
 }
