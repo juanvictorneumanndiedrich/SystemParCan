@@ -14,12 +14,26 @@ import utilidades.FechaUtil;
  */
 public class ReporteClaseDTO {
 
+	/** Fecha de la clase (dd/MM/yyyy) */
 	private String fecha;
+	/** Nombre del grupo de catequesis */
 	private String grupo;
+	/** Descripcion de la clase */
 	private String descripcion;
+	/** Cantidad de asistencias registradas en la clase */
 	private Integer asistenciasRegistradas;
+	/** Cantidad de catequizandos marcados como presentes */
 	private Integer presentes;
 
+	/**
+	 * Crea una fila del informe de Clase.
+	 *
+	 * @param fecha fecha de la clase (dd/MM/yyyy)
+	 * @param grupo nombre del grupo de catequesis
+	 * @param descripcion descripcion de la clase
+	 * @param asistenciasRegistradas cantidad de asistencias registradas en la clase
+	 * @param presentes cantidad de catequizandos marcados como presentes
+	 */
 	public ReporteClaseDTO(String fecha, String grupo, String descripcion, Integer asistenciasRegistradas,
 			Integer presentes) {
 		super();
@@ -48,22 +62,27 @@ public class ReporteClaseDTO {
 		return new ReporteClaseDTO(fecha, grupo, clase.getClase_descripcion(), registradas, presentes);
 	}
 
+	/** @return fecha de la clase (dd/MM/yyyy) */
 	public String getFecha() {
 		return fecha;
 	}
 
+	/** @return nombre del grupo de catequesis */
 	public String getGrupo() {
 		return grupo;
 	}
 
+	/** @return descripcion de la clase */
 	public String getDescripcion() {
 		return descripcion;
 	}
 
+	/** @return cantidad de asistencias registradas en la clase */
 	public Integer getAsistenciasRegistradas() {
 		return asistenciasRegistradas;
 	}
 
+	/** @return cantidad de catequizandos marcados como presentes */
 	public Integer getPresentes() {
 		return presentes;
 	}

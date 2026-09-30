@@ -13,36 +13,64 @@ import componentes.JMenuItemPersonalizado;
 import componentes.JPanelPantallaPrincipal;
 import controlador.PantallaPrincipalController;
 
+/**
+ * Ventana principal del sistema: barra de menu (Registros, Listados, Informes y Utilidades) y botones de acceso directo.
+ * Solo arma la interfaz y expone los items con getters; las acciones las conecta PantallaPrincipalController.
+ */
 public class PantallaPrincipalVista extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	/** Panel de contenido de la pantalla */
 	private JPanelPantallaPrincipal contentPane;
+	/** Item "catequizando" del menu Registros */
 	private JMenuItemPersonalizado mntmprsnlzdCatequizando;
+	/** Item "catequista" del menu Registros */
 	private JMenuItemPersonalizado mntmprsnlzdCatequista;
+	/** Item "etapa" del menu Registros */
 	private JMenuItemPersonalizado mntmprsnlzdEtapa;
+	/** Item "grupocatequesis" del menu Registros */
 	private JMenuItemPersonalizado mntmprsnlzdGrupocatequesis;
+	/** Item "catequizando" del menu Listados */
 	private JMenuItemPersonalizado mntmprsnlzdCatequizando_1;
+	/** Item "catequistas" del menu Listados */
 	private JMenuItemPersonalizado mntmprsnlzdCatequistas;
+	/** Item "grupocatequesis" del menu Listados */
 	private JMenuItemPersonalizado mntmprsnlzdGrupocatequesis_1;
+	/** Item "etapa" del menu Listados */
 	private JMenuItemPersonalizado mntmprsnlzdEtapa_1;
+	/** Item "sacramentos" del menu Listados */
 	private JMenuItemPersonalizado mntmprsnlzdSacramentos_1;
+	/** Item "asistencia" del menu Informes */
 	private JMenuItemPersonalizado mntmprsnlzdAsistencia;
+	/** Item "inscripcion" del menu Informes */
 	private JMenuItemPersonalizado mntmprsnlzdInscripcion_1;
+	/** Item "transferencia" del menu Informes */
 	private JMenuItemPersonalizado mntmprsnlzdTransferencia_1;
+	/** Item "clase" del menu Informes */
 	private JMenuItemPersonalizado mntmprsnlzdClase_1;
+	/** Item "inscripcion" del menu Utilidades */
 	private JMenuItemPersonalizado mntmprsnlzdInscripcion;
+	/** Item "transferencia" del menu Utilidades */
 	private JMenuItemPersonalizado mntmprsnlzdTransferencia;
+	/** Item "sacramentos" del menu Registros */
 	private JMenuItemPersonalizado mntmprsnlzdSacramentos;
+	/** Item "clase" del menu Utilidades */
 	private JMenuItemPersonalizado mntmprsnlzdClase;
+	/** Boton de acceso directo a clases */
 	private JButtonAccesoDirecto btncsdrctClases;
+	/** Boton de acceso directo a catequista */
 	private JButtonAccesoDirecto btncsdrctCatequista;
+	/** Boton de acceso directo a catequizando */
 	private JButtonAccesoDirecto btncsdrctCatequizando;
+	/** Boton de acceso directo a inscripcion */
 	private JButtonAccesoDirecto btncsdrctInscripcion;
+	/** Boton de acceso directo a asistencia */
 	private JButtonAccesoDirecto btncsdrctAsistencia;
+	/** Boton de acceso directo a grupocatequesis */
 	private JButtonAccesoDirecto btncsdrctGrupocatequesis;
 
 	/**
-	 * Launch the application.
+	 * Punto de entrada para probar la pantalla de forma aislada, sin la pantalla principal.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -59,7 +87,7 @@ public class PantallaPrincipalVista extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Arma la ventana: menu, botones de acceso directo y paneles.
 	 */
 	public PantallaPrincipalVista() {
 		setExtendedState(MAXIMIZED_BOTH);
@@ -209,103 +237,128 @@ public class PantallaPrincipalVista extends JFrame {
 
 
 
+	/** @return el serialVersionUID de la clase */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
+	/** @return panel de contenido de la pantalla */
 	public JPanelPantallaPrincipal getContentPane() {
 		return contentPane;
 	}
 
+	/** @return Item "catequizando" del menu Registros */
 	public JMenuItemPersonalizado getMntmprsnlzdCatequizando() {
 		return mntmprsnlzdCatequizando;
 	}
 
+	/** @return Item "catequista" del menu Registros */
 	public JMenuItemPersonalizado getMntmprsnlzdCatequista() {
 		return mntmprsnlzdCatequista;
 	}
 
+	/** @return Item "clase" del menu Utilidades */
 	public JMenuItemPersonalizado getMntmprsnlzdClase() {
 		return mntmprsnlzdClase;
 	}
 
+	/** @return Item "etapa" del menu Registros */
 	public JMenuItemPersonalizado getMntmprsnlzdEtapa() {
 		return mntmprsnlzdEtapa;
 	}
 
+	/** @return Item "grupocatequesis" del menu Registros */
 	public JMenuItemPersonalizado getMntmprsnlzdGrupocatequesis() {
 		return mntmprsnlzdGrupocatequesis;
 	}
 
+	/** @return Item "catequizando" del menu Listados */
 	public JMenuItemPersonalizado getMntmprsnlzdCatequizando_1() {
 		return mntmprsnlzdCatequizando_1;
 	}
 
+	/** @return Item "catequistas" del menu Listados */
 	public JMenuItemPersonalizado getMntmprsnlzdCatequistas() {
 		return mntmprsnlzdCatequistas;
 	}
 
+	/** @return Item "grupocatequesis" del menu Listados */
 	public JMenuItemPersonalizado getMntmprsnlzdGrupocatequesis_1() {
 		return mntmprsnlzdGrupocatequesis_1;
 	}
 
+	/** @return Item "etapa" del menu Listados */
 	public JMenuItemPersonalizado getMntmprsnlzdEtapa_1() {
 		return mntmprsnlzdEtapa_1;
 	}
 
+	/** @return Item "sacramentos" del menu Listados */
 	public JMenuItemPersonalizado getMntmprsnlzdSacramentos_1() {
 		return mntmprsnlzdSacramentos_1;
 	}
 
+	/** @return Item "asistencia" del menu Informes */
 	public JMenuItemPersonalizado getMntmprsnlzdAsistencia() {
 		return mntmprsnlzdAsistencia;
 	}
 
+	/** @return Item "inscripcion" del menu Informes */
 	public JMenuItemPersonalizado getMntmprsnlzdInscripcion_1() {
 		return mntmprsnlzdInscripcion_1;
 	}
 
+	/** @return Item "transferencia" del menu Informes */
 	public JMenuItemPersonalizado getMntmprsnlzdTransferencia_1() {
 		return mntmprsnlzdTransferencia_1;
 	}
 
+	/** @return Item "clase" del menu Informes */
 	public JMenuItemPersonalizado getMntmprsnlzdClase_1() {
 		return mntmprsnlzdClase_1;
 	}
 
+	/** @return Item "inscripcion" del menu Utilidades */
 	public JMenuItemPersonalizado getMntmprsnlzdInscripcion() {
 		return mntmprsnlzdInscripcion;
 	}
 
+	/** @return Item "transferencia" del menu Utilidades */
 	public JMenuItemPersonalizado getMntmprsnlzdTransferencia() {
 		return mntmprsnlzdTransferencia;
 	}
 
+	/** @return Item "sacramentos" del menu Registros */
 	public JMenuItemPersonalizado getMntmprsnlzdSacramentos() {
 		return mntmprsnlzdSacramentos;
 
 	}
 
+	/** @return boton de acceso directo a clases */
 	public JButtonAccesoDirecto getBtncsdrctClases() {
 		return btncsdrctClases;
 	}
 
+	/** @return boton de acceso directo a catequista */
 	public JButtonAccesoDirecto getBtncsdrctCatequista() {
 		return btncsdrctCatequista;
 	}
 
+	/** @return boton de acceso directo a catequizando */
 	public JButtonAccesoDirecto getBtncsdrctCatequizando() {
 		return btncsdrctCatequizando;
 	}
 
+	/** @return boton de acceso directo a inscripcion */
 	public JButtonAccesoDirecto getBtncsdrctInscripcion() {
 		return btncsdrctInscripcion;
 	}
 
+	/** @return boton de acceso directo a asistencia */
 	public JButtonAccesoDirecto getBtncsdrctAsistencia() {
 		return btncsdrctAsistencia;
 	}
 
+	/** @return boton de acceso directo a grupocatequesis */
 	public JButtonAccesoDirecto getBtncsdrctGrupocatequesis() {
 		return btncsdrctGrupocatequesis;
 	}

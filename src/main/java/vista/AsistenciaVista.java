@@ -26,11 +26,18 @@ import componentes.JLabelGenerico;
 public class AsistenciaVista extends JDialog {
 
 	private static final long serialVersionUID = 1L;
+	/** Etiqueta: info clase */
 	private JLabelGenerico lblInfoClase;
+	/** Tabla principal de la pantalla */
 	private JTable tabla;
+	/** Boton "Guardar" */
 	private JButtonABM btnGuardar;
+	/** Boton "Cerrar" */
 	private JButtonABM btnCerrar;
 
+	/**
+	 * Arma la pantalla: titulo, tamaño y componentes.
+	 */
 	public AsistenciaVista() {
 		setTitle("Asistencia");
 		setBounds(100, 100, 640, 560);
@@ -61,22 +68,27 @@ public class AsistenciaVista extends JDialog {
 		panelBotones.add(btnCerrar);
 	}
 
+	/** @return el serialVersionUID de la clase */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
+	/** @return etiqueta: info clase */
 	public JLabelGenerico getLblInfoClase() {
 		return lblInfoClase;
 	}
 
+	/** @return tabla principal de la pantalla */
 	public JTable getTabla() {
 		return tabla;
 	}
 
+	/** @return boton "Guardar" */
 	public JButtonABM getBtnGuardar() {
 		return btnGuardar;
 	}
 
+	/** @return boton "Cerrar" */
 	public JButtonABM getBtnCerrar() {
 		return btnCerrar;
 	}

@@ -11,14 +11,43 @@ import modelo.SacramentoModelo;
 import tabla.ModeloTablaSacramento;
 import vista.SacramentoVista;
 
+/**
+ * Controlador del ABM de Sacramentos. Conecta {@link SacramentoVista} con {@link SacramentoDAO}:
+ * lista los sacramentos en la tabla, permite buscarlos por nombre en tiempo real y gestiona
+ * alta, modificacion y baja.
+ * 
+ * Implementa {@link InterfaceABM}.
+ */
 public class SacramentoController implements InterfaceABM {
 
+	/**
+	 * Pantalla (vista) que maneja este controlador.
+	 */
 	private SacramentoVista vista;
+	/**
+	 * Sacramento en edicion o seleccionado; es {@code null} cuando no hay ninguno.
+	 */
 	private SacramentoModelo sacramento;
+	/**
+	 * DAO principal de la entidad que administra esta pantalla.
+	 */
 	private SacramentoDAO dao;
+	/**
+	 * Registros que muestra actualmente la tabla (ya filtrados); el indice de la fila coincide
+	 * con el de esta lista.
+	 */
 	private List<SacramentoModelo> sacramentos;
+	/**
+	 * Modelo de la tabla donde se listan los registros.
+	 */
 	private ModeloTablaSacramento tabla;
 
+	/**
+	 * Crea el controlador: asocia la vista ({@code setInterfaceABM}), instancia los DAO y el modelo de tabla,
+	 * carga los datos iniciales y registra las acciones de la pantalla.
+	 *
+	 * @param vista pantalla SacramentoVista que se va a controlar
+	 */
 	public SacramentoController(SacramentoVista sacramentoVista) {
 		super();
 		this.vista = sacramentoVista;
@@ -32,6 +61,12 @@ public class SacramentoController implements InterfaceABM {
 		setAcciones();
 	}
 
+	/**
+	 * Recarga la tabla con los sacramentos. Si hay filtro, solo quedan los que tienen ese texto en el nombre
+	 * (sin distinguir mayusculas).
+	 *
+	 * @param filtro texto a buscar en el nombre; vacio o {@code null} para traer todos
+	 */
 	private void cargarTabla(String filtro) {
 		if (filtro == null || filtro.isEmpty()) {
 			sacramentos = dao.recuperarTodo();
@@ -44,6 +79,10 @@ public class SacramentoController implements InterfaceABM {
 		tabla.setLista(sacramentos);
 	}
 
+	/**
+	 * Registra los listeners de la pantalla: doble clic en la tabla selecciona el registro
+	 * y el campo de busqueda filtra la tabla en tiempo real mientras se escribe.
+	 */
 	private void setAcciones() {
 		this.vista.getTabla().addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -58,6 +97,10 @@ public class SacramentoController implements InterfaceABM {
 		});
 	}
 
+	/**
+	 * Deja la pantalla en su estado inicial: solo Nuevo y Cancelar habilitados, campos
+	 * deshabilitados y vacios, y sin registro seleccionado.
+	 */
 	private void estadoInicial() {
 		// desactiva los botones
 		this.vista.getBtnNuevo().setEnabled(true);
@@ -75,6 +118,10 @@ public class SacramentoController implements InterfaceABM {
 		sacramento = null;
 	}
 
+	/**
+	 * Toma la fila elegida en la tabla como registro actual y habilita Editar y Eliminar.
+	 * Todavia no carga los datos en el formulario; eso ocurre al llamar a {@link #editar()}.
+	 */
 	private void seleccionarRegistro() {
 		int fila = this.vista.getTabla().getSelectedRow();
 		if (fila < 0) return;
@@ -84,6 +131,10 @@ public class SacramentoController implements InterfaceABM {
 		this.vista.getBtnEliminar().setEnabled(true);
 	}
 
+	/**
+	 * Prepara la pantalla para cargar un registro nuevo: habilita los campos y Guardar,
+	 * y crea una instancia vacia del modelo.
+	 */
 	@Override
 	public void nuevo() {
 		this.vista.getBtnNuevo().setEnabled(false);
@@ -97,6 +148,10 @@ public class SacramentoController implements InterfaceABM {
 		sacramento = new SacramentoModelo();
 	}
 
+	/**
+	 * Carga los datos del registro seleccionado en el formulario y habilita los campos
+	 * para modificarlos. No hace nada si no hay un registro seleccionado.
+	 */
 	@Override
 	public void editar() {
 		if (sacramento == null) return;
@@ -115,6 +170,10 @@ public class SacramentoController implements InterfaceABM {
 		this.vista.getBtnCancelar().setEnabled(true);
 	}
 
+	/**
+	 * Valida los datos con {@link ValidadorCampos}; ante el primer dato invalido muestra un aviso y no guarda.
+	 * Si todo es correcto pasa los datos al modelo, lo guarda con el DAO y recarga la tabla.
+	 */
 	@Override
 	public void guardar() {
 		String nombre = this.vista.getTfNombre().getText();
@@ -143,6 +202,10 @@ public class SacramentoController implements InterfaceABM {
 		cargarTabla("");
 	}
 
+	/**
+	 * Elimina el registro seleccionado previa confirmacion del usuario. Si la baja falla
+	 * (por ejemplo, por registros relacionados) muestra el error y no recarga la tabla.
+	 */
 	@Override
 	public void eliminar() {
 		if (sacramento == null) return;
@@ -172,12 +235,19 @@ public class SacramentoController implements InterfaceABM {
 		}
 	}
 
+	/**
+	 * Cancela la operacion en curso: si no hay un registro en uso cierra la ventana,
+	 * y si lo hay vuelve la pantalla a su estado inicial.
+	 */
 	@Override
 	public void cancelar() {
 		if (sacramento == null) this.vista.dispose();
 		else estadoInicial();
 	}
 
+	/**
+	 * Toma el texto del campo de busqueda (sin espacios sobrantes) y recarga la tabla filtrada.
+	 */
 	@Override
 	public void buscar() {
 		String filtro = this.vista.getTfBuscador().getText().trim();

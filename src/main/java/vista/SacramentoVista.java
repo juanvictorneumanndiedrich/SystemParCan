@@ -7,13 +7,18 @@ import componentes.JLabelGenerico;
 import componentes.JtextFieldGenerico;
 import controlador.SacramentoController;
 
+/**
+ * Pantalla del ABM de Sacramentos (nombre), basada en {@link JDialogGenericMini}. Solo arma la interfaz;
+ * la logica vive en SacramentoController.
+ */
 public class SacramentoVista extends JDialogGenericMini {
 
 	private static final long serialVersionUID = 1L;
+	/** Campo de texto: nombre */
 	private JtextFieldGenerico tfNombre;
 
 	/**
-	 * Launch the application.
+	 * Punto de entrada para probar la pantalla de forma aislada, sin la pantalla principal.
 	 */
 	public static void main(String[] args) {
 		try {
@@ -26,13 +31,16 @@ public class SacramentoVista extends JDialogGenericMini {
 		}
 	}
 
+	/**
+	 * Crea el controlador que maneja esta pantalla (se usa solo desde {@code main}).
+	 */
 	private void setUpControlador() {
 		new SacramentoController(this);
 
 	}
 
 	/**
-	 * Create the dialog.
+	 * Arma la pantalla: titulo, tamaño y componentes.
 	 */
 	public SacramentoVista() {
 		setTitle("Sacramentos");
@@ -48,10 +56,12 @@ public class SacramentoVista extends JDialogGenericMini {
 		getPanelFormulario().add(tfNombre);
 	}
 
+	/** @return el serialVersionUID de la clase */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
+	/** @return campo de texto: nombre */
 	public JtextFieldGenerico getTfNombre() {
 		return tfNombre;
 	}

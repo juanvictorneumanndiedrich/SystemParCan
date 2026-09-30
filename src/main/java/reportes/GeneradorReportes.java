@@ -35,6 +35,10 @@ public class GeneradorReportes {
 	 * Listado de Catequistas. Necesita ademas el GrupoCatequesisDAO porque
 	 * CatequistaModelo no tiene una lista propia de grupos: hay que cruzar
 	 * con todos los grupos para saber en cuales participa cada catequista.
+	 *
+	 * @param catequistaDao DAO de catequistas
+	 * @param grupoDao      DAO de grupos de catequesis, para cruzar los grupos de cada catequista
+	 * @return una fila por catequista, ordenada por apellido y nombre
 	 */
 	public static List<ReportePersonaDTO> listarCatequistas(CatequistaDAO catequistaDao,
 			GrupoCatequesisDAO grupoDao) {
@@ -57,7 +61,12 @@ public class GeneradorReportes {
 				.collect(Collectors.toList());
 	}
 
-	/** Listado de Catequizandos. */
+	/**
+	 * Listado de Catequizandos.
+	 *
+	 * @param catequizandoDao DAO de catequizandos
+	 * @return una fila por catequizando, ordenada por apellido y nombre
+	 */
 	public static List<ReportePersonaDTO> listarCatequizandos(CatequizandoDAO catequizandoDao) {
 		List<CatequizandoModelo> catequizandos = catequizandoDao.recuperarTodo();
 		catequizandos.sort(Comparator.comparing(CatequizandoModelo::getCatz_apellido)
@@ -68,7 +77,12 @@ public class GeneradorReportes {
 				.collect(Collectors.toList());
 	}
 
-	/** Listado de Etapas. */
+	/**
+	 * Listado de Etapas.
+	 *
+	 * @param etapaDao DAO de etapas
+	 * @return una fila por etapa, ordenada por descripcion
+	 */
 	public static List<ReporteEtapaDTO> listarEtapas(EtapaDAO etapaDao) {
 		List<EtapaModelo> etapas = etapaDao.recuperarTodo();
 		etapas.sort(Comparator.comparing(EtapaModelo::getEtap_descripcion));
@@ -78,7 +92,12 @@ public class GeneradorReportes {
 				.collect(Collectors.toList());
 	}
 
-	/** Listado de Grupos de Catequesis. */
+	/**
+	 * Listado de Grupos de Catequesis.
+	 *
+	 * @param grupoDao DAO de grupos de catequesis
+	 * @return una fila por grupo, ordenada por año y nombre
+	 */
 	public static List<ReporteGrupoDTO> listarGrupos(GrupoCatequesisDAO grupoDao) {
 		List<GrupoCatequesisModelo> grupos = grupoDao.recuperarTodo();
 		grupos.sort(Comparator
@@ -90,7 +109,12 @@ public class GeneradorReportes {
 				.collect(Collectors.toList());
 	}
 
-	/** Listado de Sacramentos. */
+	/**
+	 * Listado de Sacramentos.
+	 *
+	 * @param sacramentoDao DAO de sacramentos
+	 * @return una fila por sacramento, ordenada por nombre
+	 */
 	public static List<ReporteSacramentoDTO> listarSacramentos(SacramentoDAO sacramentoDao) {
 		List<SacramentoModelo> sacramentos = sacramentoDao.recuperarTodo();
 		sacramentos.sort(Comparator.comparing(SacramentoModelo::getSacr_nombre));
@@ -106,7 +130,12 @@ public class GeneradorReportes {
 	// informe) desde el Controller de la pantalla; este metodo solo
 	// ordena por fecha y mapea al DTO.
 
-	/** Informe de Asistencia: un registro por catequizando/clase, ya filtrado. */
+	/**
+	 * Informe de Asistencia: un registro por catequizando/clase, ya filtrado.
+	 *
+	 * @param asistencias asistencias ya filtradas por la pantalla del informe
+	 * @return las filas del informe, ordenadas por fecha de clase
+	 */
 	public static List<ReporteAsistenciaDTO> listarInformeAsistencia(List<AsistenciaModelo> asistencias) {
 		List<AsistenciaModelo> ordenadas = asistencias.stream()
 				.sorted(Comparator.comparing(
@@ -119,7 +148,12 @@ public class GeneradorReportes {
 				.collect(Collectors.toList());
 	}
 
-	/** Informe de Inscripcion, ya filtrado. */
+	/**
+	 * Informe de Inscripcion, ya filtrado.
+	 *
+	 * @param inscripciones inscripciones ya filtradas por la pantalla del informe
+	 * @return las filas del informe, ordenadas por fecha
+	 */
 	public static List<ReporteInscripcionDTO> listarInformeInscripcion(List<InscripcionModelo> inscripciones) {
 		List<InscripcionModelo> ordenadas = inscripciones.stream()
 				.sorted(Comparator.comparing(InscripcionModelo::getInscrip_fecha,
@@ -131,7 +165,12 @@ public class GeneradorReportes {
 				.collect(Collectors.toList());
 	}
 
-	/** Informe de Transferencia, ya filtrado. */
+	/**
+	 * Informe de Transferencia, ya filtrado.
+	 *
+	 * @param transferencias transferencias ya filtradas por la pantalla del informe
+	 * @return las filas del informe, ordenadas por fecha
+	 */
 	public static List<ReporteTransferenciaDTO> listarInformeTransferencia(List<TransferenciaModelo> transferencias) {
 		List<TransferenciaModelo> ordenadas = transferencias.stream()
 				.sorted(Comparator.comparing(TransferenciaModelo::getTransf_fecha,
@@ -143,7 +182,12 @@ public class GeneradorReportes {
 				.collect(Collectors.toList());
 	}
 
-	/** Informe de Clase, ya filtrado. */
+	/**
+	 * Informe de Clase, ya filtrado.
+	 *
+	 * @param clases clases ya filtradas por la pantalla del informe
+	 * @return las filas del informe, ordenadas por fecha
+	 */
 	public static List<ReporteClaseDTO> listarInformeClase(List<ClaseModelo> clases) {
 		List<ClaseModelo> ordenadas = clases.stream()
 				.sorted(Comparator.comparing(ClaseModelo::getClase_fechaClase,

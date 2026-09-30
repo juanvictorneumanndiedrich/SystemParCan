@@ -7,10 +7,19 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
+/**
+ * Renderer para las columnas de Estado de las tablas: muestra el texto centrado y en negrita, en verde oscuro si
+ * vale "Activo" y en rojo en cualquier otro caso. Con la fila seleccionada el texto pasa a blanco.
+ */
 public class EstadoCellRenderer extends DefaultTableCellRenderer {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Prepara la celda con el formato descrito en la clase.
+     *
+     * @return la etiqueta ya configurada para dibujar la celda
+     */
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
             boolean isSelected, boolean hasFocus, int row, int column) {

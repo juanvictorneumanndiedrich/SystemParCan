@@ -15,16 +15,24 @@ import componentes.JLabelGenerico;
 import componentes.JtextFieldGenerico;
 import utilidades.FechaUtil;
 
+/**
+ * Pantalla del ABM de Clases de un grupo de catequesis (se abre desde la pantalla de Grupos). Se basa en {@link JDialogGenericMini}
+ * y agrega el boton Tomar Asistencia. Solo arma la interfaz; la logica vive en ClaseController.
+ */
 public class ClaseVista extends JDialogGenericMini {
 
 	private static final long serialVersionUID = 1L;
+	/** Panel de contenido de la pantalla */
 	private final JPanel contentPanel = new JPanel();
+	/** Campo de texto: fecha (dd/MM/yyyy) */
 	private JFormattedTextField tfFecha;
+	/** Campo de texto: descripcion */
 	private JtextFieldGenerico tfDescripcion;
+	/** Boton "Tomar Asistencia" */
 	private JButtonABM btnTomarAsistencia;
 
 	/**
-	 * Launch the application.
+	 * Punto de entrada para probar la pantalla de forma aislada, sin la pantalla principal.
 	 * Nota: este main() solo sirve para previsualizar el layout en WindowBuilder.
 	 * La pantalla real se abre desde GrupoCatequesisController.verClases(),
 	 * que instancia ClaseController(vista, grupo) con el grupo ya seleccionado.
@@ -40,7 +48,7 @@ public class ClaseVista extends JDialogGenericMini {
 	}
 
 	/**
-	 * Create the dialog.
+	 * Arma la pantalla: titulo, tamaño y componentes.
 	 */
 	public ClaseVista() {
 		setTitle("Clases");
@@ -97,22 +105,27 @@ public class ClaseVista extends JDialogGenericMini {
 		getPanelFormulario().add(btnTomarAsistencia);
 	}
 
+	/** @return el serialVersionUID de la clase */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
+	/** @return panel de contenido de la pantalla */
 	public JPanel getContentPanel() {
 		return contentPanel;
 	}
 
+	/** @return campo de texto: fecha (dd/MM/yyyy) */
 	public JFormattedTextField getTfFecha() {
 		return tfFecha;
 	}
 
+	/** @return campo de texto: descripcion */
 	public JtextFieldGenerico getTfDescripcion() {
 		return tfDescripcion;
 	}
 
+	/** @return boton "Tomar Asistencia" */
 	public JButtonABM getBtnTomarAsistencia() {
 		return btnTomarAsistencia;
 	}

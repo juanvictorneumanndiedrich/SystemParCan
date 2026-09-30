@@ -40,18 +40,26 @@ public class JButtonAccesoDirecto extends JButton {
 	// normal se dejo en su resolucion nativa (64, sin escalar) y el del
 	// hover crece solo un poco (68, ~6%), lo justo para notar el efecto
 	// sin que se note turbio.
+	/** Tamaño del icono en reposo, en pixeles. */
 	private static final int TAMANO_ICONO_NORMAL = 64;
 	private static final int TAMANO_ICONO_HOVER = 68; // el icono crece apenas con el mouse encima
 	private static final int ESPACIO_ICONO_ARRIBA = 8; // margen entre el borde de arriba del boton y el icono
 
+	/** Color del nombre que aparece al pasar el mouse. */
 	private static final Color COLOR_TEXTO = new Color(44, 62, 80); // Midnight Blue
+	/** Color del halo blanco translucido que se dibuja detras del nombre para que se lea sobre cualquier fondo. */
 	private static final Color COLOR_HALO = new Color(255, 255, 255, 210);
 
+	/** Indica si el mouse esta encima del boton. */
 	private boolean mouseEncima = false;
+	/** Nombre completo que se muestra debajo del icono mientras el mouse esta encima. */
 	private String nombreCompleto = "";
+	/** Icono en tamaño normal. */
 	private ImageIcon iconoNormal;
+	/** Icono un poco mas grande, usado con el mouse encima. */
 	private ImageIcon iconoHover;
 
+	/** Crea el boton sin fondo ni borde, con el icono arriba y los efectos de mouse encima (icono mas grande y nombre). */
 	public JButtonAccesoDirecto() {
 		super();
 		setSize(new Dimension(140, 140));
@@ -101,6 +109,7 @@ public class JButtonAccesoDirecto extends JButton {
 		setToolTipText(nombreCompleto);
 	}
 
+	/** Dibuja el icono y, mientras el mouse esta encima, el nombre completo debajo de el. */
 	@Override
 	protected void paintComponent(Graphics g) {
 		// Icono arriba (lo dibuja el propio JButton; ya viene mas grande
@@ -150,6 +159,12 @@ public class JButtonAccesoDirecto extends JButton {
 		}
 	}
 
+	/**
+	 * Busca el icono {@code /iconos/<icono>64.png} y prepara sus dos tamaños (normal y con el mouse encima).
+	 * Si no existe, avisa por consola.
+	 *
+	 * @param icono texto del boton, del que se deduce el nombre del archivo
+	 */
 	private void cargarIcono(String icono) {
 		try {
 			URL url = JMenuItemPersonalizado.class.getResource("/iconos/"+icono.toLowerCase().replace(" ", "_")+"64.png");

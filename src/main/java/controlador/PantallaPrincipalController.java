@@ -33,15 +33,30 @@ import vista.InformeClaseVista;
 import controlador.CatequizandoController;
 import controlador.CatequistaController;
 
+/**
+ * Controlador de la pantalla principal. Conecta los items de menu con las pantallas de ABM, los listados (reportes Jasper)
+ * y los informes del sistema.
+ */
 public class PantallaPrincipalController {
 
+    /**
+     * Pantalla (vista) que maneja este controlador.
+     */
     private PantallaPrincipalVista vista;
 
+    /**
+     * Crea el controlador de la pantalla principal y conecta sus menus.
+     *
+     * @param vista pantalla principal que se va a controlar
+     */
     public PantallaPrincipalController(PantallaPrincipalVista vista) {
         this.vista = vista;
         setAcciones();
     }
 
+    /**
+     * Conecta los items de menu (ABM, Utilidades, Listados e Informes) con los metodos que abren cada pantalla o reporte.
+     */
     private void setAcciones() {
         this.vista.getMntmprsnlzdCatequizando().addActionListener(e -> abrirCatequizando());
         this.vista.getMntmprsnlzdCatequista().addActionListener(e -> abrirCatequista());
@@ -81,6 +96,9 @@ public class PantallaPrincipalController {
         this.vista.getBtncsdrctGrupocatequesis().addActionListener(e -> abrirGrupoCatequesis());
     }
 
+    /**
+     * Abre la pantalla de Catequizandos (vista + controlador) centrada respecto a la pantalla principal.
+     */
     private void abrirCatequizando() {
         CatequizandoVista catequizandoVista = new CatequizandoVista();
         new CatequizandoController(catequizandoVista);
@@ -88,6 +106,9 @@ public class PantallaPrincipalController {
         catequizandoVista.setVisible(true);
     }
 
+    /**
+     * Abre la pantalla de Catequistas (vista + controlador) centrada respecto a la pantalla principal.
+     */
     private void abrirCatequista() {
         CatequistaVista catequistaVista = new CatequistaVista();
         new CatequistaController(catequistaVista);
@@ -95,6 +116,9 @@ public class PantallaPrincipalController {
         catequistaVista.setVisible(true);
     }
 
+    /**
+     * Abre la pantalla de Etapas (vista + controlador) centrada respecto a la pantalla principal.
+     */
     private void abrirEtapa() {
     	EtapaVista etapaVista = new EtapaVista();
     	new EtapaController(etapaVista);
@@ -102,6 +126,9 @@ public class PantallaPrincipalController {
     	etapaVista.setVisible(true);
     }
 
+    /**
+     * Abre la pantalla de Grupos de Catequesis (vista + controlador) centrada respecto a la pantalla principal.
+     */
     private void abrirGrupoCatequesis() {
     	GrupoCatequesisVista grupoCatequesisVista = new GrupoCatequesisVista();
     	new GrupoCatequesisController(grupoCatequesisVista);
@@ -109,6 +136,9 @@ public class PantallaPrincipalController {
     	grupoCatequesisVista.setVisible(true);
     }
 
+    /**
+     * Abre la pantalla de Sacramentos (vista + controlador) centrada respecto a la pantalla principal.
+     */
     private void abrirSacramentos() {
     	SacramentoVista sacramentoVista = new SacramentoVista();
     	new SacramentoController(sacramentoVista);
@@ -116,6 +146,9 @@ public class PantallaPrincipalController {
     	sacramentoVista.setVisible(true);
     }
 
+    /**
+     * Abre la pantalla de Inscripcion (vista + controlador) centrada respecto a la pantalla principal.
+     */
     private void abrirInscripcion() {
     	InscripcionVista inscripcionVista = new InscripcionVista();
     	new InscripcionController(inscripcionVista);
@@ -123,6 +156,9 @@ public class PantallaPrincipalController {
     	inscripcionVista.setVisible(true);
     }
 
+    /**
+     * Abre la pantalla de Clases (acceso directo) (vista + controlador) centrada respecto a la pantalla principal.
+     */
     // Pantalla de Clases de acceso directo: a diferencia de la que se abre
     // desde adentro de Grupo de Catequesis, aca el grupo de cada clase se
     // elige con un combo en el propio formulario (ver ClasesController).
@@ -133,6 +169,9 @@ public class PantallaPrincipalController {
     	clasesVista.setVisible(true);
     }
 
+    /**
+     * Abre la pantalla de Asistencia (acceso directo) (vista + controlador) centrada respecto a la pantalla principal.
+     */
     // Pantalla de Asistencia de acceso directo: a diferencia de la que se
     // abre desde adentro de Clases, aca la clase se elige con dos combos en
     // cascada (Grupo -> Clase) dentro de la propia pantalla (ver
@@ -149,6 +188,9 @@ public class PantallaPrincipalController {
     // a ConexionJasper, que compila el .jrxml del mismo nombre (ultimo
     // parametro de generarReporte) y lo muestra en una ventana modal.
 
+    /**
+     * Genera y muestra el listado de catequistas (reporte Jasper). Si falla la generacion muestra un mensaje de error.
+     */
     private void abrirListadoCatequistas() {
         try {
             List<ReportePersonaDTO> lista = GeneradorReportes.listarCatequistas(new CatequistaDAO(), new GrupoCatequesisDAO());
@@ -162,6 +204,9 @@ public class PantallaPrincipalController {
         }
     }
 
+    /**
+     * Genera y muestra el listado de catequizandos (reporte Jasper). Si falla la generacion muestra un mensaje de error.
+     */
     private void abrirListadoCatequizandos() {
         try {
             List<ReportePersonaDTO> lista = GeneradorReportes.listarCatequizandos(new CatequizandoDAO());
@@ -175,6 +220,9 @@ public class PantallaPrincipalController {
         }
     }
 
+    /**
+     * Genera y muestra el listado de grupos de catequesis (reporte Jasper). Si falla la generacion muestra un mensaje de error.
+     */
     private void abrirListadoGrupos() {
         try {
             List<ReporteGrupoDTO> lista = GeneradorReportes.listarGrupos(new GrupoCatequesisDAO());
@@ -188,6 +236,9 @@ public class PantallaPrincipalController {
         }
     }
 
+    /**
+     * Genera y muestra el listado de etapas (reporte Jasper). Si falla la generacion muestra un mensaje de error.
+     */
     private void abrirListadoEtapas() {
         try {
             List<ReporteEtapaDTO> lista = GeneradorReportes.listarEtapas(new EtapaDAO());
@@ -201,6 +252,9 @@ public class PantallaPrincipalController {
         }
     }
 
+    /**
+     * Genera y muestra el listado de sacramentos (reporte Jasper). Si falla la generacion muestra un mensaje de error.
+     */
     private void abrirListadoSacramentos() {
         try {
             List<ReporteSacramentoDTO> lista = GeneradorReportes.listarSacramentos(new SacramentoDAO());
@@ -219,6 +273,9 @@ public class PantallaPrincipalController {
     // generacion del Jasper viven en el Controller de cada informe (ver
     // controlador.InformeXController), no aca.
 
+    /**
+     * Abre la pantalla de filtros del Informe de Asistencia (ver {@link InformeAsistenciaController}).
+     */
     private void abrirInformeAsistencia() {
         InformeAsistenciaVista informeVista = new InformeAsistenciaVista();
         new InformeAsistenciaController(informeVista);
@@ -226,6 +283,9 @@ public class PantallaPrincipalController {
         informeVista.setVisible(true);
     }
 
+    /**
+     * Abre la pantalla de filtros del Informe de Inscripcion (ver {@link InformeInscripcionController}).
+     */
     private void abrirInformeInscripcion() {
         InformeInscripcionVista informeVista = new InformeInscripcionVista();
         new InformeInscripcionController(informeVista);
@@ -233,6 +293,9 @@ public class PantallaPrincipalController {
         informeVista.setVisible(true);
     }
 
+    /**
+     * Abre la pantalla de filtros del Informe de Transferencia (ver {@link InformeTransferenciaController}).
+     */
     private void abrirInformeTransferencia() {
         InformeTransferenciaVista informeVista = new InformeTransferenciaVista();
         new InformeTransferenciaController(informeVista);
@@ -240,6 +303,9 @@ public class PantallaPrincipalController {
         informeVista.setVisible(true);
     }
 
+    /**
+     * Abre la pantalla de filtros del Informe de Clase (ver {@link InformeClaseController}).
+     */
     private void abrirInformeClase() {
         InformeClaseVista informeVista = new InformeClaseVista();
         new InformeClaseController(informeVista);

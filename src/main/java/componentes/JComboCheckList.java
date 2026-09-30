@@ -25,12 +25,23 @@ import javax.swing.JScrollPane;
  *
  * El campo muestra un resumen de lo seleccionado; al hacer clic se despliega
  * un popup con un checkbox por cada opcion disponible.
+ *
+ * @param <T> tipo de los elementos que se pueden elegir
  */
 public class JComboCheckList<T> extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Define que texto se muestra para cada item (en su checkbox y en el resumen).
+	 *
+	 * @param <T> tipo del item
+	 */
 	public interface ProveedorTexto<T> {
+		/**
+		 * @param item elemento a mostrar
+		 * @return el texto que lo representa
+		 */
 		String getTexto(T item);
 	}
 
@@ -43,17 +54,29 @@ public class JComboCheckList<T> extends JPanel {
 	 * nunca encuentra coincidencia y no se marca ningun checkbox.
 	 */
 	public interface ExtractorClave<T> {
+		/**
+		 * @param item elemento a comparar
+		 * @return la clave que lo identifica (por ejemplo su id)
+		 */
 		Object getClave(T item);
 	}
 
+	/** Campo de solo lectura que muestra el resumen de lo seleccionado. */
 	private JtextFieldGenerico campoResumen;
+	/** Boton (flecha) que despliega el popup. */
 	private JButton botonDesplegable;
+	/** Popup desplegable que contiene la lista de checkboxes. */
 	private JPopupMenu popup;
+	/** Panel dentro del popup donde se apilan los checkboxes. */
 	private JPanel panelOpciones;
+	/** Un checkbox por cada item disponible, en el orden en que se cargaron. */
 	private Map<T, JCheckBox> checkboxes = new LinkedHashMap<T, JCheckBox>();
+	/** Forma de obtener el texto de cada item; si es {@code null} se usa {@code toString()}. */
 	private ProveedorTexto<T> proveedorTexto;
+	/** Forma de obtener la clave de cada item; si es {@code null} se compara el objeto mismo. */
 	private ExtractorClave<T> extractorClave;
 
+	/** Crea el componente: campo de resumen, boton desplegable y popup con la lista de opciones (vacia). */
 	public JComboCheckList() {
 		super(new BorderLayout());
 
@@ -98,22 +121,39 @@ public class JComboCheckList<T> extends JPanel {
 		botonDesplegable.addMouseListener(alternarPopup);
 	}
 
+	/**
+	 * Define como se obtiene el texto de cada item.
+	 *
+	 * @param proveedorTexto proveedor de texto
+	 */
 	public void setProveedorTexto(ProveedorTexto<T> proveedorTexto) {
 		this.proveedorTexto = proveedorTexto;
 	}
 
+	/**
+	 * Define como se obtiene la clave de comparacion de cada item (ver {@link ExtractorClave}).
+	 *
+	 * @param extractorClave extractor de clave
+	 */
 	public void setExtractorClave(ExtractorClave<T> extractorClave) {
 		this.extractorClave = extractorClave;
 	}
 
+	/** @return el texto del item segun el proveedor, o su {@code toString()} si no hay proveedor */
 	private String textoDe(T item) {
 		return proveedorTexto != null ? proveedorTexto.getTexto(item) : String.valueOf(item);
 	}
 
+	/** @return la clave del item segun el extractor, o el item mismo si no hay extractor */
 	private Object claveDe(T item) {
 		return extractorClave != null ? extractorClave.getClave(item) : item;
 	}
 
+	/**
+	 * Reemplaza las opciones disponibles por las de la lista (todas desmarcadas) y actualiza el resumen.
+	 *
+	 * @param items opciones a mostrar; puede ser {@code null} para dejarlo vacio
+	 */
 	public void setItems(List<T> items) {
 		panelOpciones.removeAll();
 		checkboxes.clear();
@@ -132,6 +172,11 @@ public class JComboCheckList<T> extends JPanel {
 		actualizarResumen();
 	}
 
+	/**
+	 * Marca las opciones que coinciden (segun su clave) con las de la lista recibida y desmarca el resto.
+	 *
+	 * @param seleccionados elementos a marcar; puede ser {@code null}
+	 */
 	public void setSeleccionados(List<T> seleccionados) {
 		List<Object> clavesSeleccionadas = new ArrayList<Object>();
 		if (seleccionados != null) {
@@ -145,6 +190,7 @@ public class JComboCheckList<T> extends JPanel {
 		actualizarResumen();
 	}
 
+	/** @return las opciones que estan marcadas, en el orden en que se cargaron */
 	public List<T> getSeleccionados() {
 		List<T> seleccionados = new ArrayList<T>();
 		for (Map.Entry<T, JCheckBox> entrada : checkboxes.entrySet()) {
@@ -153,11 +199,17 @@ public class JComboCheckList<T> extends JPanel {
 		return seleccionados;
 	}
 
+	/** Desmarca todas las opciones. */
 	public void limpiarSeleccion() {
 		for (JCheckBox chk : checkboxes.values()) chk.setSelected(false);
 		actualizarResumen();
 	}
 
+	/**
+	 * Habilita o deshabilita el componente completo (campo de resumen y boton desplegable).
+	 *
+	 * @param enabled {@code true} para habilitarlo
+	 */
 	@Override
 	public void setEnabled(boolean enabled) {
 		super.setEnabled(enabled);
@@ -165,6 +217,7 @@ public class JComboCheckList<T> extends JPanel {
 		if (botonDesplegable != null) botonDesplegable.setEnabled(enabled);
 	}
 
+	/** Actualiza el campo de resumen con los textos de lo marcado, separados por coma, o "Ninguno seleccionado". */
 	private void actualizarResumen() {
 		List<T> seleccionados = getSeleccionados();
 		if (seleccionados.isEmpty()) {

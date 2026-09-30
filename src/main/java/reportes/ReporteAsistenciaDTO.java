@@ -15,12 +15,26 @@ import utilidades.FechaUtil;
  */
 public class ReporteAsistenciaDTO {
 
+	/** Fecha de la clase (dd/MM/yyyy) */
 	private String fecha;
+	/** Catequizando en formato "Apellido, Nombre" */
 	private String catequizando;
+	/** Nombre del grupo de catequesis */
 	private String grupo;
+	/** Estado de asistencia como texto (Presente, Ausente, Justificado o vacio) */
 	private String estado;
+	/** Observaciones registradas */
 	private String observaciones;
 
+	/**
+	 * Crea una fila del informe de Asistencia.
+	 *
+	 * @param fecha fecha de la clase (dd/MM/yyyy)
+	 * @param catequizando catequizando en formato "Apellido, Nombre"
+	 * @param grupo nombre del grupo de catequesis
+	 * @param estado estado de asistencia como texto (Presente, Ausente, Justificado o vacio)
+	 * @param observaciones observaciones registradas
+	 */
 	public ReporteAsistenciaDTO(String fecha, String catequizando, String grupo, String estado,
 			String observaciones) {
 		super();
@@ -52,6 +66,11 @@ public class ReporteAsistenciaDTO {
 				asistencia.getObservaciones());
 	}
 
+	/**
+	 * Convierte un estado de asistencia en el texto que muestra el informe.
+	 *
+	 * @param estado estado a convertir; {@code null} da texto vacio
+	 */
 	private static String textoEstado(EstadoAsistencia estado) {
 		if (estado == null) return "";
 		switch (estado) {
@@ -65,22 +84,27 @@ public class ReporteAsistenciaDTO {
 		return "";
 	}
 
+	/** @return fecha de la clase (dd/MM/yyyy) */
 	public String getFecha() {
 		return fecha;
 	}
 
+	/** @return catequizando en formato "Apellido, Nombre" */
 	public String getCatequizando() {
 		return catequizando;
 	}
 
+	/** @return nombre del grupo de catequesis */
 	public String getGrupo() {
 		return grupo;
 	}
 
+	/** @return estado de asistencia como texto (Presente, Ausente, Justificado o vacio) */
 	public String getEstado() {
 		return estado;
 	}
 
+	/** @return observaciones registradas */
 	public String getObservaciones() {
 		return observaciones;
 	}

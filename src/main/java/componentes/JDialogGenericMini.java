@@ -100,22 +100,37 @@ public class JDialogGenericMini extends JDialog implements ActionListener {
 	private static final Color COLOR_TABLA_GRILLA = new Color(223, 228, 229);
 	private static final Color COLOR_TABLA_TEXTO = WET_ASPHALT;
 
+	/** Panel (tarjeta blanca) donde cada pantalla concreta agrega los campos de su formulario. */
 	private JPanel panelFormulario;
+	/** Tabla de registros de la pantalla; cada pantalla le asigna su modelo. */
 	private JTable tabla;
+	/** Boton Nuevo. */
 	private JButtonABM btnNuevo;
+	/** Boton Editar. */
 	private JButtonABM btnEditar;
+	/** Boton Guardar. */
 	private JButtonABM btnGuardar;
+	/** Boton Eliminar. */
 	private JButtonABM btnEliminar;
+	/** Boton Cancelar. */
 	private JButtonABM btnCancelar;
+	/** Campo de busqueda; al apretar Enter se dispara la accion Buscar. */
 	private JtextFieldGenerico tfBuscador;
+	/** Controlador al que se le delegan las acciones de los botones; se asigna con {@link #setInterfaceABM(InterfaceABM)}. */
 	private InterfaceABM interfaceABM;
 
+	/**
+	 * Conecta el controlador que va a recibir las acciones de los botones (Nuevo, Editar, Guardar, Eliminar, Cancelar) y de la busqueda.
+	 *
+	 * @param interfaceABM controlador de la pantalla
+	 */
 	public void setInterfaceABM(InterfaceABM interfaceABM) {
 		this.interfaceABM = interfaceABM;
 	}
 
 	/**
-	 * Create the dialog.
+	 * Arma el dialogo: boton de acciones, formulario, tabla con su buscador y estilos. Las pantallas concretas lo extienden y
+	 * agregan sus campos en {@link #getPanelFormulario()}.
 	 */
 	public JDialogGenericMini() {
 		setBounds(100, 100, 720, 720);
@@ -189,46 +204,79 @@ public class JDialogGenericMini extends JDialog implements ActionListener {
 
 
 
+	/**
+	 * @return el serialVersionUID de la clase
+	 */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
+	/**
+	 * @return el panel donde se agregan los campos del formulario
+	 */
 	public JPanel getPanelFormulario() {
 		return panelFormulario;
 	}
 
+	/**
+	 * @return la tabla de registros
+	 */
 	public JTable getTabla() {
 		return tabla;
 	}
 
+	/**
+	 * @return el boton Nuevo
+	 */
 	public JButtonABM getBtnNuevo() {
 		return btnNuevo;
 	}
 
+	/**
+	 * @return el boton Editar
+	 */
 	public JButtonABM getBtnEditar() {
 		return btnEditar;
 	}
 
+	/**
+	 * @return el boton Guardar
+	 */
 	public JButtonABM getBtnGuardar() {
 		return btnGuardar;
 	}
 
+	/**
+	 * @return el boton Eliminar
+	 */
 	public JButtonABM getBtnEliminar() {
 		return btnEliminar;
 	}
 
+	/**
+	 * @return el boton Cancelar
+	 */
 	public JButtonABM getBtnCancelar() {
 		return btnCancelar;
 	}
 
+	/**
+	 * @return el campo de busqueda
+	 */
 	public JtextFieldGenerico getTfBuscador() {
 		return tfBuscador;
 	}
 
+	/**
+	 * @return el controlador asignado. A pesar del nombre ({@code set...}) es un getter; se deja asi para no romper el codigo existente.
+	 */
 	public InterfaceABM setInterfaceABM() {
 		return interfaceABM;
 	}
 
+	/**
+	 * Conecta los botones y el campo de busqueda a {@link #actionPerformed(ActionEvent)}.
+	 */
 	private void setAcciones() {
 		btnNuevo.addActionListener(this);
 		btnEditar.addActionListener(this);
@@ -239,6 +287,11 @@ public class JDialogGenericMini extends JDialog implements ActionListener {
 		tfBuscador.addActionListener(this);
 	}
 
+	/**
+	 * Recibe la accion de un boton (segun su texto) o de la busqueda y la delega en el controlador ({@link InterfaceABM}).
+	 *
+	 * @param e evento con el comando de la accion: Nuevo, Editar, Guardar, Eliminar, Cancelar o Buscar
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		switch (e.getActionCommand()) {
@@ -263,6 +316,11 @@ public class JDialogGenericMini extends JDialog implements ActionListener {
 		}
 	}
 
+	/**
+	 * Aplica el estilo visual a la tabla: altura de filas, colores, rayas alternadas y encabezado oscuro.
+	 *
+	 * @param tabla tabla a estilizar
+	 */
 	private static void estilizarTabla(JTable tabla) {
 		tabla.setRowHeight(30);
 		tabla.setIntercellSpacing(new Dimension(0, 0));

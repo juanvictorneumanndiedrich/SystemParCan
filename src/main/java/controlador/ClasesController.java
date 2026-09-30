@@ -23,13 +23,38 @@ import vista.ClasesVista;
  */
 public class ClasesController implements InterfaceABM {
 
+	/**
+	 * Pantalla (vista) que maneja este controlador.
+	 */
 	private ClasesVista vista;
+	/**
+	 * Clase en edicion o seleccionada; es {@code null} cuando no hay ninguna.
+	 */
 	private ClaseModelo clase;
+	/**
+	 * DAO principal de la entidad que administra esta pantalla.
+	 */
 	private ClaseDAO dao;
+	/**
+	 * DAO auxiliar de grupos de catequesis (combos de filtro o seleccion).
+	 */
 	private GrupoCatequesisDAO grupoDao;
+	/**
+	 * Registros que muestra actualmente la tabla (ya filtrados); el indice de la fila coincide
+	 * con el de esta lista.
+	 */
 	private List<ClaseModelo> clases;
+	/**
+	 * Modelo de la tabla donde se listan los registros.
+	 */
 	private ModeloTablaClaseGeneral tabla;
 
+	/**
+	 * Crea el controlador de la pantalla de clases de acceso directo: asocia la vista, carga los combos y la tabla
+	 * y registra las acciones.
+	 *
+	 * @param vista pantalla {@link ClasesVista} que se va a controlar
+	 */
 	public ClasesController(ClasesVista vista) {
 		super();
 		this.vista = vista;
@@ -46,6 +71,9 @@ public class ClasesController implements InterfaceABM {
 		setAcciones();
 	}
 
+	/**
+	 * Llena con todos los grupos de catequesis los combos de la pantalla (grupo del formulario y filtro por grupo).
+	 */
 	private void cargarComboGrupos() {
 		List<GrupoCatequesisModelo> grupos = grupoDao.recuperarTodo();
 
@@ -63,6 +91,12 @@ public class ClasesController implements InterfaceABM {
 		}
 	}
 
+	/**
+	 * Selecciona en el combo del formulario el grupo con el mismo id que el recibido (mismo motivo y patron que
+	 * {@link GrupoCatequesisController}: los objetos vienen de consultas distintas y no coinciden por identidad).
+	 *
+	 * @param grupo grupo a seleccionar; si es {@code null} o no esta en el combo, queda sin seleccion
+	 */
 	// El combo se carga una sola vez con instancias propias (via grupoDao).
 	// clase.getGrupoCatequesis() viene de otra consulta (ClaseDAO), por lo
 	// tanto es una instancia distinta aunque represente la misma fila en la
@@ -89,6 +123,12 @@ public class ClasesController implements InterfaceABM {
 		this.vista.getCbGrupo().setSelectedIndex(-1);
 	}
 
+	/**
+	 * Recarga la tabla con las clases de todos los grupos, aplicando el filtro por grupo del combo ("Todos" si es
+	 * {@code null}) y, si hay texto, buscandolo en la descripcion de la clase o en el nombre de su grupo.
+	 *
+	 * @param filtro texto a buscar; vacio o {@code null} para no filtrar por texto
+	 */
 	private void cargarTabla(String filtro) {
 		List<ClaseModelo> todas = dao.recuperarTodo();
 
@@ -114,6 +154,10 @@ public class ClasesController implements InterfaceABM {
 		tabla.setLista(clases);
 	}
 
+	/**
+	 * Registra los listeners: doble clic en la tabla selecciona la clase, el campo de busqueda filtra en tiempo real
+	 * y el combo de filtro por grupo vuelve a ejecutar la busqueda actual.
+	 */
 	private void setAcciones() {
 		this.vista.getTabla().addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -132,6 +176,10 @@ public class ClasesController implements InterfaceABM {
 		this.vista.getCbFiltroGrupo().addActionListener(e -> buscar());
 	}
 
+	/**
+	 * Deja la pantalla en su estado inicial: solo Nuevo y Cancelar habilitados, campos
+	 * deshabilitados y vacios, y sin registro seleccionado.
+	 */
 	private void estadoInicial() {
 		this.vista.getBtnNuevo().setEnabled(true);
 		this.vista.getBtnEditar().setEnabled(false);
@@ -150,6 +198,10 @@ public class ClasesController implements InterfaceABM {
 		clase = null;
 	}
 
+	/**
+	 * Toma la fila elegida en la tabla como registro actual y habilita Editar y Eliminar.
+	 * Todavia no carga los datos en el formulario; eso ocurre al llamar a {@link #editar()}.
+	 */
 	private void seleccionarRegistro() {
 		int fila = this.vista.getTabla().getSelectedRow();
 		if (fila < 0) return;
@@ -159,6 +211,10 @@ public class ClasesController implements InterfaceABM {
 		this.vista.getBtnEliminar().setEnabled(true);
 	}
 
+	/**
+	 * Prepara la pantalla para cargar un registro nuevo: habilita los campos y Guardar,
+	 * y crea una instancia vacia del modelo.
+	 */
 	@Override
 	public void nuevo() {
 		this.vista.getBtnNuevo().setEnabled(false);
@@ -179,6 +235,10 @@ public class ClasesController implements InterfaceABM {
 		clase = new ClaseModelo();
 	}
 
+	/**
+	 * Carga los datos del registro seleccionado en el formulario y habilita los campos
+	 * para modificarlos. No hace nada si no hay un registro seleccionado.
+	 */
 	@Override
 	public void editar() {
 		if (clase == null) return;
@@ -199,6 +259,9 @@ public class ClasesController implements InterfaceABM {
 		this.vista.getBtnCancelar().setEnabled(true);
 	}
 
+	/**
+	 * Valida los datos ingresados y guarda la clase con el grupo elegido en el combo; luego recarga la tabla.
+	 */
 	@Override
 	public void guardar() {
 		GrupoCatequesisModelo grupoElegido = (GrupoCatequesisModelo) this.vista.getCbGrupo().getSelectedItem();
@@ -236,6 +299,10 @@ public class ClasesController implements InterfaceABM {
 		cargarTabla("");
 	}
 
+	/**
+	 * Elimina el registro seleccionado previa confirmacion del usuario. Si la baja falla
+	 * (por ejemplo, por registros relacionados) muestra el error y no recarga la tabla.
+	 */
 	@Override
 	public void eliminar() {
 		if (clase == null) return;
@@ -266,12 +333,19 @@ public class ClasesController implements InterfaceABM {
 		}
 	}
 
+	/**
+	 * Cancela la operacion en curso: si no hay un registro en uso cierra la ventana,
+	 * y si lo hay vuelve la pantalla a su estado inicial.
+	 */
 	@Override
 	public void cancelar() {
 		if (clase == null) this.vista.dispose();
 		else estadoInicial();
 	}
 
+	/**
+	 * Toma el texto del campo de busqueda (sin espacios sobrantes) y recarga la tabla filtrada.
+	 */
 	@Override
 	public void buscar() {
 		String filtro = this.vista.getTfBuscador().getText().trim();

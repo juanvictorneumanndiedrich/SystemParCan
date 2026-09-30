@@ -19,14 +19,46 @@ import utilidades.FechaUtil;
 import vista.CatequistaVista;
 
 
+/**
+ * Controlador del ABM de Catequistas. Conecta {@link CatequistaVista} con {@link CatequistaDAO}:
+ * lista los catequistas en la tabla, permite buscarlos por nombre en tiempo real y gestiona
+ * alta, modificacion y baja, incluyendo los sacramentos que tiene cada catequista.
+ * 
+ * Implementa {@link InterfaceABM}.
+ */
 public class CatequistaController  implements InterfaceABM{
 
+	/**
+	 * Pantalla (vista) que maneja este controlador.
+	 */
 	private CatequistaVista vista;
+	/**
+	 * Catequista en edicion o seleccionado; es {@code null} cuando no hay ninguno.
+	 */
 	private CatequistaModelo catequista;
+	/**
+	 * DAO principal de la entidad que administra esta pantalla.
+	 */
 	private CatequistaDAO dao;
+	/**
+	 * DAO auxiliar para cargar los sacramentos en el combo.
+	 */
 	private SacramentoDAO sacramentoDao;
+	/**
+	 * Registros que muestra actualmente la tabla (ya filtrados); el indice de la fila coincide
+	 * con el de esta lista.
+	 */
 	private List<CatequistaModelo> catequistas;
+	/**
+	 * Modelo de la tabla donde se listan los registros.
+	 */
 	private ModeloTablaCatequista tabla;
+	/**
+	 * Crea el controlador: asocia la vista ({@code setInterfaceABM}), instancia los DAO y el modelo de tabla,
+	 * carga los datos iniciales y registra las acciones de la pantalla.
+	 *
+	 * @param vista pantalla CatequistaVista que se va a controlar
+	 */
 	public CatequistaController(CatequistaVista catequistaVista) {
 		super();
 		this.vista = catequistaVista;
@@ -43,12 +75,21 @@ public class CatequistaController  implements InterfaceABM{
 		setAcciones();
 	}
 	
+	/**
+	 * Configura el combo de sacramentos (texto visible y clave de cada item) y lo llena con todos los sacramentos.
+	 */
 	private void cargarCombos() {
 		this.vista.getComboSacramentos().setProveedorTexto(s -> s.getSacr_nombre());
 		this.vista.getComboSacramentos().setExtractorClave(s -> s.getSacr_id());
 		this.vista.getComboSacramentos().setItems(sacramentoDao.recuperarTodo());
 	}
 	
+	/**
+	 * Recarga la tabla con los catequistas. Si hay filtro, solo quedan los que tienen ese texto en el nombre
+	 * (sin distinguir mayusculas).
+	 *
+	 * @param filtro texto a buscar en el nombre; vacio o {@code null} para traer todos
+	 */
 	private void cargarTabla(String filtro) {
 	    if (filtro == null || filtro.isEmpty()) {
 	        catequistas = dao.recuperarTodo();
@@ -61,6 +102,10 @@ public class CatequistaController  implements InterfaceABM{
 	    tabla.setLista(catequistas);
 	}
 	
+	/**
+	 * Registra los listeners de la pantalla: doble clic en la tabla selecciona el registro
+	 * y el campo de busqueda filtra la tabla en tiempo real mientras se escribe.
+	 */
 	private void setAcciones() {
 	    this.vista.getTabla().addMouseListener(new MouseAdapter() {
 	        public void mouseClicked(MouseEvent e) {
@@ -76,6 +121,10 @@ public class CatequistaController  implements InterfaceABM{
 	    });
 	}
 
+	/**
+	 * Deja la pantalla en su estado inicial: solo Nuevo y Cancelar habilitados, campos
+	 * deshabilitados y vacios, y sin registro seleccionado.
+	 */
 	private void estadoInicial() {
 		// desactiva los botones
 		this.vista.getBtnNuevo().setEnabled(true);
@@ -111,6 +160,10 @@ public class CatequistaController  implements InterfaceABM{
 	
 	
 	
+	/**
+	 * Prepara la pantalla para un catequista nuevo: habilita los campos, crea un {@link CatequistaModelo} vacio
+	 * y precarga la fecha de registro con la fecha de hoy.
+	 */
 	@Override
 	public void nuevo() {
 		// desactiva los botones
@@ -139,6 +192,10 @@ public class CatequistaController  implements InterfaceABM{
 		
 	}
 	
+	/**
+	 * Toma la fila elegida en la tabla como registro actual y habilita Editar y Eliminar.
+	 * Todavia no carga los datos en el formulario; eso ocurre al llamar a {@link #editar()}.
+	 */
 	private void seleccionarRegistro() {
 	    int fila = this.vista.getTabla().getSelectedRow();
 	    if (fila < 0) return;
@@ -150,6 +207,10 @@ public class CatequistaController  implements InterfaceABM{
 	}
 	
 	
+	/**
+	 * Carga los datos del catequista seleccionado (incluidos sus sacramentos) en el formulario y habilita los campos.
+	 * No hace nada si no hay un catequista seleccionado.
+	 */
 	@Override
 	public void editar() {
 		if (catequista == null) return;
@@ -185,6 +246,10 @@ public class CatequistaController  implements InterfaceABM{
 	    this.vista.getBtnCancelar().setEnabled(true);
 		
 	}
+	/**
+	 * Elimina el registro seleccionado previa confirmacion del usuario. Si la baja falla
+	 * (por ejemplo, por registros relacionados) muestra el error y no recarga la tabla.
+	 */
 	@Override
 	public void eliminar() {
 		if (catequista == null) return;
@@ -215,12 +280,21 @@ public class CatequistaController  implements InterfaceABM{
 	    }
 		
 	}
+	/**
+	 * Cancela la operacion en curso: si no hay un registro en uso cierra la ventana,
+	 * y si lo hay vuelve la pantalla a su estado inicial.
+	 */
 	@Override
 	public void cancelar() {
 		if(catequista == null) this.vista.dispose();
 		else estadoInicial();
 		
 	}
+	/**
+	 * Valida los datos con {@link ValidadorCampos} (nombre y apellido: obligatorios y solo letras; documento y telefono:
+	 * obligatorios y solo numeros; correo y direccion: obligatorios). Ante el primer dato invalido muestra un aviso y
+	 * no guarda. Si todo es correcto pasa los datos al modelo, lo guarda con el DAO y recarga la tabla.
+	 */
 	@Override
 	public void guardar() {
 		String nombre = this.vista.getTfNombre().getText();
@@ -290,6 +364,9 @@ public class CatequistaController  implements InterfaceABM{
 		
 	}
 
+	/**
+	 * Toma el texto del campo de busqueda (sin espacios sobrantes) y recarga la tabla filtrada.
+	 */
 	@Override
 	public void buscar() {
 		String filtro = this.vista.getTfBuscador().getText().trim();

@@ -34,18 +34,27 @@ import utilidades.FechaUtil;
 public class InformeAsistenciaVista extends JDialog {
 
 	private static final long serialVersionUID = 1L;
+	/** Combo de grupos de catequesis */
 	private JComboBox<GrupoCatequesisModelo> cbGrupo;
+	/** Combo: catequizando */
 	private JComboBox<CatequizandoModelo> cbCatequizando;
+	/** Combo de estado (filtro) */
 	private JComboBox<EstadoAsistencia> cbEstado;
+	/** Campo de texto: fecha inicial del rango ("Desde") */
 	private JFormattedTextField tfFechaDesde;
+	/** Campo de texto: fecha final del rango ("Hasta") */
 	private JFormattedTextField tfFechaHasta;
+	/** Tabla principal de la pantalla */
 	private JTable tabla;
+	/** Boton "Filtrar" */
 	private JButtonInforme btnFiltrar;
+	/** Boton "Generar" */
 	private JButtonInforme btnGenerar;
+	/** Boton "Cerrar" */
 	private JButtonInforme btnCerrar;
 
 	/**
-	 * Launch the application.
+	 * Punto de entrada para probar la pantalla de forma aislada, sin la pantalla principal.
 	 */
 	public static void main(String[] args) {
 		try {
@@ -58,10 +67,16 @@ public class InformeAsistenciaVista extends JDialog {
 		}
 	}
 
+	/**
+	 * Crea el controlador que maneja esta pantalla (se usa solo desde {@code main}).
+	 */
 	private void setUpControlador() {
 		new InformeAsistenciaController(this);
 	}
 
+	/**
+	 * Arma la pantalla: titulo, tamaño y componentes.
+	 */
 	public InformeAsistenciaVista() {
 		setTitle("Informe de Asistencia");
 		setBounds(100, 100, 1080, 650);
@@ -202,42 +217,52 @@ public class InformeAsistenciaVista extends JDialog {
 		return "";
 	}
 
+	/** @return el serialVersionUID de la clase */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
+	/** @return combo de grupos de catequesis */
 	public JComboBox<GrupoCatequesisModelo> getCbGrupo() {
 		return cbGrupo;
 	}
 
+	/** @return combo: catequizando */
 	public JComboBox<CatequizandoModelo> getCbCatequizando() {
 		return cbCatequizando;
 	}
 
+	/** @return combo de estado (filtro) */
 	public JComboBox<EstadoAsistencia> getCbEstado() {
 		return cbEstado;
 	}
 
+	/** @return campo de texto: fecha inicial del rango ("Desde") */
 	public JFormattedTextField getTfFechaDesde() {
 		return tfFechaDesde;
 	}
 
+	/** @return campo de texto: fecha final del rango ("Hasta") */
 	public JFormattedTextField getTfFechaHasta() {
 		return tfFechaHasta;
 	}
 
+	/** @return tabla principal de la pantalla */
 	public JTable getTabla() {
 		return tabla;
 	}
 
+	/** @return boton "Filtrar" */
 	public JButtonInforme getBtnFiltrar() {
 		return btnFiltrar;
 	}
 
+	/** @return boton "Generar" */
 	public JButtonInforme getBtnGenerar() {
 		return btnGenerar;
 	}
 
+	/** @return boton "Cerrar" */
 	public JButtonInforme getBtnCerrar() {
 		return btnCerrar;
 	}

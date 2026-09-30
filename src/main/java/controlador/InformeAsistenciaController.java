@@ -32,13 +32,37 @@ import vista.InformeAsistenciaVista;
  */
 public class InformeAsistenciaController {
 
+	/**
+	 * Pantalla (vista) que maneja este controlador.
+	 */
 	private InformeAsistenciaVista vista;
+	/**
+	 * DAO principal de la entidad que administra esta pantalla.
+	 */
 	private AsistenciaDAO dao;
+	/**
+	 * DAO auxiliar de grupos de catequesis (combos de filtro o seleccion).
+	 */
 	private GrupoCatequesisDAO grupoDao;
+	/**
+	 * DAO auxiliar de catequizandos.
+	 */
 	private CatequizandoDAO catequizandoDao;
+	/**
+	 * Modelo de la tabla donde se listan los registros.
+	 */
 	private ModeloTablaInformeAsistencia tabla;
+	/**
+	 * Lista ya filtrada que se ve en la grilla; es la que se envia al reporte Jasper.
+	 */
 	private List<AsistenciaModelo> filtradas = new ArrayList<AsistenciaModelo>();
 
+	/**
+	 * Crea el controlador: asocia la vista, carga los combos de filtro, registra las acciones y filtra una vez
+	 * para que la grilla aparezca ya cargada al abrir.
+	 *
+	 * @param vista pantalla {@link InformeAsistenciaVista} que se va a controlar
+	 */
 	public InformeAsistenciaController(InformeAsistenciaVista vista) {
 		super();
 		this.vista = vista;
@@ -54,6 +78,9 @@ public class InformeAsistenciaController {
 		filtrar();
 	}
 
+	/**
+	 * Llena los combos de filtro. El primer item de cada combo es {@code null} y representa "-- Todos --".
+	 */
 	private void cargarCombos() {
 		this.vista.getCbGrupo().removeAllItems();
 		this.vista.getCbGrupo().addItem(null);
@@ -77,12 +104,18 @@ public class InformeAsistenciaController {
 		}
 	}
 
+	/**
+	 * Conecta los botones Filtrar, Generar Informe y Cerrar.
+	 */
 	private void setAcciones() {
 		this.vista.getBtnFiltrar().addActionListener(e -> filtrar());
 		this.vista.getBtnGenerar().addActionListener(e -> generarInforme());
 		this.vista.getBtnCerrar().addActionListener(e -> this.vista.dispose());
 	}
 
+	/**
+	 * Recalcula la lista filtrada (por grupo, catequizando, estado y rango de fecha de la clase), la ordena por fecha y actualiza la grilla.
+	 */
 	private void filtrar() {
 		GrupoCatequesisModelo grupoFiltro = (GrupoCatequesisModelo) this.vista.getCbGrupo().getSelectedItem();
 		CatequizandoModelo catequizandoFiltro = (CatequizandoModelo) this.vista.getCbCatequizando().getSelectedItem();
@@ -114,6 +147,10 @@ public class InformeAsistenciaController {
 		tabla.setLista(filtradas);
 	}
 
+	/**
+	 * Genera el reporte Jasper "InformeAsistencia" con la lista filtrada y lo muestra en una ventana. Si falla la
+	 * generacion muestra un mensaje de error.
+	 */
 	private void generarInforme() {
 		try {
 			List<ReporteAsistenciaDTO> lista = GeneradorReportes.listarInformeAsistencia(filtradas);

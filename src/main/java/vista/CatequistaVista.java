@@ -19,22 +19,37 @@ import controlador.CatequizandoController;
 import modelo.SacramentoModelo;
 import utilidades.FechaUtil;
 
+/**
+ * Pantalla del ABM de Catequistas: formulario (datos personales, estado, fecha de registro y sacramentos) y tabla de registros,
+ * sobre la base de {@link JDialogGenerico}. Solo arma la interfaz y expone sus componentes con getters;
+ * la logica vive en {@link CatequistaController}.
+ */
 public class CatequistaVista extends JDialogGenerico {
 
 	private static final long serialVersionUID = 1L;
+	/** Campo de texto: nombre */
 	private JtextFieldGenerico tfNombre;
+	/** Campo de texto: apellido */
 	private JtextFieldGenerico tfApellido;
+	/** Campo de texto: documento */
 	private JtextFieldGenerico tfDocumento;
+	/** Campo de texto: telefono */
 	private JtextFieldGenerico tfTelefono;
+	/** Campo de texto: correo electronico */
 	private JtextFieldGenerico tfCorreo;
+	/** Campo de texto: direccion */
 	private JtextFieldGenerico tfDireccion;
+	/** Checkbox de estado (Activo/Inactivo) */
 	private JCheckBox cbEstado;
+	/** Campo de texto: fecha de nacimiento (dd/MM/yyyy) */
 	private JFormattedTextField tfFecha_nac;
+	/** Campo de texto: fecha de registro (dd/MM/yyyy) */
 	private JFormattedTextField tfFecha_reg;
+	/** Combo con checks (seleccion multiple) de sacramentos */
 	private JComboCheckList<SacramentoModelo> comboSacramentos;
 
 	/**
-	 * Launch the application.
+	 * Punto de entrada para probar la pantalla de forma aislada, sin la pantalla principal.
 	 */
 	public static void main(String[] args) {
 		try {
@@ -48,6 +63,9 @@ public class CatequistaVista extends JDialogGenerico {
 	}
 
 
+	/**
+	 * Crea el controlador que maneja esta pantalla (se usa solo desde {@code main}).
+	 */
 	private void setUpControlador() {
 		new CatequistaController(this);
 
@@ -55,7 +73,7 @@ public class CatequistaVista extends JDialogGenerico {
 	}
 
 	/**
-	 * Create the dialog.
+	 * Arma la pantalla: titulo, tamaño y componentes.
 	 */
 	public CatequistaVista() {
 		setTitle("Catequistas");
@@ -149,46 +167,57 @@ public class CatequistaVista extends JDialogGenerico {
 
 	}
 
+	/** @return el serialVersionUID de la clase */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
+	/** @return campo de texto: nombre */
 	public JtextFieldGenerico getTfNombre() {
 		return tfNombre;
 	}
 
+	/** @return campo de texto: apellido */
 	public JtextFieldGenerico getTfApellido() {
 		return tfApellido;
 	}
 
+	/** @return campo de texto: documento */
 	public JtextFieldGenerico getTfDocumento() {
 		return tfDocumento;
 	}
 
+	/** @return campo de texto: telefono */
 	public JtextFieldGenerico getTfTelefono() {
 		return tfTelefono;
 	}
 
+	/** @return campo de texto: correo electronico */
 	public JtextFieldGenerico getTfCorreo() {
 		return tfCorreo;
 	}
 
+	/** @return campo de texto: direccion */
 	public JtextFieldGenerico getTfDireccion() {
 		return tfDireccion;
 	}
 
+	/** @return checkbox de estado (Activo/Inactivo) */
 	public JCheckBox getCbEstado() {
 		return cbEstado;
 	}
 
+	/** @return campo de texto: fecha de nacimiento (dd/MM/yyyy) */
 	public JFormattedTextField getTfFecha_nac() {
 		return tfFecha_nac;
 	}
 
+	/** @return campo de texto: fecha de registro (dd/MM/yyyy) */
 	public JFormattedTextField getTfFecha_reg() {
 		return tfFecha_reg;
 	}
 
+	/** @return combo con checks (seleccion multiple) de sacramentos */
 	public JComboCheckList<SacramentoModelo> getComboSacramentos() {
 		return comboSacramentos;
 	}

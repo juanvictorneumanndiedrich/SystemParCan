@@ -32,18 +32,27 @@ import utilidades.FechaUtil;
 public class InformeTransferenciaVista extends JDialog {
 
 	private static final long serialVersionUID = 1L;
+	/** Combo de grupo de origen (filtro) */
 	private JComboBox<GrupoCatequesisModelo> cbGrupoOrigen;
+	/** Combo de grupo de destino (filtro) */
 	private JComboBox<GrupoCatequesisModelo> cbGrupoDestino;
+	/** Campo de texto: fecha inicial del rango ("Desde") */
 	private JFormattedTextField tfFechaDesde;
+	/** Campo de texto: fecha final del rango ("Hasta") */
 	private JFormattedTextField tfFechaHasta;
+	/** Campo de texto: buscador de texto libre */
 	private JtextFieldGenerico tfBuscador;
+	/** Tabla principal de la pantalla */
 	private JTable tabla;
+	/** Boton "Filtrar" */
 	private JButtonInforme btnFiltrar;
+	/** Boton "Generar" */
 	private JButtonInforme btnGenerar;
+	/** Boton "Cerrar" */
 	private JButtonInforme btnCerrar;
 
 	/**
-	 * Launch the application.
+	 * Punto de entrada para probar la pantalla de forma aislada, sin la pantalla principal.
 	 */
 	public static void main(String[] args) {
 		try {
@@ -56,10 +65,16 @@ public class InformeTransferenciaVista extends JDialog {
 		}
 	}
 
+	/**
+	 * Crea el controlador que maneja esta pantalla (se usa solo desde {@code main}).
+	 */
 	private void setUpControlador() {
 		new InformeTransferenciaController(this);
 	}
 
+	/**
+	 * Arma la pantalla: titulo, tamaño y componentes.
+	 */
 	public InformeTransferenciaVista() {
 		setTitle("Informe de Transferencia");
 		setBounds(100, 100, 1080, 650);
@@ -175,42 +190,52 @@ public class InformeTransferenciaVista extends JDialog {
 		panelBotones.add(btnCerrar);
 	}
 
+	/** @return el serialVersionUID de la clase */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
+	/** @return combo de grupo de origen (filtro) */
 	public JComboBox<GrupoCatequesisModelo> getCbGrupoOrigen() {
 		return cbGrupoOrigen;
 	}
 
+	/** @return combo de grupo de destino (filtro) */
 	public JComboBox<GrupoCatequesisModelo> getCbGrupoDestino() {
 		return cbGrupoDestino;
 	}
 
+	/** @return campo de texto: fecha inicial del rango ("Desde") */
 	public JFormattedTextField getTfFechaDesde() {
 		return tfFechaDesde;
 	}
 
+	/** @return campo de texto: fecha final del rango ("Hasta") */
 	public JFormattedTextField getTfFechaHasta() {
 		return tfFechaHasta;
 	}
 
+	/** @return campo de texto: buscador de texto libre */
 	public JtextFieldGenerico getTfBuscador() {
 		return tfBuscador;
 	}
 
+	/** @return tabla principal de la pantalla */
 	public JTable getTabla() {
 		return tabla;
 	}
 
+	/** @return boton "Filtrar" */
 	public JButtonInforme getBtnFiltrar() {
 		return btnFiltrar;
 	}
 
+	/** @return boton "Generar" */
 	public JButtonInforme getBtnGenerar() {
 		return btnGenerar;
 	}
 
+	/** @return boton "Cerrar" */
 	public JButtonInforme getBtnCerrar() {
 		return btnCerrar;
 	}

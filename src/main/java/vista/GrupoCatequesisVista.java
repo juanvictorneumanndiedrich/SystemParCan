@@ -18,17 +18,26 @@ import modelo.CatequistaModelo;
 import modelo.EtapaModelo;
 import utilidades.FechaUtil;
 
+/**
+ * Pantalla del ABM de Grupos de Catequesis (nombre, año, etapa y catequistas), basada en {@link JDialogGenerico}. Incluye el boton
+ * Ver Clases. Solo arma la interfaz; la logica vive en GrupoCatequesisController.
+ */
 public class GrupoCatequesisVista extends JDialogGenerico {
 
 	private static final long serialVersionUID = 1L;
+	/** Campo de texto: nombre */
 	private JtextFieldGenerico tfNombre;
+	/** Campo de texto: año del grupo */
 	private JFormattedTextField tfAnho;
+	/** Combo de etapas */
 	private JComboBox<EtapaModelo> cbEtapa;
+	/** Combo con checks (seleccion multiple) de catequistas */
 	private JComboCheckList<CatequistaModelo> comboCatequistas;
+	/** Boton "Ver Clases" */
 	private JButtonABM btnVerClases;
 
 	/**
-	 * Launch the application.
+	 * Punto de entrada para probar la pantalla de forma aislada, sin la pantalla principal.
 	 */
 	public static void main(String[] args) {
 		try {
@@ -41,13 +50,16 @@ public class GrupoCatequesisVista extends JDialogGenerico {
 		}
 	}
 
+	/**
+	 * Crea el controlador que maneja esta pantalla (se usa solo desde {@code main}).
+	 */
 	private void setUpControlador() {
 		new GrupoCatequesisController(this);
 
 	}
 
 	/**
-	 * Create the dialog.
+	 * Arma la pantalla: titulo, tamaño y componentes.
 	 */
 	public GrupoCatequesisVista() {
 		setTitle("Grupos de Catequesis");
@@ -111,26 +123,32 @@ public class GrupoCatequesisVista extends JDialogGenerico {
 		getContentPane().add(btnVerClases);
 	}
 
+	/** @return el serialVersionUID de la clase */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
+	/** @return campo de texto: nombre */
 	public JtextFieldGenerico getTfNombre() {
 		return tfNombre;
 	}
 
+	/** @return campo de texto: año del grupo */
 	public JFormattedTextField getTfAnho() {
 		return tfAnho;
 	}
 
+	/** @return combo de etapas */
 	public JComboBox<EtapaModelo> getCbEtapa() {
 		return cbEtapa;
 	}
 
+	/** @return combo con checks (seleccion multiple) de catequistas */
 	public JComboCheckList<CatequistaModelo> getComboCatequistas() {
 		return comboCatequistas;
 	}
 
+	/** @return boton "Ver Clases" */
 	public JButtonABM getBtnVerClases() {
 		return btnVerClases;
 	}

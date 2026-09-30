@@ -27,13 +27,17 @@ import utilidades.FechaUtil;
 public class ClasesVista extends JDialogGenerico {
 
 	private static final long serialVersionUID = 1L;
+	/** Combo de grupos de catequesis */
 	private JComboBox<GrupoCatequesisModelo> cbGrupo;
+	/** Campo de texto: fecha (dd/MM/yyyy) */
 	private JFormattedTextField tfFecha;
+	/** Campo de texto: descripcion */
 	private JtextFieldGenerico tfDescripcion;
+	/** Combo para filtrar la tabla por grupo */
 	private JComboBox<GrupoCatequesisModelo> cbFiltroGrupo;
 
 	/**
-	 * Launch the application.
+	 * Punto de entrada para probar la pantalla de forma aislada, sin la pantalla principal.
 	 */
 	public static void main(String[] args) {
 		try {
@@ -46,12 +50,15 @@ public class ClasesVista extends JDialogGenerico {
 		}
 	}
 
+	/**
+	 * Crea el controlador que maneja esta pantalla (se usa solo desde {@code main}).
+	 */
 	private void setUpControlador() {
 		new ClasesController(this);
 	}
 
 	/**
-	 * Create the dialog.
+	 * Arma la pantalla: titulo, tamaño y componentes.
 	 */
 	public ClasesVista() {
 		setTitle("Clases");
@@ -126,22 +133,27 @@ public class ClasesVista extends JDialogGenerico {
 		getContentPane().add(cbFiltroGrupo);
 	}
 
+	/** @return el serialVersionUID de la clase */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
+	/** @return combo de grupos de catequesis */
 	public JComboBox<GrupoCatequesisModelo> getCbGrupo() {
 		return cbGrupo;
 	}
 
+	/** @return campo de texto: fecha (dd/MM/yyyy) */
 	public JFormattedTextField getTfFecha() {
 		return tfFecha;
 	}
 
+	/** @return campo de texto: descripcion */
 	public JtextFieldGenerico getTfDescripcion() {
 		return tfDescripcion;
 	}
 
+	/** @return combo para filtrar la tabla por grupo */
 	public JComboBox<GrupoCatequesisModelo> getCbFiltroGrupo() {
 		return cbFiltroGrupo;
 	}

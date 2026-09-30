@@ -22,22 +22,59 @@ import tabla.ModeloTablaGrupoCatequesis;
 import tabla.ModeloTablaInscripcion;
 import vista.InscripcionVista;
 
+/**
+ * Controlador de la pantalla de Inscripcion. A la izquierda se elige un grupo de catequesis y a la derecha se marcan
+ * con un check los catequizandos que se quieren inscribir en el. Se muestran los catequizandos sin ninguna inscripcion
+ * (candidatos) y los ya inscriptos en ese mismo grupo (bloqueados, no se pueden destildar desde aqui).
+ * 
+ * No implementa {@link interfaces.InterfaceABM}: no es un ABM, solo da de alta inscripciones nuevas.
+ */
 public class InscripcionController {
 
+	/**
+	 * Pantalla (vista) que maneja este controlador.
+	 */
 	private InscripcionVista vista;
+	/**
+	 * DAO principal de la entidad que administra esta pantalla.
+	 */
 	private InscripcionDAO dao;
+	/**
+	 * DAO auxiliar de catequizandos.
+	 */
 	private CatequizandoDAO catequizandoDao;
+	/**
+	 * DAO auxiliar de grupos de catequesis.
+	 */
 	private GrupoCatequesisDAO grupoCatequesisDao;
 
+	/**
+	 * Modelo de la tabla de grupos (izquierda).
+	 */
 	private ModeloTablaGrupoCatequesis tablaGrupos;
+	/**
+	 * Modelo de la tabla de catequizandos con check de inscripcion (derecha).
+	 */
 	private ModeloTablaInscripcion tablaCatequizandos;
 
+	/**
+	 * Grupos que muestra la tabla de grupos; el indice de la fila coincide con el de esta lista.
+	 */
 	private List<GrupoCatequesisModelo> grupos;
+	/** Catequizandos que muestra la tabla de la derecha para el grupo elegido (candidatos + ya inscriptos en el grupo). */
 	// Catequizandos que se muestran para el grupo seleccionado: los sin inscripcion
 	// (candidatos) + los ya inscriptos en ESE grupo (bloqueados, ver ModeloTablaInscripcion).
 	private List<CatequizandoModelo> catequizandosVisibles;
+	/**
+	 * Grupo elegido en la tabla; es {@code null} hasta que se elige uno.
+	 */
 	private GrupoCatequesisModelo grupoSeleccionado;
 
+	/**
+	 * Crea el controlador: configura las dos tablas (grupos y catequizandos), carga los grupos y registra las acciones.
+	 *
+	 * @param inscripcionVista pantalla {@link InscripcionVista} que se va a controlar
+	 */
 	public InscripcionController(InscripcionVista inscripcionVista) {
 		super();
 		this.vista = inscripcionVista;
@@ -61,11 +98,18 @@ public class InscripcionController {
 		setAcciones();
 	}
 
+	/**
+	 * Carga todos los grupos de catequesis en la tabla de grupos.
+	 */
 	private void cargarGrupos() {
 		grupos = grupoCatequesisDao.recuperarTodo();
 		tablaGrupos.setLista(grupos);
 	}
 
+	/**
+	 * Registra los listeners: al elegir un grupo se cargan los catequizandos, el buscador filtra en tiempo real
+	 * y los botones Guardar y Cancelar (este ultimo cierra la ventana).
+	 */
 	private void setAcciones() {
 		this.vista.getTablaGrupos().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
@@ -83,6 +127,10 @@ public class InscripcionController {
 		this.vista.getBtnCancelar().addActionListener(e -> this.vista.dispose());
 	}
 
+	/**
+	 * Toma el grupo elegido en la tabla, actualiza la etiqueta, habilita Guardar, limpia el buscador y carga los
+	 * catequizandos. Antes confirma un check que este en edicion para no perderlo.
+	 */
 	private void seleccionarGrupo() {
 		int fila = this.vista.getTablaGrupos().getSelectedRow();
 		if (fila < 0) return;
@@ -101,6 +149,10 @@ public class InscripcionController {
 		cargarCatequizandos();
 	}
 
+	/**
+	 * Carga en la tabla de la derecha los catequizandos sin inscripcion (candidatos) mas los ya inscriptos en el grupo
+	 * seleccionado (se ven bloqueados).
+	 */
 	// Trae los catequizandos sin inscripcion (candidatos a sumarse) + los que ya
 	// estan inscriptos en el grupo seleccionado (para poder verlos, aunque no se
 	// puedan tildar/destildar desde aca). Los inscriptos en OTRO grupo no entran.
@@ -116,6 +168,9 @@ public class InscripcionController {
 		tablaCatequizandos.cargar(catequizandosVisibles, grupoSeleccionado);
 	}
 
+	/**
+	 * Filtra la lista de catequizandos visibles por el texto del buscador (nombre y apellido, o documento).
+	 */
 	private void filtrar() {
 		if (catequizandosVisibles == null) return;
 
@@ -133,6 +188,11 @@ public class InscripcionController {
 		tablaCatequizandos.filtrar(filtrados);
 	}
 
+	/**
+	 * Inscribe en el grupo seleccionado a los catequizandos tildados que no estaban inscriptos. Pide confirmacion,
+	 * crea una {@link InscripcionModelo} activa con la fecha de hoy por cada uno y avisa si hubo errores. Al terminar
+	 * recarga la lista, donde los recien inscriptos aparecen bloqueados.
+	 */
 	private void guardarCambios() {
 		if (grupoSeleccionado == null || catequizandosVisibles == null) return;
 

@@ -30,12 +30,33 @@ import vista.InformeTransferenciaVista;
  */
 public class InformeTransferenciaController {
 
+	/**
+	 * Pantalla (vista) que maneja este controlador.
+	 */
 	private InformeTransferenciaVista vista;
+	/**
+	 * DAO principal de la entidad que administra esta pantalla.
+	 */
 	private TransferenciaDAO dao;
+	/**
+	 * DAO auxiliar de grupos de catequesis (combos de filtro o seleccion).
+	 */
 	private GrupoCatequesisDAO grupoDao;
+	/**
+	 * Modelo de la tabla donde se listan los registros.
+	 */
 	private ModeloTablaInformeTransferencia tabla;
+	/**
+	 * Lista ya filtrada que se ve en la grilla; es la que se envia al reporte Jasper.
+	 */
 	private List<TransferenciaModelo> filtradas = new ArrayList<TransferenciaModelo>();
 
+	/**
+	 * Crea el controlador: asocia la vista, carga los combos de filtro, registra las acciones y filtra una vez
+	 * para que la grilla aparezca ya cargada al abrir.
+	 *
+	 * @param vista pantalla {@link InformeTransferenciaVista} que se va a controlar
+	 */
 	public InformeTransferenciaController(InformeTransferenciaVista vista) {
 		super();
 		this.vista = vista;
@@ -50,6 +71,9 @@ public class InformeTransferenciaController {
 		filtrar();
 	}
 
+	/**
+	 * Llena los combos de filtro. El primer item de cada combo es {@code null} y representa "-- Todos --".
+	 */
 	private void cargarCombos() {
 		List<GrupoCatequesisModelo> grupos = grupoDao.recuperarTodo();
 
@@ -66,6 +90,9 @@ public class InformeTransferenciaController {
 		}
 	}
 
+	/**
+	 * Conecta los botones Filtrar, Generar Informe y Cerrar y el buscador de texto, que filtra en tiempo real.
+	 */
 	private void setAcciones() {
 		this.vista.getBtnFiltrar().addActionListener(e -> filtrar());
 		this.vista.getBtnGenerar().addActionListener(e -> generarInforme());
@@ -78,6 +105,9 @@ public class InformeTransferenciaController {
 		});
 	}
 
+	/**
+	 * Recalcula la lista filtrada (por grupo de origen, grupo de destino, rango de fecha y buscador de catequizando), la ordena por fecha y actualiza la grilla.
+	 */
 	private void filtrar() {
 		GrupoCatequesisModelo origenFiltro = (GrupoCatequesisModelo) this.vista.getCbGrupoOrigen().getSelectedItem();
 		GrupoCatequesisModelo destinoFiltro = (GrupoCatequesisModelo) this.vista.getCbGrupoDestino()
@@ -106,10 +136,20 @@ public class InformeTransferenciaController {
 		tabla.setLista(filtradas);
 	}
 
+	/**
+	 * Indica si un texto contiene el buscador, sin distinguir mayusculas.
+	 *
+	 * @param texto texto donde buscar (puede ser {@code null})
+	 * @param buscador texto buscado, ya en minusculas
+	 */
 	private boolean contiene(String texto, String buscador) {
 		return texto != null && texto.toLowerCase().contains(buscador);
 	}
 
+	/**
+	 * Genera el reporte Jasper "InformeTransferencia" con la lista filtrada y lo muestra en una ventana. Si falla la
+	 * generacion muestra un mensaje de error.
+	 */
 	private void generarInforme() {
 		try {
 			List<ReporteTransferenciaDTO> lista = GeneradorReportes.listarInformeTransferencia(filtradas);

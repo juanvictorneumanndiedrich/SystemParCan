@@ -34,14 +34,41 @@ import vista.AsistenciasVista;
  */
 public class AsistenciasController {
 
+	/**
+	 * Pantalla (vista) que maneja este controlador.
+	 */
 	private AsistenciasVista vista;
+	/**
+	 * DAO auxiliar de clases.
+	 */
 	private ClaseDAO claseDao;
+	/**
+	 * DAO auxiliar de grupos de catequesis (combos de filtro o seleccion).
+	 */
 	private GrupoCatequesisDAO grupoDao;
+	/**
+	 * DAO principal de la entidad que administra esta pantalla.
+	 */
 	private AsistenciaDAO dao;
+	/**
+	 * DAO auxiliar de inscripciones.
+	 */
 	private InscripcionDAO inscripcionDao;
+	/**
+	 * Modelo de la tabla donde se listan los registros.
+	 */
 	private ModeloTablaAsistencia tabla;
+	/**
+	 * Clase elegida en el combo; es {@code null} si no hay ninguna.
+	 */
 	private ClaseModelo claseSeleccionada;
 
+	/**
+	 * Crea el controlador: configura la grilla, carga el combo de grupos y registra las acciones. Al final carga a mano
+	 * el combo de clases del primer grupo porque esa seleccion inicial ocurre antes de conectar los listeners.
+	 *
+	 * @param vista pantalla {@link AsistenciasVista} que se va a controlar
+	 */
 	public AsistenciasController(AsistenciasVista vista) {
 		super();
 		this.vista = vista;
@@ -68,6 +95,9 @@ public class AsistenciasController {
 		cargarComboClases((GrupoCatequesisModelo) this.vista.getCbGrupo().getSelectedItem());
 	}
 
+	/**
+	 * Llena el combo de grupos con todos los grupos de catequesis.
+	 */
 	private void cargarComboGrupos() {
 		this.vista.getCbGrupo().removeAllItems();
 		for (GrupoCatequesisModelo grupo : grupoDao.recuperarTodo()) {
@@ -75,6 +105,12 @@ public class AsistenciasController {
 		}
 	}
 
+	/**
+	 * Llena el combo de clases con las del grupo indicado y limpia la grilla. Si el grupo es {@code null} o no tiene clases
+	 * deshabilita el combo.
+	 *
+	 * @param grupo grupo elegido en el combo de grupos
+	 */
 	private void cargarComboClases(GrupoCatequesisModelo grupo) {
 		JComboBox<ClaseModelo> cbClase = this.vista.getCbClase();
 		cbClase.removeAllItems();
@@ -98,6 +134,10 @@ public class AsistenciasController {
 		}
 	}
 
+	/**
+	 * Conecta los combos en cascada (al cambiar el grupo se recargan las clases; al elegir una clase se arma la grilla)
+	 * y los botones Guardar y Cerrar.
+	 */
 	private void setAcciones() {
 		this.vista.getCbGrupo().addActionListener(e -> {
 			GrupoCatequesisModelo grupo = (GrupoCatequesisModelo) this.vista.getCbGrupo().getSelectedItem();
@@ -119,6 +159,10 @@ public class AsistenciasController {
 		this.vista.getBtnCerrar().addActionListener(e -> this.vista.dispose());
 	}
 
+	/**
+	 * Configura la columna Estado de la grilla: editor combo con los valores de {@link EstadoAsistencia} y renderer que
+	 * muestra el texto legible.
+	 */
 	// El combo arranca en null ("-- Seleccionar --") para forzar a elegir el
 	// estado de cada catequizando; no se pre-completa nada como "Presente".
 	private void configurarColumnaEstado() {
@@ -153,6 +197,11 @@ public class AsistenciasController {
 		});
 	}
 
+	/**
+	 * Convierte un estado de asistencia en el texto que ve el usuario.
+	 *
+	 * @param estado estado a mostrar; {@code null} significa todavia sin marcar
+	 */
 	private String textoEstado(EstadoAsistencia estado) {
 		if (estado == null) return "-- Seleccionar --";
 		switch (estado) {
@@ -166,6 +215,10 @@ public class AsistenciasController {
 		return "";
 	}
 
+	/**
+	 * Arma las filas de la grilla para la clase seleccionada: una por cada inscripcion activa del grupo. Si ya existe una
+	 * asistencia guardada para ese catequizando y esa clase se reutiliza; si no, se crea una nueva sin estado.
+	 */
 	private void cargarTablaAsistencia() {
 		// Inscripciones activas del grupo de la clase seleccionada.
 		List<InscripcionModelo> inscripciones = inscripcionDao.recuperarTodo().stream()
@@ -201,6 +254,10 @@ public class AsistenciasController {
 		tabla.setLista(filas);
 	}
 
+	/**
+	 * Guarda las asistencias que tienen estado marcado y avisa cuantas quedaron sin marcar. Antes confirma la celda que
+	 * quede en edicion para no perder el ultimo cambio. Si falla el guardado muestra el error.
+	 */
 	private void guardar() {
 		if (claseSeleccionada == null) return;
 

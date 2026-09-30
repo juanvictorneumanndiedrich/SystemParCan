@@ -33,14 +33,19 @@ import utilidades.FechaUtil;
 public class AsistenciasVista extends JDialog {
 
 	private static final long serialVersionUID = 1L;
+	/** Combo de grupos de catequesis */
 	private JComboBox<GrupoCatequesisModelo> cbGrupo;
+	/** Combo de clases */
 	private JComboBox<ClaseModelo> cbClase;
+	/** Tabla principal de la pantalla */
 	private JTable tabla;
+	/** Boton "Guardar" */
 	private JButtonABM btnGuardar;
+	/** Boton "Cerrar" */
 	private JButtonABM btnCerrar;
 
 	/**
-	 * Launch the application.
+	 * Punto de entrada para probar la pantalla de forma aislada, sin la pantalla principal.
 	 */
 	public static void main(String[] args) {
 		try {
@@ -53,10 +58,16 @@ public class AsistenciasVista extends JDialog {
 		}
 	}
 
+	/**
+	 * Crea el controlador que maneja esta pantalla (se usa solo desde {@code main}).
+	 */
 	private void setUpControlador() {
 		new AsistenciasController(this);
 	}
 
+	/**
+	 * Arma la pantalla: titulo, tamaño y componentes.
+	 */
 	public AsistenciasVista() {
 		setTitle("Asistencia");
 		setBounds(100, 100, 640, 600);
@@ -135,26 +146,32 @@ public class AsistenciasVista extends JDialog {
 		panelBotones.add(btnCerrar);
 	}
 
+	/** @return el serialVersionUID de la clase */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
+	/** @return combo de grupos de catequesis */
 	public JComboBox<GrupoCatequesisModelo> getCbGrupo() {
 		return cbGrupo;
 	}
 
+	/** @return combo de clases */
 	public JComboBox<ClaseModelo> getCbClase() {
 		return cbClase;
 	}
 
+	/** @return tabla principal de la pantalla */
 	public JTable getTabla() {
 		return tabla;
 	}
 
+	/** @return boton "Guardar" */
 	public JButtonABM getBtnGuardar() {
 		return btnGuardar;
 	}
 
+	/** @return boton "Cerrar" */
 	public JButtonABM getBtnCerrar() {
 		return btnCerrar;
 	}

@@ -29,12 +29,33 @@ import vista.InformeClaseVista;
  */
 public class InformeClaseController {
 
+	/**
+	 * Pantalla (vista) que maneja este controlador.
+	 */
 	private InformeClaseVista vista;
+	/**
+	 * DAO principal de la entidad que administra esta pantalla.
+	 */
 	private ClaseDAO dao;
+	/**
+	 * DAO auxiliar de grupos de catequesis (combos de filtro o seleccion).
+	 */
 	private GrupoCatequesisDAO grupoDao;
+	/**
+	 * Modelo de la tabla donde se listan los registros.
+	 */
 	private ModeloTablaInformeClase tabla;
+	/**
+	 * Lista ya filtrada que se ve en la grilla; es la que se envia al reporte Jasper.
+	 */
 	private List<ClaseModelo> filtradas = new ArrayList<ClaseModelo>();
 
+	/**
+	 * Crea el controlador: asocia la vista, carga los combos de filtro, registra las acciones y filtra una vez
+	 * para que la grilla aparezca ya cargada al abrir.
+	 *
+	 * @param vista pantalla {@link InformeClaseVista} que se va a controlar
+	 */
 	public InformeClaseController(InformeClaseVista vista) {
 		super();
 		this.vista = vista;
@@ -49,6 +70,9 @@ public class InformeClaseController {
 		filtrar();
 	}
 
+	/**
+	 * Llena los combos de filtro. El primer item de cada combo es {@code null} y representa "-- Todos --".
+	 */
 	private void cargarCombos() {
 		this.vista.getCbGrupo().removeAllItems();
 		this.vista.getCbGrupo().addItem(null);
@@ -57,6 +81,9 @@ public class InformeClaseController {
 		}
 	}
 
+	/**
+	 * Conecta los botones Filtrar, Generar Informe y Cerrar y el buscador de texto, que filtra en tiempo real.
+	 */
 	private void setAcciones() {
 		this.vista.getBtnFiltrar().addActionListener(e -> filtrar());
 		this.vista.getBtnGenerar().addActionListener(e -> generarInforme());
@@ -69,6 +96,9 @@ public class InformeClaseController {
 		});
 	}
 
+	/**
+	 * Recalcula la lista filtrada (por grupo, rango de fecha y buscador de descripcion), la ordena por fecha y actualiza la grilla.
+	 */
 	private void filtrar() {
 		GrupoCatequesisModelo grupoFiltro = (GrupoCatequesisModelo) this.vista.getCbGrupo().getSelectedItem();
 		String buscador = this.vista.getTfBuscador().getText().trim().toLowerCase();
@@ -93,6 +123,10 @@ public class InformeClaseController {
 		tabla.setLista(filtradas);
 	}
 
+	/**
+	 * Genera el reporte Jasper "InformeClase" con la lista filtrada y lo muestra en una ventana. Si falla la
+	 * generacion muestra un mensaje de error.
+	 */
 	private void generarInforme() {
 		try {
 			List<ReporteClaseDTO> lista = GeneradorReportes.listarInformeClase(filtradas);

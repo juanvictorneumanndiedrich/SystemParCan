@@ -29,11 +29,18 @@ import javax.swing.JButton;
  *   Para "Cerrar".
  * - {@link #aplicarEstiloNeutro()}: fondo claro con borde fino, texto
  *   oscuro. Para una accion utilitaria y discreta como "Filtrar".
+ *
+ * Cuando esta deshabilitado (setEnabled(false)) se pinta con fondo gris
+ * claro, sin importar el estilo.
+ *
+ * Tambien se usa en la pantalla de Inscripcion (Guardar / Cancelar).
  */
 public class JButtonInforme extends JButton {
 
 	private static final long serialVersionUID = 1L;
+	/** Redondeo de las esquinas, en pixeles. */
 	private static final int RADIO_ARCO = 18;
+	/** Altura minima del boton, en pixeles. */
 	private static final int ALTO_MINIMO = 32;
 
 	private static final Color PRIMARIO = new Color(0x2C, 0x3E, 0x50);
@@ -44,11 +51,20 @@ public class JButtonInforme extends JButton {
 	private static final Color NEUTRO_HOVER = new Color(0xDC, 0xE1, 0xE2);
 	private static final Color NEUTRO_TEXTO = new Color(0x34, 0x49, 0x5E);
 	private static final Color NEUTRO_BORDE = new Color(0xBD, 0xC3, 0xC7);
+	private static final Color DESHABILITADO = new Color(0xD5, 0xDB, 0xDB);
 
+	/** Color de fondo actual (segun el estilo aplicado). */
 	private Color colorFondo = PRIMARIO;
+	/** Color de fondo cuando el mouse esta encima o el boton esta presionado. */
 	private Color colorFondoHover = PRIMARIO_HOVER;
+	/** Color del borde fino; es {@code null} si el estilo no lleva borde. */
 	private Color colorBorde = null;
 
+	/**
+	 * Crea el boton con el estilo primario (fondo azul oscuro, texto blanco).
+	 *
+	 * @param texto texto del boton
+	 */
 	public JButtonInforme(String texto) {
 		super(texto);
 		setFont(new Font("Segoe UI", Font.BOLD, 12));
@@ -79,6 +95,7 @@ public class JButtonInforme extends JButton {
 		repaint();
 	}
 
+	/** Dibuja la forma redondeada con el color segun el estado (normal, resaltado o deshabilitado) y luego el texto. */
 	@Override
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g.create();
@@ -93,7 +110,13 @@ public class JButtonInforme extends JButton {
 		// el borde de arriba y de la izquierda "cortados".
 		RoundRectangle2D forma = new RoundRectangle2D.Double(0.5, 0.5, getWidth() - 1.0, getHeight() - 1.0,
 				RADIO_ARCO, RADIO_ARCO);
-		g2.setColor(resaltado ? colorFondoHover : colorFondo);
+		// Deshabilitado (ej: Guardar en Inscripcion antes de elegir un grupo):
+		// fondo gris claro, para que no parezca clickeable.
+		if (!isEnabled()) {
+			g2.setColor(DESHABILITADO);
+		} else {
+			g2.setColor(resaltado ? colorFondoHover : colorFondo);
+		}
 		g2.fill(forma);
 		if (colorBorde != null) {
 			g2.setColor(colorBorde);
@@ -105,6 +128,7 @@ public class JButtonInforme extends JButton {
 
 	// El ancho sale del texto + margen (setMargin de arriba); solo se
 	// asegura una altura minima para que la pildora no quede achatada.
+	/** @return el tamaño preferido: el ancho sale del texto mas el margen y la altura no baja del minimo */
 	@Override
 	public Dimension getPreferredSize() {
 		Dimension preferido = super.getPreferredSize();

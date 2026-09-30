@@ -15,25 +15,42 @@ import utilidades.FechaUtil;
 
 import javax.swing.JCheckBox;
 
+/**
+ * Pantalla del ABM de Catequizandos: formulario (datos personales, responsable, estado, fecha de registro y sacramentos) y tabla
+ * de registros, sobre la base de {@link JDialogGenerico}. Solo arma la interfaz y expone sus componentes con getters;
+ * la logica vive en CatequizandoController.
+ */
 public class CatequizandoVista extends JDialogGenerico {
 
 	private static final long serialVersionUID = 1L;
+	/** Campo de texto: nombre */
 	private JtextFieldGenerico tfNombre;
+	/** Campo de texto: apellido */
 	private JtextFieldGenerico tfApellido;
+	/** Campo de texto: documento */
 	private JtextFieldGenerico tfDocumento;
+	/** Campo de texto: telefono */
 	private JtextFieldGenerico tfTelefono;
+	/** Campo de texto: correo electronico */
 	private JtextFieldGenerico tfCorreo;
+	/** Campo de texto: direccion */
 	private JtextFieldGenerico tfDireccion;
+	/** Checkbox de estado (Activo/Inactivo) */
 	private JCheckBox chbEstado;
+	/** Campo de texto: fecha de nacimiento (dd/MM/yyyy) */
 	private JFormattedTextField tfFecha_nac;
+	/** Campo de texto: fecha de registro (dd/MM/yyyy) */
 	private JFormattedTextField tfFecha_reg;
+	/** Campo de texto: nombre del responsable */
 	private JtextFieldGenerico tfNombreResponsable;
+	/** Campo de texto: contacto (telefono) del responsable */
 	private JtextFieldGenerico tfContactoResponsable;
+	/** Combo con checks (seleccion multiple) de sacramentos */
 	private JComboCheckList<SacramentoModelo> comboSacramentos;
 
 
 	/**
-	 * Launch the application.
+	 * Punto de entrada para probar la pantalla de forma aislada, sin la pantalla principal.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -51,6 +68,9 @@ public class CatequizandoVista extends JDialogGenerico {
 	}
 
 
+	/**
+	 * Crea el controlador que maneja esta pantalla (se usa solo desde {@code main}).
+	 */
 	private void setUpControlador() {
 		new CatequizandoController(this);
 
@@ -58,7 +78,7 @@ public class CatequizandoVista extends JDialogGenerico {
 	}
 
 	/**
-	 * Create the dialog.
+	 * Arma la pantalla: titulo, tamaño y componentes.
 	 */
 	public CatequizandoVista() {
 		setTitle("Catequizandos");
@@ -176,65 +196,78 @@ public class CatequizandoVista extends JDialogGenerico {
 	}
 
 
+	/** @return el serialVersionUID de la clase */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
 
+	/** @return campo de texto: nombre */
 	public JtextFieldGenerico getTfNombre() {
 		return tfNombre;
 	}
 
 
+	/** @return campo de texto: apellido */
 	public JtextFieldGenerico getTfApellido() {
 		return tfApellido;
 	}
 
 
+	/** @return campo de texto: documento */
 	public JtextFieldGenerico getTfDocumento() {
 		return tfDocumento;
 	}
 
 
+	/** @return campo de texto: telefono */
 	public JtextFieldGenerico getTfTelefono() {
 		return tfTelefono;
 	}
 
 
+	/** @return campo de texto: correo electronico */
 	public JtextFieldGenerico getTfCorreo() {
 		return tfCorreo;
 	}
 
 
+	/** @return campo de texto: direccion */
 	public JtextFieldGenerico getTfDireccion() {
 		return tfDireccion;
 	}
 
 
+	/** @return campo de texto: fecha de nacimiento (dd/MM/yyyy) */
 	public JFormattedTextField getTfFecha_nac() {
 		return tfFecha_nac;
 	}
 
 
+	/** @return checkbox de estado (Activo/Inactivo) */
 	public JCheckBox getJcbEstado() {
 		return chbEstado;
 	}
 
 
+	/** @return campo de texto: fecha de registro (dd/MM/yyyy) */
 	public JFormattedTextField getTfFecha_reg() {
 		return tfFecha_reg;
 	}
 
+	/** @return campo de texto: nombre del responsable */
 	public JtextFieldGenerico getTfNombreResponsable() {
 		return tfNombreResponsable;
 
 	}
 
+	/** @return campo de texto: contacto (telefono) del responsable */
 	public JtextFieldGenerico getTfContactoResponsable() {
 		return tfContactoResponsable;
 
 	}
 
+	/** @return combo con checks (seleccion multiple) de sacramentos */
 	public JComboCheckList<SacramentoModelo> getComboSacramentos() {
 		return comboSacramentos;
 	}

@@ -15,15 +15,22 @@ import componentes.JtextFieldGenerico;
 import controlador.CatequistaController;
 import controlador.EtapaController;
 
+/**
+ * Pantalla del ABM de Etapas (descripcion y estado), basada en {@link JDialogGenericMini}. Solo arma la interfaz;
+ * la logica vive en EtapaController.
+ */
 public class EtapaVista extends JDialogGenericMini {
 
 	private static final long serialVersionUID = 1L;
+	/** Panel de contenido de la pantalla */
 	private final JPanel contentPanel = new JPanel();
+	/** Campo de texto: descripcion */
 	private JtextFieldGenerico tfDescripcion;
+	/** Checkbox de estado (Activo/Inactivo) */
 	private JCheckBox cbEstado;
 
 	/**
-	 * Launch the application.
+	 * Punto de entrada para probar la pantalla de forma aislada, sin la pantalla principal.
 	 */
 	public static void main(String[] args) {
 		try {
@@ -36,6 +43,9 @@ public class EtapaVista extends JDialogGenericMini {
 		}
 	}
 
+	/**
+	 * Crea el controlador que maneja esta pantalla (se usa solo desde {@code main}).
+	 */
 	private void setUpControlador() {
 		new EtapaController(this);
 
@@ -43,7 +53,7 @@ public class EtapaVista extends JDialogGenericMini {
 	}
 
 	/**
-	 * Create the dialog.
+	 * Arma la pantalla: titulo, tamaño y componentes.
 	 */
 	public EtapaVista() {
 		setTitle("Etapas");
@@ -80,18 +90,22 @@ public class EtapaVista extends JDialogGenericMini {
 		}
 	}
 
+	/** @return el serialVersionUID de la clase */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
+	/** @return panel de contenido de la pantalla */
 	public JPanel getContentPanel() {
 		return contentPanel;
 	}
 
+	/** @return campo de texto: descripcion */
 	public JtextFieldGenerico getTfDescripcion() {
 		return tfDescripcion;
 	}
 
+	/** @return checkbox de estado (Activo/Inactivo) */
 	public JCheckBox getCbEstado() {
 		return cbEstado;
 	}
