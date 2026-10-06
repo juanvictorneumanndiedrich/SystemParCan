@@ -45,12 +45,12 @@ public class CatequizandoModelo {
 	@Column(length = 50, nullable = false, unique = false)
 	private String catz_documento;
 
-	/** Telefono de contacto (obligatorio, maximo 45 caracteres). */
-	@Column(length = 45, nullable = false)
+	/** Telefono de contacto (opcional, maximo 45 caracteres). */
+	@Column(length = 45, nullable = true)
 	private String catz_telefono;
 
-	/** Correo electronico (obligatorio, maximo 100 caracteres). */
-	@Column(length = 100, nullable = false)
+	/** Correo electronico (opcional, maximo 100 caracteres). */
+	@Column(length = 100, nullable = true)
 	private String catz_correo;
 
 	/** Direccion de residencia (obligatoria, maximo 100 caracteres). */

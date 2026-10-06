@@ -178,9 +178,15 @@ public class SacramentoController implements InterfaceABM {
 	public void guardar() {
 		String nombre = this.vista.getTfNombre().getText();
 
-		if (!ValidadorCampos.esObligatorio(nombre) || !ValidadorCampos.esSoloTexto(nombre)) {
+		if (!ValidadorCampos.esObligatorio(nombre)) {
 			javax.swing.JOptionPane.showMessageDialog(this.vista,
-					"El nombre del sacramento es obligatorio y solo puede contener letras.",
+					"El nombre es obligatorio.",
+					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		if (!ValidadorCampos.esTextoYNumeros(nombre)) {
+			javax.swing.JOptionPane.showMessageDialog(this.vista,
+					"El nombre solo puede contener letras y numeros.",
 					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
 			return;
 		}

@@ -183,6 +183,7 @@ public class CatequistaController  implements InterfaceABM{
 				this.vista.getTfDireccion().setEnabled(true);
 				this.vista.getTfTelefono().setEnabled(true);
 				this.vista.getCbEstado().setEnabled(true);
+				this.vista.getCbEstado().setSelected(true); // activo por defecto
 				this.vista.getComboSacramentos().setEnabled(true);
 				this.vista.getComboSacramentos().limpiarSeleccion();
 				
@@ -322,21 +323,34 @@ public class CatequistaController  implements InterfaceABM{
 					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
 			return;
 		}
+		if (!ValidadorCampos.tieneLongitudEntre(documento, 6, 10)) {
+			javax.swing.JOptionPane.showMessageDialog(this.vista,
+					"El documento debe tener entre 6 y 10 digitos.",
+					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
+			return;
+		}
 		if (!ValidadorCampos.esObligatorio(telefono) || !ValidadorCampos.esSoloNumeros(telefono)) {
 			javax.swing.JOptionPane.showMessageDialog(this.vista,
 					"El telefono es obligatorio y solo puede contener numeros.",
 					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
 			return;
 		}
-		if (!ValidadorCampos.esObligatorio(correo)) {
+		if (!ValidadorCampos.tieneLongitudEntre(telefono, 9, 10)) {
 			javax.swing.JOptionPane.showMessageDialog(this.vista,
-					"El correo es obligatorio.",
+					"El telefono debe tener entre 9 y 10 digitos.",
 					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
 			return;
 		}
+		// El correo es opcional: no se valida
 		if (!ValidadorCampos.esObligatorio(direccion)) {
 			javax.swing.JOptionPane.showMessageDialog(this.vista,
 					"La direccion es obligatoria.",
+					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		if (FechaUtil.stringAFecha(this.vista.getTfFecha_nac().getText()) == null) {
+			javax.swing.JOptionPane.showMessageDialog(this.vista,
+					"La fecha de nacimiento es obligatoria y debe ser una fecha valida.",
 					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
 			return;
 		}

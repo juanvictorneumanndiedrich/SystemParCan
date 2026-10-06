@@ -8,7 +8,7 @@ import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JList;
 
-import componentes.JButtonABM;
+import componentes.JButtonInforme;
 import componentes.JComboCheckList;
 import componentes.JDialogGenerico;
 import componentes.JLabelGenerico;
@@ -34,7 +34,7 @@ public class GrupoCatequesisVista extends JDialogGenerico {
 	/** Combo con checks (seleccion multiple) de catequistas */
 	private JComboCheckList<CatequistaModelo> comboCatequistas;
 	/** Boton "Ver Clases" */
-	private JButtonABM btnVerClases;
+	private JButtonInforme btnVerClases;
 
 	/**
 	 * Punto de entrada para probar la pantalla de forma aislada, sin la pantalla principal.
@@ -117,8 +117,7 @@ public class GrupoCatequesisVista extends JDialogGenerico {
 
 		// Acceso a la pantalla de Clases del grupo seleccionado en la tabla.
 		// Se ubica en el espacio libre arriba del buscador (que empieza en y=65).
-		btnVerClases = new JButtonABM();
-		btnVerClases.setText("Ver Clases");
+		btnVerClases = new JButtonInforme("Ver Clases"); // boton redondeado
 		btnVerClases.setBounds(535, 10, 150, 50);
 		getContentPane().add(btnVerClases);
 	}
@@ -149,7 +148,7 @@ public class GrupoCatequesisVista extends JDialogGenerico {
 	}
 
 	/** @return boton "Ver Clases" */
-	public JButtonABM getBtnVerClases() {
+	public JButtonInforme getBtnVerClases() {
 		return btnVerClases;
 	}
 

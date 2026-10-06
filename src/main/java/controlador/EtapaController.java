@@ -145,6 +145,7 @@ public class EtapaController implements InterfaceABM {
 
         this.vista.getTfDescripcion().setEnabled(true);
         this.vista.getCbEstado().setEnabled(true);
+        this.vista.getCbEstado().setSelected(true); // activo por defecto
 
         etapa = new EtapaModelo();
     }

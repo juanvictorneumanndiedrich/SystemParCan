@@ -47,8 +47,8 @@ public class CatequistaModelo {
 	@Column(length = 45, nullable = false)
 	private String cat_telefono;
 
-	/** Correo electronico (obligatorio, maximo 100 caracteres). */
-	@Column(length = 100, nullable = false)
+	/** Correo electronico (opcional, maximo 100 caracteres). */
+	@Column(length = 100, nullable = true)
 	private String cat_correo;
 
 	/** Direccion de residencia (obligatoria, maximo 100 caracteres). */

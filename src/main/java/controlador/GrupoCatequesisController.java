@@ -294,6 +294,18 @@ public class GrupoCatequesisController implements InterfaceABM {
 					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
 			return;
 		}
+		if (this.vista.getCbEtapa().getSelectedItem() == null) {
+			javax.swing.JOptionPane.showMessageDialog(this.vista,
+					"Debe elegir una etapa.",
+					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		if (this.vista.getComboCatequistas().getSeleccionados().isEmpty()) {
+			javax.swing.JOptionPane.showMessageDialog(this.vista,
+					"Debe seleccionar por lo menos un catequista.",
+					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
+			return;
+		}
 
 		grupo.setGrup_nombre(nombre);
 		grupo.setGrup_anho(FechaUtil.stringAFecha(this.vista.getTfAnho().getText()));

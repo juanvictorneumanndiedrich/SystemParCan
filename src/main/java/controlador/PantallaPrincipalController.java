@@ -22,6 +22,7 @@ import vista.CatequizandoVista;
 import vista.EtapaVista;
 import vista.GrupoCatequesisVista;
 import vista.InscripcionVista;
+import vista.TransferenciaVista;
 import vista.SacramentoVista;
 import vista.PantallaPrincipalVista;
 import vista.ClasesVista;
@@ -64,6 +65,7 @@ public class PantallaPrincipalController {
         this.vista.getMntmprsnlzdGrupocatequesis().addActionListener(e -> abrirGrupoCatequesis());
         this.vista.getMntmprsnlzdSacramentos().addActionListener(e -> abrirSacramentos());
         this.vista.getMntmprsnlzdInscripcion().addActionListener(e -> abrirInscripcion());
+        this.vista.getMntmprsnlzdTransferencia().addActionListener(e -> abrirTransferencia());
 
         // Menu "Listados": un listado (reporte Jasper) por cada ABM de
         // registro (Catequista, Catequizando, Etapa, Grupo de Catequesis,
@@ -154,6 +156,16 @@ public class PantallaPrincipalController {
     	new InscripcionController(inscripcionVista);
     	inscripcionVista.setLocationRelativeTo(this.vista);
     	inscripcionVista.setVisible(true);
+    }
+
+    /**
+     * Abre la pantalla de Transferencia (vista + controlador) centrada respecto a la pantalla principal.
+     */
+    private void abrirTransferencia() {
+    	TransferenciaVista transferenciaVista = new TransferenciaVista();
+    	new TransferenciaController(transferenciaVista);
+    	transferenciaVista.setLocationRelativeTo(this.vista);
+    	transferenciaVista.setVisible(true);
     }
 
     /**

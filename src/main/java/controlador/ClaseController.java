@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import dao.ClaseDAO;
 import interfaces.InterfaceABM;
+import validaciones.ValidadorCampos;
 import modelo.ClaseModelo;
 import modelo.GrupoCatequesisModelo;
 import tabla.ModeloTablaClase;
@@ -234,8 +235,16 @@ public class ClaseController implements InterfaceABM {
 			return;
 		}
 
+		String descripcion = this.vista.getTfDescripcion().getText();
+		if (!ValidadorCampos.esObligatorio(descripcion)) {
+			javax.swing.JOptionPane.showMessageDialog(this.vista,
+					"La descripcion es obligatoria.",
+					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+
 		clase.setClase_fechaClase(fecha);
-		clase.setClase_descripcion(this.vista.getTfDescripcion().getText());
+		clase.setClase_descripcion(descripcion);
 		clase.setGrupoCatequesis(grupo);
 
 		try {

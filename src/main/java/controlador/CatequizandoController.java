@@ -184,6 +184,7 @@ public class CatequizandoController implements InterfaceABM {
 		this.vista.getTfNombreResponsable().setEnabled(true);
 		this.vista.getTfContactoResponsable().setEnabled(true);
 		this.vista.getJcbEstado().setEnabled(true);
+		this.vista.getJcbEstado().setSelected(true); // activo por defecto
 		this.vista.getComboSacramentos().setEnabled(true);
 		this.vista.getComboSacramentos().limpiarSeleccion();
 		
@@ -286,18 +287,21 @@ public class CatequizandoController implements InterfaceABM {
 					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
 			return;
 		}
-		if (!ValidadorCampos.esObligatorio(telefono) || !ValidadorCampos.esSoloNumeros(telefono)) {
+		if (!ValidadorCampos.tieneLongitudEntre(documento, 6, 10)) {
 			javax.swing.JOptionPane.showMessageDialog(this.vista,
-					"El telefono es obligatorio y solo puede contener numeros.",
+					"El documento debe tener entre 6 y 10 digitos.",
 					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
 			return;
 		}
-		if (!ValidadorCampos.esObligatorio(correo)) {
+		// El telefono es opcional: solo se valida si se completo
+		if (ValidadorCampos.esObligatorio(telefono)
+				&& (!ValidadorCampos.esSoloNumeros(telefono) || !ValidadorCampos.tieneLongitudEntre(telefono, 9, 10))) {
 			javax.swing.JOptionPane.showMessageDialog(this.vista,
-					"El correo es obligatorio.",
+					"El telefono solo puede contener numeros y debe tener entre 9 y 10 digitos.",
 					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
 			return;
 		}
+		// El correo es opcional: no se valida
 		if (!ValidadorCampos.esObligatorio(direccion)) {
 			javax.swing.JOptionPane.showMessageDialog(this.vista,
 					"La direccion es obligatoria.",
@@ -313,6 +317,18 @@ public class CatequizandoController implements InterfaceABM {
 		if (!ValidadorCampos.esObligatorio(contactoResponsable) || !ValidadorCampos.esSoloNumeros(contactoResponsable)) {
 			javax.swing.JOptionPane.showMessageDialog(this.vista,
 					"El contacto del responsable es obligatorio y solo puede contener numeros.",
+					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		if (!ValidadorCampos.tieneLongitudEntre(contactoResponsable, 9, 10)) {
+			javax.swing.JOptionPane.showMessageDialog(this.vista,
+					"El contacto del responsable debe tener entre 9 y 10 digitos.",
+					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		if (FechaUtil.stringAFecha(this.vista.getTfFecha_nac().getText()) == null) {
+			javax.swing.JOptionPane.showMessageDialog(this.vista,
+					"La fecha de nacimiento es obligatoria y debe ser una fecha valida.",
 					"Dato invalido", javax.swing.JOptionPane.WARNING_MESSAGE);
 			return;
 		}

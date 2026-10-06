@@ -1,9 +1,8 @@
 /META-INF/
 /controlador/
+/modelo/
+/vista/
+/dao/
+/validaciones/
 /reportes/
 /tabla/
-/vista/
-/componentes/
-/dao/
-/interfaces/
-/utilidades/

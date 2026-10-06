@@ -9,7 +9,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import componentes.JButtonABM;
+import componentes.JButtonInforme;
 import componentes.JDialogGenericMini;
 import componentes.JLabelGenerico;
 import componentes.JtextFieldGenerico;
@@ -29,7 +29,7 @@ public class ClaseVista extends JDialogGenericMini {
 	/** Campo de texto: descripcion */
 	private JtextFieldGenerico tfDescripcion;
 	/** Boton "Tomar Asistencia" */
-	private JButtonABM btnTomarAsistencia;
+	private JButtonInforme btnTomarAsistencia;
 
 	/**
 	 * Punto de entrada para probar la pantalla de forma aislada, sin la pantalla principal.
@@ -81,6 +81,7 @@ public class ClaseVista extends JDialogGenericMini {
 
 		tfFecha = new JFormattedTextField(FechaUtil.getFormatoFecha());
 		tfFecha.setBounds(124, 69, 117, 24);
+		tfFecha.setEditable(false); // la fecha no se escribe a mano
 		getPanelFormulario().add(tfFecha);
 
 		JLabelGenerico lblgnrcDescripcion = new JLabelGenerico((String) null);
@@ -99,8 +100,7 @@ public class ClaseVista extends JDialogGenericMini {
 		// una constraint explicita lo manda a CENTER, pisando a contentPanel y
 		// quedando mal posicionado/tapado. Dentro de panelFormulario no hay ese
 		// problema.
-		btnTomarAsistencia = new JButtonABM();
-		btnTomarAsistencia.setText("Tomar Asistencia");
+		btnTomarAsistencia = new JButtonInforme("Tomar Asistencia"); // boton redondeado
 		btnTomarAsistencia.setBounds(33, 165, 220, 35);
 		getPanelFormulario().add(btnTomarAsistencia);
 	}
@@ -126,7 +126,7 @@ public class ClaseVista extends JDialogGenericMini {
 	}
 
 	/** @return boton "Tomar Asistencia" */
-	public JButtonABM getBtnTomarAsistencia() {
+	public JButtonInforme getBtnTomarAsistencia() {
 		return btnTomarAsistencia;
 	}
 

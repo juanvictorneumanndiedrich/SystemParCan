@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
  * - Campo obligatorio: no puede estar vacio ni ser null.
  * - Solo texto: solo letras (con acentos y enye) y espacios, sin numeros ni simbolos.
  * - Solo numeros: solo digitos, sin letras ni simbolos.
+ * - Longitud entre: cantidad de caracteres dentro de un minimo y un maximo.
  *
  * No valida formato (email, fecha, etc.), solo estas tres reglas generales.
  */
@@ -17,6 +18,7 @@ public class ValidadorCampos {
 
 	private static final Pattern PATRON_SOLO_TEXTO = Pattern.compile("^[A-Za-zÁÉÍÓÚáéíóúÑñÜü ]+$");
 	private static final Pattern PATRON_SOLO_NUMEROS = Pattern.compile("^[0-9]+$");
+	private static final Pattern PATRON_TEXTO_Y_NUMEROS = Pattern.compile("^[A-Za-zÁÉÍÓÚáéíóúÑñÜü0-9 ]+$");
 
 	private ValidadorCampos() {
 		// clase utilitaria, no se instancia
@@ -35,5 +37,17 @@ public class ValidadorCampos {
 	/** @return true si el valor contiene solo numeros (sin letras ni simbolos). */
 	public static boolean esSoloNumeros(String valor) {
 		return valor != null && PATRON_SOLO_NUMEROS.matcher(valor.trim()).matches();
+	}
+
+	/** @return true si el valor contiene solo letras, numeros y espacios (sin simbolos). */
+	public static boolean esTextoYNumeros(String valor) {
+		return valor != null && PATRON_TEXTO_Y_NUMEROS.matcher(valor.trim()).matches();
+	}
+
+	/** @return true si la cantidad de caracteres del valor (sin espacios en los extremos) esta entre min y max, ambos incluidos. */
+	public static boolean tieneLongitudEntre(String valor, int min, int max) {
+		if (valor == null) return false;
+		int largo = valor.trim().length();
+		return largo >= min && largo <= max;
 	}
 }
